@@ -65,7 +65,7 @@ export const navigation: NavigationItem[] = [
 export const socialLinks: SocialLink[] = [
   {
     name: "LinkedIn",
-    url: "https://linkedin.com/in/nemanja-vujic",
+    url: "https://linkedin.com/in/nemanja-vujic-vuja43",
     icon: "linkedin"
   },
   {
