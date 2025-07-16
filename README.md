@@ -174,7 +174,7 @@ MIT License - see LICENSE file for details.
 
 **Nemanja Vujić**
 - Website: [vujicai.com](https://vujicai.com)
-- LinkedIn: [linkedin.com/in/nemanja-vujic](https://linkedin.com/in/nemanja-vujic)
+- LinkedIn: [linkedin.com/in/nemanja-vujic](https://linkedin.com/in/nemanja-vujic-vuja43)
 - GitHub: [github.com/vujavujavuja](https://github.com/vujavujavuja)
 
 ---
