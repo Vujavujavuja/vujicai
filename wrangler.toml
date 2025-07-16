@@ -1,9 +1,5 @@
 name = "vujicai"
 compatibility_date = "2024-01-01"
 
-[env.production]
-name = "vujicai"
-
-[pages]
+[assets]
 directory = "./out"
-route_include = ["/*"]
