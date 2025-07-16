@@ -65,7 +65,7 @@ export default function RootLayout({
       <body className={cn(poppins.className, 'min-h-screen font-sans antialiased')}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
