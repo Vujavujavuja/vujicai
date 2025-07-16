@@ -1,37 +1,51 @@
 {
   "name": "vujicai",
-  "description": "Build a personal website, blog, or portfolio with Astro.",
-  "cloudflare": {
-    "label": "Astro Framework Starter",
-    "products": [
-      "Workers"
-    ],
-    "categories": [],
-    "icon_urls": [
-      "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/5ca0ca32-e897-4699-d4c1-6b680512f000/public"
-    ],
-    "preview_image_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/33bbbf02-eda2-4d3f-b244-c27a280f3900/public",
-    "publish": true
+  "version": "1.0.0",
+  "description": "Nemanja Vujić - Data Scientist & AI Engineer Personal Website",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "12.6.0",
-    "@astrojs/mdx": "4.3.0",
-    "@astrojs/rss": "4.0.11",
-    "@astrojs/sitemap": "3.4.1",
-    "astro": "5.10.1",
-    "typescript": "5.8.3"
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "framer-motion": "^10.16.4",
+    "next-themes": "^0.2.1",
+    "lucide-react": "^0.292.0",
+    "gray-matter": "^4.0.3",
+    "next-mdx-remote": "^4.4.1",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
-    "wrangler": "4.21.x"
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.0.0",
+    "wrangler": "^3.0.0"
   },
-  "scripts": {
-    "astro": "astro",
-    "build": "astro build",
-    "cf-typegen": "wrangler types",
-    "check": "astro build && tsc && wrangler deploy --dry-run",
-    "deploy": "wrangler deploy",
-    "dev": "astro dev",
-    "preview": "astro build && wrangler dev"
+  "engines": {
+    "node": ">=18.0.0"
   },
-  "type": "module"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vujavujavuja/vujicai.git"
+  },
+  "author": "Nemanja Vujić",
+  "license": "MIT",
+  "cloudflare": {
+    "label": "Next.js Personal Website",
+    "products": ["Workers"],
+    "publish": true
+  }
 }
