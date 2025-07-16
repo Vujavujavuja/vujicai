@@ -1,21 +1,9 @@
 name = "vujicai"
 compatibility_date = "2024-01-01"
-compatibility_flags = ["nodejs_compat"]
 
 [env.production]
 name = "vujicai"
-routes = [
-  { pattern = "vujicai.com/*", zone_name = "vujicai.com" },
-  { pattern = "www.vujicai.com/*", zone_name = "vujicai.com" }
-]
 
-[site]
-bucket = "./out"
-
-[[env.production.route]]
-pattern = "vujicai.com/*"
-zone_name = "vujicai.com"
-
-[[env.production.route]]
-pattern = "www.vujicai.com/*"
-zone_name = "vujicai.com"
+[pages]
+directory = "./out"
+route_include = ["/*"]
