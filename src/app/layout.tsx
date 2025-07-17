@@ -65,6 +65,9 @@ export const metadata = {
   verification: {
     google: 'your-google-site-verification-code',
   },
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({
