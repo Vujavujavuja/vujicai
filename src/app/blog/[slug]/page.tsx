@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Calendar, Clock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { formatDate, formatDateSr, getReadingTime } from '@/lib/utils';
+import { formatDate, getReadingTime } from '@/lib/utils';
 
 // Blog posts data
 const blogPosts = [

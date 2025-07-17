@@ -8,28 +8,21 @@ export interface BlogPost {
   content: string;
 }
 
-export interface Translation {
-  en: string;
-  sr: string;
-}
-
-export type Language = 'en' | 'sr';
-
 export interface PersonalInfo {
-  name: Translation;
-  title: Translation;
-  location: Translation;
-  company: Translation;
-  bio: Translation;
-  about: Translation;
-  powerlifting: Translation;
-  skills: Translation;
-  experience: Translation;
-  mentoring: Translation;
+  name: string;
+  title: string;
+  location: string;
+  company: string;
+  bio: string;
+  about: string;
+  powerlifting: string;
+  skills: string;
+  experience: string;
+  mentoring: string;
 }
 
 export interface NavigationItem {
-  label: Translation;
+  label: string;
   href: string;
 }
 

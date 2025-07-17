@@ -4,8 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Calendar, Clock } from 'lucide-react';
-import { useLanguage } from '@/components/language-provider';
-import { formatDate, formatDateSr, getReadingTime } from '@/lib/utils';
+import { formatDate, getReadingTime } from '@/lib/utils';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -45,7 +44,6 @@ For anyone working in AI development, I highly recommend giving Claude Code a tr
 ];
 
 export default function BlogPage() {
-  const { language } = useLanguage();
 
   return (
     <div className="min-h-screen py-20">
@@ -58,13 +56,10 @@ export default function BlogPage() {
         >
           <motion.div variants={itemVariants} className="text-center mb-16">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl mb-4">
-              {language === 'en' ? 'Blog' : 'Blog'}
+              Blog
             </h1>
             <p className="text-lg text-muted-foreground">
-              {language === 'en' 
-                ? 'Thoughts on AI, technology, and my journey in data science'
-                : 'Razmišljanja o AI-ju, tehnologiji i mom putu u nauci o podacima'
-              }
+              Thoughts on AI, technology, and my journey in data science
             </p>
           </motion.div>
 
@@ -91,13 +86,13 @@ export default function BlogPage() {
                       <div className="flex items-center space-x-1">
                         <Calendar className="h-4 w-4" />
                         <span>
-                          {language === 'en' ? formatDate(post.pubDate) : formatDateSr(post.pubDate)}
+                          {formatDate(post.pubDate)}
                         </span>
                       </div>
                       <div className="flex items-center space-x-1">
                         <Clock className="h-4 w-4" />
                         <span>
-                          {getReadingTime(post.content)} {language === 'en' ? 'min read' : 'min čitanja'}
+                          {getReadingTime(post.content)} min read
                         </span>
                       </div>
                     </div>
@@ -114,7 +109,7 @@ export default function BlogPage() {
                       href={`/blog/${post.slug}`}
                       className="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
                     >
-                      {language === 'en' ? 'Read more' : 'Čitajte više'}
+                      Read more
                       <svg
                         className="ml-1 h-4 w-4"
                         fill="none"
