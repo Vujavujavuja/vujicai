@@ -1,7 +1,6 @@
 import './globals.css';
 import { Poppins } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
-import { LanguageProvider } from '@/components/language-provider';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { AnimatedBackground } from '@/components/animated-background';
@@ -69,14 +68,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <LanguageProvider>
-            <AnimatedBackground />
-            <div className="relative flex min-h-screen flex-col">
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-          </LanguageProvider>
+          <AnimatedBackground />
+          <div className="relative flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Linkedin, Github } from 'lucide-react';
-import { useLanguage } from '@/components/language-provider';
 import { personalInfo, socialLinks } from '@/data/content';
 
 const containerVariants = {
@@ -21,7 +20,6 @@ const itemVariants = {
 };
 
 export default function ContactPage() {
-  const { language } = useLanguage();
 
   return (
     <div className="min-h-screen py-20">
@@ -34,20 +32,17 @@ export default function ContactPage() {
         >
           <motion.div variants={itemVariants} className="text-center mb-16">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl mb-4">
-              {language === 'en' ? 'Get in Touch' : 'Stupite u kontakt'}
+              Get in Touch
             </h1>
             <p className="text-lg text-muted-foreground">
-              {language === 'en' 
-                ? "I'm always open to discussing AI, technology, and new opportunities"
-                : 'Uvek sam otvoren za razgovor o AI-ju, tehnologiji i novim prilikama'
-              }
+              I&apos;m always open to discussing AI, technology, and new opportunities
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-12">
             <motion.div variants={itemVariants}>
               <h2 className="text-2xl font-bold mb-6">
-                {language === 'en' ? 'Contact Information' : 'Kontakt informacije'}
+                Contact Information
               </h2>
               
               <div className="space-y-4">
@@ -61,14 +56,14 @@ export default function ContactPage() {
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-primary" />
                   <span className="text-muted-foreground">
-                    {personalInfo.location[language]}
+                    {personalInfo.location}
                   </span>
                 </div>
               </div>
 
               <div className="mt-8">
                 <h3 className="text-lg font-semibold mb-4">
-                  {language === 'en' ? 'Social Links' : 'Društvene mreže'}
+                  Social Links
                 </h3>
                 <div className="flex space-x-4">
                   {socialLinks.map((link) => (
@@ -92,50 +87,50 @@ export default function ContactPage() {
 
             <motion.div variants={itemVariants}>
               <h2 className="text-2xl font-bold mb-6">
-                {language === 'en' ? 'Send a Message' : 'Pošaljite poruku'}
+                Send a Message
               </h2>
               
               <form 
-                action="https://formspree.io/f/xpwzgpbz" 
+                action="https://formspree.io/f/mwpqpepj" 
                 method="POST"
                 className="space-y-4"
               >
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    {language === 'en' ? 'Name' : 'Ime'}
+                    Name
                   </label>
                   <input
                     type="text"
                     name="name"
                     required
                     className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder={language === 'en' ? 'Your name' : 'Vaše ime'}
+                    placeholder="Your name"
                   />
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    {language === 'en' ? 'Email' : 'Imejl'}
+                    Email
                   </label>
                   <input
                     type="email"
                     name="email"
                     required
                     className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder={language === 'en' ? 'your.email@example.com' : 'vas.email@example.com'}
+                    placeholder="your.email@example.com"
                   />
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    {language === 'en' ? 'Message' : 'Poruka'}
+                    Message
                   </label>
                   <textarea
                     name="message"
                     rows={4}
                     required
                     className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder={language === 'en' ? 'Your message...' : 'Vaša poruka...'}
+                    placeholder="Your message..."
                   />
                 </div>
                 
@@ -145,7 +140,7 @@ export default function ContactPage() {
                   type="submit"
                   className="w-full bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/90 transition-colors"
                 >
-                  {language === 'en' ? 'Send Message' : 'Pošalji poruku'}
+                  Send Message
                 </motion.button>
               </form>
             </motion.div>

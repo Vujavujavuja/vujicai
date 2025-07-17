@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Code, Brain, Zap, Users, Award, Globe2, Cloud } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useLanguage } from '@/components/language-provider';
 import { MarkdownText } from '@/components/markdown-text';
 import { personalInfo } from '@/data/content';
 
@@ -24,7 +23,6 @@ const itemVariants = {
 };
 
 export default function HomePage() {
-  const { language } = useLanguage();
 
   return (
     <div className="min-h-screen">
@@ -56,15 +54,14 @@ export default function HomePage() {
               variants={itemVariants}
               className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl mb-6 heading-enhanced"
             >
-              {language === 'en' ? "Hey there, I'm " : "Zdravo, ja sam "}
-              <span className="text-primary">{personalInfo.name[language]}</span>
+              Hey there, I&apos;m <span className="text-primary">{personalInfo.name}</span>
             </motion.h1>
             
             <motion.div
               variants={itemVariants}
               className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-enhanced"
             >
-              <MarkdownText>{personalInfo.bio[language]}</MarkdownText>
+              <MarkdownText>{personalInfo.bio}</MarkdownText>
             </motion.div>
             
             <motion.div
@@ -75,7 +72,7 @@ export default function HomePage() {
                 href="/about"
                 className="inline-flex items-center justify-center rounded-md bg-primary px-8 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
               >
-                {language === 'en' ? 'Learn More About Me' : 'Saznajte više o meni'}
+                Learn More About Me
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
               
@@ -83,7 +80,7 @@ export default function HomePage() {
                 href="/blog"
                 className="inline-flex items-center justify-center rounded-md border border-white/20 bg-white/10 dark:bg-gray-900/20 backdrop-blur-sm px-8 py-3 text-sm font-medium hover:bg-white/20 dark:hover:bg-gray-800/30 transition-colors"
               >
-                {language === 'en' ? 'Read My Blog' : 'Čitajte moj blog'}
+                Read My Blog
               </Link>
             </motion.div>
           </motion.div>
@@ -102,10 +99,10 @@ export default function HomePage() {
           >
             <motion.div variants={itemVariants} className="text-center mb-16">
               <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-4 heading-enhanced">
-                {language === 'en' ? 'About My Work' : 'O mom radu'}
+                About My Work
               </h2>
               <div className="text-lg text-muted-foreground text-enhanced">
-                <MarkdownText>{personalInfo.about[language]}</MarkdownText>
+                <MarkdownText>{personalInfo.about}</MarkdownText>
               </div>
             </motion.div>
 
@@ -116,13 +113,10 @@ export default function HomePage() {
               >
                 <Brain className="h-12 w-12 text-primary mb-4" />
                 <h3 className="text-xl font-semibold mb-3">
-                  {language === 'en' ? 'AI Research' : 'AI istraživanje'}
+                  AI Research
                 </h3>
                 <p className="text-muted-foreground">
-                  {language === 'en' 
-                    ? 'Deep dive into LLMs, generative models, and cutting-edge AI technologies.'
-                    : 'Duboko istraživanje LLM-ova, generativnih modela i najnovijih AI tehnologija.'
-                  }
+                  Deep dive into LLMs, generative models, and cutting-edge AI technologies.
                 </p>
               </motion.div>
 
@@ -132,13 +126,10 @@ export default function HomePage() {
               >
                 <Code className="h-12 w-12 text-primary mb-4" />
                 <h3 className="text-xl font-semibold mb-3">
-                  {language === 'en' ? 'ML Engineering' : 'ML inženjering'}
+                  ML Engineering
                 </h3>
                 <p className="text-muted-foreground">
-                  {language === 'en' 
-                    ? 'Building scalable ML pipelines and production-ready AI systems.'
-                    : 'Izgradnja skalabilnih ML pipeline-ova i produkciono-spremnih AI sistema.'
-                  }
+                  Building scalable ML pipelines and production-ready AI systems.
                 </p>
               </motion.div>
 
@@ -148,13 +139,10 @@ export default function HomePage() {
               >
                 <Zap className="h-12 w-12 text-primary mb-4" />
                 <h3 className="text-xl font-semibold mb-3">
-                  {language === 'en' ? 'Prompt Engineering' : 'Prompt Engineering'}
+                  Prompt Engineering
                 </h3>
                 <p className="text-muted-foreground">
-                  {language === 'en' 
-                    ? 'Crafting effective prompts and optimizing AI model interactions.'
-                    : 'Kreiranje efikasnih prompt-ova i optimizacija interakcije sa AI modelima.'
-                  }
+                  Crafting effective prompts and optimizing AI model interactions.
                 </p>
               </motion.div>
             </div>
@@ -174,10 +162,10 @@ export default function HomePage() {
           >
             <motion.div variants={itemVariants} className="text-center mb-16">
               <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-4 heading-enhanced">
-                {language === 'en' ? 'Technical Skills' : 'Tehničke veštine'}
+                Technical Skills
               </h2>
               <div className="text-lg text-muted-foreground text-enhanced">
-                <MarkdownText>{personalInfo.skills[language]}</MarkdownText>
+                <MarkdownText>{personalInfo.skills}</MarkdownText>
               </div>
             </motion.div>
 
@@ -188,10 +176,10 @@ export default function HomePage() {
               >
                 <Cloud className="h-12 w-12 text-primary mb-4" />
                 <h3 className="text-xl font-semibold mb-3">
-                  {language === 'en' ? 'Cloud Experience' : 'Cloud iskustvo'}
+                  Cloud Experience
                 </h3>
                 <div className="text-muted-foreground">
-                  <MarkdownText>{personalInfo.experience[language]}</MarkdownText>
+                  <MarkdownText>{personalInfo.experience}</MarkdownText>
                 </div>
               </motion.div>
 
@@ -201,10 +189,10 @@ export default function HomePage() {
               >
                 <Users className="h-12 w-12 text-primary mb-4" />
                 <h3 className="text-xl font-semibold mb-3">
-                  {language === 'en' ? 'Mentoring & Education' : 'Mentorstvo i edukacija'}
+                  Mentoring & Education
                 </h3>
                 <div className="text-muted-foreground">
-                  <MarkdownText>{personalInfo.mentoring[language]}</MarkdownText>
+                  <MarkdownText>{personalInfo.mentoring}</MarkdownText>
                 </div>
               </motion.div>
             </div>
@@ -228,10 +216,10 @@ export default function HomePage() {
             >
               <Award className="h-16 w-16 text-primary mb-6 mx-auto" />
               <h2 className="text-2xl font-bold mb-4">
-                {language === 'en' ? 'Fun Fact' : 'Zanimljiva činjenica'}
+                Fun Fact
               </h2>
               <div className="text-lg text-muted-foreground text-enhanced">
-                <MarkdownText>{personalInfo.powerlifting[language]}</MarkdownText>
+                <MarkdownText>{personalInfo.powerlifting}</MarkdownText>
               </div>
             </motion.div>
           </motion.div>

@@ -4,9 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Moon, Sun, Globe } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { useLanguage } from './language-provider';
 import { navigation } from '@/data/content';
 import { cn } from '@/lib/utils';
 
@@ -14,7 +13,6 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-  const { language, setLanguage } = useLanguage();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -25,10 +23,6 @@ export function Header() {
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
-
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'sr' : 'en');
   };
 
   if (!mounted) {
@@ -63,7 +57,7 @@ export function Header() {
                     : 'text-muted-foreground'
                 )}
               >
-                {item.label[language]}
+                {item.label}
               </Link>
             ))}
           </nav>
@@ -78,21 +72,6 @@ export function Header() {
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </motion.button>
-            
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={toggleLanguage}
-              className="p-2 rounded-md hover:bg-accent transition-colors"
-              aria-label="Toggle language"
-            >
-              <div className="flex items-center space-x-1">
-                <Globe className="h-4 w-4" />
-                <span className="text-xs font-medium">
-                  {language === 'en' ? 'SR' : 'EN'}
-                </span>
-              </div>
             </motion.button>
           </div>
 
@@ -131,7 +110,7 @@ export function Header() {
                         : 'text-muted-foreground'
                     )}
                   >
-                    {item.label[language]}
+                    {item.label}
                   </Link>
                 ))}
               </nav>
@@ -145,21 +124,6 @@ export function Header() {
                   aria-label="Toggle theme"
                 >
                   {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                </motion.button>
-                
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={toggleLanguage}
-                  className="p-2 rounded-md hover:bg-accent transition-colors"
-                  aria-label="Toggle language"
-                >
-                  <div className="flex items-center space-x-1">
-                    <Globe className="h-4 w-4" />
-                    <span className="text-xs font-medium">
-                      {language === 'en' ? 'SR' : 'EN'}
-                    </span>
-                  </div>
                 </motion.button>
               </div>
             </div>

@@ -14,14 +14,6 @@ export function formatDate(date: string | Date): string {
   });
 }
 
-export function formatDateSr(date: string | Date): string {
-  const d = new Date(date);
-  return d.toLocaleDateString('sr-RS', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
 
 export function getReadingTime(content: string): number {
   const wordsPerMinute = 200;

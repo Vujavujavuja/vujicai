@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
-import { useLanguage } from './language-provider';
 import { socialLinks } from '@/data/content';
 
 const iconMap = {
@@ -12,7 +11,6 @@ const iconMap = {
 };
 
 export function Footer() {
-  const { language } = useLanguage();
 
   return (
     <footer className="border-t border-white/10 bg-white/10 dark:bg-gray-900/20 backdrop-blur-md">
@@ -20,7 +18,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-center md:text-left">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Nemanja Vujić. {language === 'en' ? 'All rights reserved.' : 'Sva prava zadržana.'}
+              © {new Date().getFullYear()} Nemanja Vujić. All rights reserved.
             </p>
           </div>
           
@@ -47,10 +45,7 @@ export function Footer() {
         
         <div className="mt-4 pt-4 border-t text-center">
           <p className="text-xs text-muted-foreground">
-            {language === 'en' 
-              ? 'Built with Next.js, TypeScript, and Tailwind CSS'
-              : 'Napravljeno sa Next.js, TypeScript i Tailwind CSS'
-            }
+            Built with Next.js, TypeScript, and Tailwind CSS
           </p>
         </div>
       </div>
