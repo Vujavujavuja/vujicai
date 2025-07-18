@@ -7,9 +7,28 @@ import { formatDate, getReadingTime } from '@/lib/utils';
 // Blog posts data
 const blogPosts = [
   {
+    slug: 'how-to-pass-azure-ai-engineer-ai-102-certificate-exam',
+    title: 'How to Pass Azure AI Engineer AI-102 Certificate Exam',
+    description: 'Coming soon - A comprehensive guide to preparing for and passing the Azure AI Engineer AI-102 certification exam.',
+    pubDate: '2025-07-20',
+    heroImage: '/blog-placeholder-3.jpg',
+    content: `
+      <p class="mb-4">This blog post is <strong>coming soon</strong>. Stay tuned for a comprehensive guide on how to prepare for and pass the Azure AI Engineer AI-102 certification exam.</p>
+      
+      <p class="mb-4">Topics will include:</p>
+      <ul class="list-disc ml-6 mb-4">
+        <li>Exam overview and structure</li>
+        <li>Study resources and materials</li>
+        <li>Hands-on practice recommendations</li>
+        <li>Key Azure AI services to master</li>
+        <li>Tips for exam day success</li>
+      </ul>
+    `,
+  },
+  {
     slug: 'why-every-product-should-have-a-dedicated-mcp-server',
     title: 'Why Every Product Should Have a Dedicated MCP Server',
-    description: 'How Claude Code is quietly changing the way we build AI products and speeding up development for data scientists and engineers.',
+    description: 'A practical look at why Model Context Protocol (MCP) is about to become the essential bridge between AI agents and real-world applications. If you want your product to be usable by the next generation of LLM powered tools like Claude Code or the upcoming GPT agents setting up a dedicated MCP server is the best way to future-proof your stack and stand out. This article breaks down what MCP actually is, why it matters right now, and how early adopters can leapfrog the competition by building for the new AI-native ecosystem.',
     pubDate: '2025-07-18',
     heroImage: '/blog-placeholder-2.png',
     content: `
@@ -62,25 +81,6 @@ const blogPosts = [
       <p class="mb-4">The key is not replacing human creativity and problem-solving, but augmenting it with AI capabilities that handle the routine tasks and provide intelligent suggestions for the complex ones.</p>
       
       <p class="mb-4">Remember one thing, <strong>DO NOT</strong> trust AI to come up with ideas, at the end of the day ideas are only human while LLMs and thinking models are algorithms that generate and predict the next word in a given sentence.</p>
-    `,
-  },
-  {
-    slug: 'how-to-pass-azure-ai-engineer-ai-102-certificate-exam',
-    title: 'How to Pass Azure AI Engineer AI-102 Certificate Exam',
-    description: 'Coming soon - A comprehensive guide to preparing for and passing the Azure AI Engineer AI-102 certification exam.',
-    pubDate: '2025-07-20',
-    heroImage: '/blog-placeholder-3.jpg',
-    content: `
-      <p class="mb-4">This blog post is <strong>coming soon</strong>. Stay tuned for a comprehensive guide on how to prepare for and pass the Azure AI Engineer AI-102 certification exam.</p>
-      
-      <p class="mb-4">Topics will include:</p>
-      <ul class="list-disc ml-6 mb-4">
-        <li>Exam overview and structure</li>
-        <li>Study resources and materials</li>
-        <li>Hands-on practice recommendations</li>
-        <li>Key Azure AI services to master</li>
-        <li>Tips for exam day success</li>
-      </ul>
     `,
   },
 ];
