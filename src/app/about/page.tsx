@@ -43,7 +43,7 @@ export default function AboutPage() {
             </h1>
             <div className="relative mb-8 inline-block">
               <Image
-                src="/placeholder-about.png"
+                src="/placeholder-about.webp"
                 alt="Nemanja Vujić"
                 width={300}
                 height={300}

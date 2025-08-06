@@ -3,6 +3,68 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
+// AI Pictogram Components
+const BrainIcon = ({ size = 24, className = '' }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 7 19.5v-15A2.5 2.5 0 0 1 9.5 2Z"/>
+    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 2.5 2.5A2.5 2.5 0 0 0 17 19.5v-15A2.5 2.5 0 0 0 14.5 2Z"/>
+    <path d="M6 7c-1.5 0-3 1-3 2.5S4.5 12 6 12s3-1 3-2.5S7.5 7 6 7Z"/>
+    <path d="M18 7c1.5 0 3 1 3 2.5S19.5 12 18 12s-3-1-3-2.5S16.5 7 18 7Z"/>
+    <path d="M6 15c-1.5 0-3 1-3 2.5S4.5 20 6 20s3-1 3-2.5S7.5 15 6 15Z"/>
+    <path d="M18 15c1.5 0 3 1 3 2.5S19.5 20 18 20s-3-1-3-2.5S16.5 15 18 15Z"/>
+  </svg>
+);
+
+const RobotIcon = ({ size = 24, className = '' }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="4" y="8" width="16" height="12" rx="2"/>
+    <path d="M12 8V4"/>
+    <circle cx="12" cy="2" r="1"/>
+    <circle cx="9" cy="12" r="1"/>
+    <circle cx="15" cy="12" r="1"/>
+    <path d="M9 16h6"/>
+    <path d="M4 12h2"/>
+    <path d="M18 12h2"/>
+  </svg>
+);
+
+const NetworkIcon = ({ size = 24, className = '' }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="2"/>
+    <circle cx="6" cy="6" r="2"/>
+    <circle cx="18" cy="6" r="2"/>
+    <circle cx="6" cy="18" r="2"/>
+    <circle cx="18" cy="18" r="2"/>
+    <path d="M8 8l6 6"/>
+    <path d="M16 8l-6 6"/>
+    <path d="M8 16l6-6"/>
+    <path d="M16 16l-6-6"/>
+  </svg>
+);
+
+const ProcessorIcon = ({ size = 24, className = '' }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="6" y="6" width="12" height="12" rx="2"/>
+    <path d="M9 9h6v6H9z"/>
+    <path d="M6 10h-2"/>
+    <path d="M6 14h-2"/>
+    <path d="M20 10h-2"/>
+    <path d="M20 14h-2"/>
+    <path d="M10 6V4"/>
+    <path d="M14 6V4"/>
+    <path d="M10 20v-2"/>
+    <path d="M14 20v-2"/>
+  </svg>
+);
+
+const CodeIcon = ({ size = 24, className = '' }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="16,18 22,12 16,6"/>
+    <polyline points="8,6 2,12 8,18"/>
+    <line x1="14" y1="4" x2="10" y2="20"/>
+  </svg>
+);
+
 export function AnimatedBackground() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -15,16 +77,20 @@ export function AnimatedBackground() {
 
   const isDark = theme === 'dark';
 
-  // Generate floating particles
-  const particles = Array.from({ length: 15 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 30 + 8,
-    initialX: Math.random() * 100,
-    initialY: Math.random() * 100,
-    duration: Math.random() * 25 + 20,
-    delay: Math.random() * 10,
-    opacity: Math.random() * 0.4 + 0.1,
-  }));
+  // Generate floating AI pictograms
+  const aiPictograms = Array.from({ length: 16 }, (_, i) => {
+    const icons = [BrainIcon, RobotIcon, NetworkIcon, ProcessorIcon, CodeIcon];
+    return {
+      id: i,
+      Icon: icons[i % 5],
+      size: Math.random() * 25 + 20,
+      initialX: Math.random() * 90 + 5,
+      initialY: Math.random() * 90 + 5,
+      duration: Math.random() * 25 + 20,
+      delay: Math.random() * 10,
+      opacity: Math.random() * 0.3 + 0.2,
+    };
+  });
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
@@ -37,67 +103,74 @@ export function AnimatedBackground() {
         }`}
       />
       
-      {/* Animated Particles */}
-      {particles.map((particle) => (
-        <div
-          key={particle.id}
-          className={`absolute rounded-full ${
-            isDark ? 'bg-purple-400/30' : 'bg-purple-400/40'
-          }`}
-          style={{
-            width: `${particle.size}px`,
-            height: `${particle.size}px`,
-            left: `${particle.initialX}%`,
-            top: `${particle.initialY}%`,
-            opacity: particle.opacity,
-            animation: `floatAround ${particle.duration}s infinite linear`,
-            animationDelay: `${particle.delay}s`,
-          }}
-        />
-      ))}
+      {/* Animated AI Pictograms */}
+      {aiPictograms.map((pictogram) => {
+        const { Icon } = pictogram;
+        return (
+          <div
+            key={pictogram.id}
+            className={`absolute ${
+              isDark ? 'text-purple-400/40' : 'text-purple-500/50'
+            }`}
+            style={{
+              left: `${pictogram.initialX}%`,
+              top: `${pictogram.initialY}%`,
+              opacity: pictogram.opacity,
+              animation: `floatAround ${pictogram.duration}s infinite linear`,
+              animationDelay: `${pictogram.delay}s`,
+            }}
+          >
+            <Icon size={pictogram.size} />
+          </div>
+        );
+      })}
       
-      {/* Neural Network Nodes */}
-      {Array.from({ length: 12 }, (_, i) => (
-        <div
-          key={`node-${i}`}
-          className={`absolute rounded-full ${
-            isDark ? 'bg-blue-400/20 border-blue-400/30' : 'bg-blue-400/30 border-blue-400/40'
-          } border-2`}
-          style={{
-            width: `${Math.random() * 16 + 8}px`,
-            height: `${Math.random() * 16 + 8}px`,
-            left: `${Math.random() * 90 + 5}%`,
-            top: `${Math.random() * 90 + 5}%`,
-            animation: `neuralPulse ${Math.random() * 4 + 3}s infinite ease-in-out`,
-            animationDelay: `${Math.random() * 3}s`,
-          }}
-        />
-      ))}
+      {/* Secondary AI Elements */}
+      {Array.from({ length: 11 }, (_, i) => {
+        const icons = [BrainIcon, RobotIcon, NetworkIcon, ProcessorIcon, CodeIcon];
+        const Icon = icons[i % 5];
+        return (
+          <div
+            key={`secondary-${i}`}
+            className={`absolute ${
+              isDark ? 'text-blue-400/25' : 'text-blue-500/35'
+            }`}
+            style={{
+              left: `${Math.random() * 85 + 7.5}%`,
+              top: `${Math.random() * 85 + 7.5}%`,
+              animation: `neuralPulse ${Math.random() * 4 + 3}s infinite ease-in-out`,
+              animationDelay: `${Math.random() * 3}s`,
+            }}
+          >
+            <Icon size={Math.random() * 20 + 15} />
+          </div>
+        );
+      })}
       
-      {/* AI Chip Representations */}
-      {Array.from({ length: 6 }, (_, i) => (
-        <div
-          key={`chip-${i}`}
-          className={`absolute ${
-            isDark ? 'border-green-400/20 bg-green-400/10' : 'border-green-400/30 bg-green-400/20'
-          } border-2 rounded-sm`}
-          style={{
-            width: `${Math.random() * 40 + 20}px`,
-            height: `${Math.random() * 40 + 20}px`,
-            left: `${Math.random() * 85 + 7.5}%`,
-            top: `${Math.random() * 85 + 7.5}%`,
-            animation: `chipFloat ${Math.random() * 15 + 12}s infinite ease-in-out`,
-            animationDelay: `${Math.random() * 8}s`,
-          }}
-        >
-          {/* Circuit lines inside chip */}
-          <div className={`absolute inset-1 ${isDark ? 'border-green-400/30' : 'border-green-400/40'} border-l border-t`} />
-          <div className={`absolute inset-1 ${isDark ? 'border-green-400/30' : 'border-green-400/40'} border-r border-b`} />
-        </div>
-      ))}
+      {/* Tertiary AI Elements */}
+      {Array.from({ length: 8 }, (_, i) => {
+        const icons = [ProcessorIcon, CodeIcon, BrainIcon, NetworkIcon, RobotIcon];
+        const Icon = icons[i % 5];
+        return (
+          <div
+            key={`tertiary-${i}`}
+            className={`absolute ${
+              isDark ? 'text-green-400/20' : 'text-green-500/30'
+            }`}
+            style={{
+              left: `${Math.random() * 80 + 10}%`,
+              top: `${Math.random() * 80 + 10}%`,
+              animation: `chipFloat ${Math.random() * 15 + 12}s infinite ease-in-out`,
+              animationDelay: `${Math.random() * 8}s`,
+            }}
+          >
+            <Icon size={Math.random() * 30 + 25} />
+          </div>
+        );
+      })}
       
       {/* Data Flow Lines */}
-      {Array.from({ length: 8 }, (_, i) => (
+      {Array.from({ length: 11 }, (_, i) => (
         <div
           key={`line-${i}`}
           className={`absolute ${
@@ -115,23 +188,27 @@ export function AnimatedBackground() {
         />
       ))}
 
-      {/* Matrix-like Binary Rain (sparse) */}
-      {Array.from({ length: 5 }, (_, i) => (
-        <div
-          key={`binary-${i}`}
-          className={`absolute text-xs font-mono ${
-            isDark ? 'text-green-400/20' : 'text-green-600/30'
-          }`}
-          style={{
-            left: `${Math.random() * 95}%`,
-            top: `${Math.random() * 50}%`,
-            animation: `binaryFall ${Math.random() * 10 + 8}s infinite linear`,
-            animationDelay: `${Math.random() * 5}s`,
-          }}
-        >
-          {Math.random() > 0.5 ? '1' : '0'}
-        </div>
-      ))}
+      {/* Small Floating AI Icons */}
+      {Array.from({ length: 7 }, (_, i) => {
+        const icons = [BrainIcon, RobotIcon, NetworkIcon, ProcessorIcon, CodeIcon];
+        const Icon = icons[i % 5];
+        return (
+          <div
+            key={`floating-${i}`}
+            className={`absolute ${
+              isDark ? 'text-cyan-400/15' : 'text-cyan-600/25'
+            }`}
+            style={{
+              left: `${Math.random() * 95}%`,
+              top: `${Math.random() * 50}%`,
+              animation: `binaryFall ${Math.random() * 10 + 8}s infinite linear`,
+              animationDelay: `${Math.random() * 5}s`,
+            }}
+          >
+            <Icon size={12} />
+          </div>
+        );
+      })}
     </div>
   );
 }
