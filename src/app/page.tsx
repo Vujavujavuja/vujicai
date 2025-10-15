@@ -234,7 +234,7 @@ export default function HomePage() {
                 Ready to Transform Your Business with AI?
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Let's discuss how Vujic AI can help you leverage the power of artificial intelligence
+                Let&apos;s discuss how Vujic AI can help you leverage the power of artificial intelligence
                 to solve your unique business challenges.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
