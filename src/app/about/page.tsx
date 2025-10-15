@@ -115,7 +115,7 @@ export default function AboutPage() {
                 className="overflow-hidden"
               >
                 <div className="prose prose-lg max-w-none mt-12 pt-12 border-t border-white/20">
-                  <motion.div variants={itemVariants} className="text-center mb-12">
+                  <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-8 heading-enhanced">
                       {aboutContent.personalTitle}
                     </h2>
@@ -128,49 +128,49 @@ export default function AboutPage() {
                         className="rounded-lg shadow-xl"
                       />
                     </div>
-                  </motion.div>
+                  </div>
 
-                  <motion.div variants={itemVariants} className="mb-8">
+                  <div className="mb-8">
                     <p className="text-lg text-muted-foreground leading-relaxed text-enhanced">
                       {aboutContent.intro}
                     </p>
-                  </motion.div>
+                  </div>
 
-                  <motion.div variants={itemVariants} className="mb-8">
+                  <div className="mb-8">
                     <h3 className="text-2xl font-bold mb-4 text-foreground heading-enhanced">
                       My AI Journey
                     </h3>
                     <p className="text-lg text-muted-foreground leading-relaxed text-enhanced">
                       {aboutContent.aiJourney}
                     </p>
-                  </motion.div>
+                  </div>
 
-                  <motion.div variants={itemVariants} className="mb-8">
+                  <div className="mb-8">
                     <h3 className="text-2xl font-bold mb-4 text-foreground heading-enhanced">
                       Early Career
                     </h3>
                     <p className="text-lg text-muted-foreground leading-relaxed text-enhanced">
                       {aboutContent.earlyCareer}
                     </p>
-                  </motion.div>
+                  </div>
 
-                  <motion.div variants={itemVariants} className="mb-8">
+                  <div className="mb-8">
                     <h3 className="text-2xl font-bold mb-4 text-foreground heading-enhanced">
                       Vega IT Experience
                     </h3>
                     <p className="text-lg text-muted-foreground leading-relaxed text-enhanced">
                       {aboutContent.vegaIT}
                     </p>
-                  </motion.div>
+                  </div>
 
-                  <motion.div variants={itemVariants} className="mb-8">
+                  <div className="mb-8">
                     <h3 className="text-2xl font-bold mb-4 text-foreground heading-enhanced">
                       Powerlifting Background
                     </h3>
                     <p className="text-lg text-muted-foreground leading-relaxed text-enhanced">
                       {aboutContent.powerlifting}
                     </p>
-                  </motion.div>
+                  </div>
                 </div>
               </motion.div>
             )}
