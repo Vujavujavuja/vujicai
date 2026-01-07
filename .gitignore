@@ -3,7 +3,6 @@
 /.pnp
 .pnp.js
 
-vujamapapp/
 # Testing
 /coverage
 
@@ -29,6 +28,12 @@ pnpm-debug.log*
 .env
 .env*.local
 .env.production
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 
 # Vercel
 .vercel
