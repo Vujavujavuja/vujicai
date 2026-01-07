@@ -1,0 +1,8 @@
+{
+  "name": "vujamapapp",
+  "version": "1.0.0",
+  "description": "AI-powered travel route generator",
+  "scripts": {
+    "deploy": "echo 'Deploying to Cloudflare Pages'"
+  }
+}
