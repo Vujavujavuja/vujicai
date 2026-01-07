@@ -200,6 +200,73 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Projects Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mx-auto max-w-4xl"
+          >
+            <motion.div variants={itemVariants} className="text-center mb-16">
+              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-4 heading-enhanced">
+                Projects
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Explore interactive AI-powered applications and demos
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 gap-8">
+              <motion.div
+                variants={itemVariants}
+                className="group p-8 rounded-lg border border-white/20 bg-white/10 dark:bg-gray-900/20 backdrop-blur-sm text-card-foreground shadow-sm hover:shadow-lg transition-all card-bounce"
+              >
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                  <div className="flex-shrink-0">
+                    <Globe2 className="h-16 w-16 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+                      Vuja Mapapp
+                    </h3>
+                    <p className="text-muted-foreground mb-4">
+                      An AI-powered travel route generator that creates aesthetic travel maps based on your vibes.
+                      Describe your dream trip, and let AI design a beautiful route with custom styling and map themes.
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                        AI-Powered
+                      </span>
+                      <span className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                        Cloudflare Workers
+                      </span>
+                      <span className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                        Interactive Maps
+                      </span>
+                      <span className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                        OpenRouter API
+                      </span>
+                    </div>
+                    <a
+                      href="https://map.vujic.ai"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+                    >
+                      Launch Mapapp
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Fun Fact Section */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
