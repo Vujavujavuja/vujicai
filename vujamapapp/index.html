@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuja Mapapp</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Helvetica Neue', 'sans-serif'],
+                    },
+                    colors: {
+                        glass: 'rgba(255, 255, 255, 0.65)',
+                        glassBorder: 'rgba(255, 255, 255, 0.4)',
+                        darkGlass: 'rgba(0, 0, 0, 0.7)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Base Reset & Aesthetics */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glassBorder);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        /* Map Container */
+        #map {
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+        }
+
+        /* Modal Backdrop */
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Custom Scrollbar */
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        /* Color Picker Reset */
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            padding: 0;
+            background: none;
+        }
+
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        input[type="color"]::-webkit-color-swatch {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+        }
+
+        /* Map Objects */
+        .aesthetic-marker {
+            border: 2px solid rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            width: 14px;
+            height: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .aesthetic-marker:hover {
+            transform: scale(1.3);
+        }
+
+        .plane-icon {
+            font-size: 16px;
+            color: #111;
+            text-shadow: 0 0 10px white;
+            z-index: 500;
+        }
+
+        .aesthetic-label {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8), -1px -1px 0 rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+        }
+
+        /* UI Animations */
+        .list-item-enter {
+            animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loader */
+        .loader {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #000;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="ui-sidebar"
+        class="absolute top-6 left-6 w-80 max-h-[90vh] flex flex-col z-[1000] gap-4 pointer-events-none">
+
+        <!-- Header -->
+        <div class="glass-panel rounded-3xl p-5 pointer-events-auto transition-all duration-300 hover:shadow-xl">
+            <h1 class="text-xl font-bold tracking-tight text-gray-900 mb-1">Vuja <span
+                    class="text-gray-500 font-light">Mapapp</span></h1>
+
+            <div class="relative group mt-2">
+                <input type="text" id="city-input" placeholder="Add stop (e.g., Belgrade)..."
+                    class="w-full bg-white/50 border border-gray-200 text-gray-800 text-sm rounded-full focus:ring-black focus:border-black block p-3 pl-10 outline-none transition-all shadow-sm group-hover:bg-white/80">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                    <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                </div>
+                <div id="loading-indicator" class="absolute inset-y-0 right-0 flex items-center pr-3 hidden">
+                    <div class="loader"></div>
+                </div>
+            </div>
+            <p class="text-[10px] text-gray-500 mt-2 ml-1">
+                💡 <b>Left Click dot</b> to rotate label.<br>
+                💡 <b>Right Click map</b> to add waypoint.
+            </p>
+
+            <!-- AI Button -->
+            <button onclick="openAIModal()"
+                class="w-full mt-3 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white text-xs font-bold py-2 rounded-full shadow-md hover:shadow-lg transform transition hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> AI Magic Route
+            </button>
+        </div>
+
+        <!-- List -->
+        <div id="city-list-container"
+            class="glass-panel rounded-3xl p-2 hidden pointer-events-auto flex-col max-h-[60vh] overflow-hidden">
+            <div id="city-list" class="overflow-y-auto custom-scroll p-1 space-y-2">
+                <!-- Items -->
+            </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="glass-panel rounded-full p-2 flex justify-between items-center pointer-events-auto">
+            <div class="flex gap-2">
+                <button onclick="clearAll()"
+                    class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
+                    title="Clear All">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+            <button onclick="takeSnapshot()"
+                class="bg-black text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center gap-2">
+                <i class="fa-solid fa-camera"></i> Snapshot
+            </button>
+        </div>
+    </div>
+
+    <!-- AI Modal -->
+    <div id="ai-modal" class="fixed inset-0 z-[2000] modal-backdrop hidden flex items-center justify-center">
+        <div class="glass-panel rounded-3xl p-6 w-96 max-w-[90vw] mx-4 transform transition-all shadow-2xl relative">
+            <button onclick="closeAIModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black"><i
+                    class="fa-solid fa-xmark text-xl"></i></button>
+
+            <div class="text-center mb-4">
+                <div
+                    class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 mb-3">
+                    <i class="fa-solid fa-wand-magic-sparkles text-xl text-purple-600"></i>
+                </div>
+                <h2 class="text-xl font-bold">Dream It.</h2>
+                <p class="text-xs text-gray-500">Describe your vibe, we'll build the route.</p>
+            </div>
+
+            <textarea id="ai-prompt" rows="3"
+                class="w-full bg-white/50 border border-gray-200 rounded-xl p-3 text-sm focus:ring-purple-500 focus:border-purple-500 outline-none resize-none mb-4"
+                placeholder="e.g. 'A dark academia train tour through Oxford and Scotland' or 'Pink aesthetic roadtrip in California'..."></textarea>
+
+            <button onclick="generateRoute()" id="ai-gen-btn"
+                class="w-full bg-black text-white text-sm font-bold py-3 rounded-xl hover:bg-gray-900 transition flex items-center justify-center gap-2">
+                <span>Generate Route</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Map Style Switcher -->
+    <div
+        class="absolute bottom-8 right-6 z-[1000] glass-panel rounded-3xl p-3 flex flex-col gap-2 pointer-events-auto items-end">
+        <label class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mr-1">Map Theme</label>
+        <select id="map-style" onchange="changeMapStyle(this.value)"
+            class="bg-transparent text-sm font-semibold text-gray-800 outline-none cursor-pointer py-1 px-1 text-right">
+            <optgroup label="Clean & Gray">
+                <option value="positron">Minimal Light</option>
+                <option value="gray">Pure Gray (Light)</option>
+                <option value="darkgray">Pure Gray (Dark)</option>
+                <option value="dark">Midnight</option>
+            </optgroup>
+            <optgroup label="Artistic">
+                <option value="watercolor">Watercolor</option>
+                <option value="toner">High Contrast (B&W)</option>
+                <option value="voyager">Voyager (Colored)</option>
+            </optgroup>
+            <optgroup label="Physical">
+                <option value="satellite">Satellite (No Borders)</option>
+                <option value="terrain">Terrain</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Libraries -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <script>
+        // --- State ---
+        let map;
+        let cities = [];
+        let currentLayers = [];
+        let tileLayer;
+
+        const planeIcon = L.divIcon({
+            className: 'plane-icon-div',
+            html: "<i class='fa-solid fa-plane plane-icon'></i>",
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+        });
+
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            initSortable();
+            document.getElementById('city-input').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    addCity(this.value);
+                    this.value = '';
+                }
+            });
+        });
+
+        function initMap() {
+            map = L.map('map', {
+                zoomControl: false,
+                detectRetina: true,
+                attributionControl: false
+            }).setView([44.0165, 21.0059], 6);
+
+            L.control.zoom({ position: 'bottomright' }).addTo(map);
+            setTileLayer('positron');
+
+            map.on('contextmenu', function (e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+                addFormattedWaypoint(lat, lng);
+            });
+        }
+
+        function setTileLayer(style) {
+            if (tileLayer) map.removeLayer(tileLayer);
+            let url = '';
+            switch (style) {
+                case 'positron': url = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'; break;
+                case 'gray': url = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'; break;
+                case 'dark': url = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'; break;
+                case 'darkgray': url = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}'; break;
+                case 'watercolor': url = 'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg'; break;
+                case 'toner': url = 'https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png'; break;
+                case 'voyager': url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'; break;
+                case 'satellite': url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'; break;
+                case 'terrain': url = 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'; break;
+                default: url = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+            }
+            tileLayer = L.tileLayer(url, { subdomains: 'abcd', maxZoom: 19 }).addTo(map);
+        }
+
+        function changeMapStyle(val) { setTileLayer(val); }
+
+        function initSortable() {
+            const list = document.getElementById('city-list');
+            new Sortable(list, {
+                animation: 150,
+                ghostClass: 'bg-gray-100',
+                handle: '.drag-handle',
+                onEnd: function (evt) {
+                    const newCities = [];
+                    const items = list.querySelectorAll('.city-item');
+                    items.forEach(item => {
+                        const id = item.getAttribute('data-id');
+                        const cityObj = cities.find(c => c.id == id);
+                        newCities.push(cityObj);
+                    });
+                    cities = newCities;
+                    renderCityList();
+                    renderRoutes();
+                }
+            });
+        }
+
+        // --- Logic ---
+
+        async function addCity(query) {
+            if (!query) return;
+            showLoading(true);
+            try {
+                const resp = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+                const data = await resp.json();
+                if (data && data.length > 0) {
+                    const result = data[0];
+                    const shortName = result.display_name.split(',')[0];
+
+                    const newCity = {
+                        id: Date.now(),
+                        name: shortName,
+                        lat: parseFloat(result.lat),
+                        lng: parseFloat(result.lon),
+                        modeToNext: 'car',
+                        markerColor: '#ffffff',
+                        labelColor: '#000000',
+                        pathColor: '#000000',
+                        isHidden: false,
+                        labelDirection: 'right'
+                    };
+
+                    cities.push(newCity);
+                    if (cities.length === 1) map.flyTo([newCity.lat, newCity.lng], 8, { duration: 1.5 });
+                    renderCityList();
+                    renderRoutes();
+                } else {
+                    alert('City not found!');
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Error searching city.');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function addFormattedWaypoint(lat, lng) {
+            showLoading(true);
+            try {
+                const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+                const data = await resp.json();
+
+                let name = "Waypoint";
+                if (data && data.address) {
+                    name = data.address.town || data.address.city || data.address.village || "Waypoint";
+                }
+
+                const newCity = {
+                    id: Date.now(),
+                    name: name + " (Hidden)",
+                    lat: lat,
+                    lng: lng,
+                    modeToNext: 'car',
+                    markerColor: '#ffffff',
+                    labelColor: '#000000',
+                    pathColor: '#000000',
+                    isHidden: true,
+                    labelDirection: 'right'
+                };
+
+                cities.push(newCity);
+                renderCityList();
+                renderRoutes();
+
+            } catch (e) { console.error(e); }
+            finally { showLoading(false); }
+        }
+
+        function removeCity(id) {
+            cities = cities.filter(c => c.id != id);
+            renderCityList();
+            renderRoutes();
+        }
+
+        function clearAll() {
+            cities = [];
+            renderCityList();
+            renderRoutes();
+        }
+
+        function toggleLabelDirection(id) {
+            const city = cities.find(c => c.id == id);
+            if (!city) return;
+            const dirs = ['right', 'bottom', 'left', 'top'];
+            let currentIdx = dirs.indexOf(city.labelDirection || 'right');
+            let nextIdx = (currentIdx + 1) % dirs.length;
+            city.labelDirection = dirs[nextIdx];
+            renderRoutes();
+        }
+
+        function updateCityProp(id, prop, value) {
+            const city = cities.find(c => c.id == id);
+            if (city) {
+                city[prop] = value;
+                renderRoutes();
+                renderCityList();
+            }
+        }
+
+        // --- AI Logic ---
+
+        function openAIModal() {
+            document.getElementById('ai-modal').classList.remove('hidden');
+            document.getElementById('ai-prompt').focus();
+        }
+
+        function closeAIModal() {
+            document.getElementById('ai-modal').classList.add('hidden');
+        }
+
+        async function generateRoute() {
+            const prompt = document.getElementById('ai-prompt').value;
+            if (!prompt) return;
+
+            const btn = document.getElementById('ai-gen-btn');
+            btn.innerHTML = '<div class="loader mr-2 border-white"></div> Dreaming...';
+            btn.disabled = true;
+
+            try {
+                const resp = await fetch('/api/generate-route', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: prompt })
+                });
+
+                if (!resp.ok) {
+                    const errorText = await resp.text();
+                    let errorDetail = errorText;
+                    try {
+                        const errorJson = JSON.parse(errorText);
+                        errorDetail = errorJson.detail || errorJson.error || errorText;
+                    } catch (e) { /* ignore json parse error */ }
+                    throw new Error(errorDetail || "AI Failed");
+                }
+
+                const data = await resp.json();
+
+                cities = [];
+
+                data.forEach((item, idx) => {
+                    cities.push({
+                        id: Date.now() + idx,
+                        name: item.name,
+                        lat: item.lat,
+                        lng: item.lng,
+                        modeToNext: item.modeToNext || 'car',
+                        markerColor: item.markerColor || '#ffffff',
+                        labelColor: item.labelColor || '#000000',
+                        pathColor: item.pathColor || '#000000',
+                        isHidden: false,
+                        labelDirection: 'right'
+                    });
+                });
+
+                closeAIModal();
+                renderCityList();
+                renderRoutes();
+
+                if (cities.length > 0) {
+                    const latlngs = cities.map(c => [c.lat, c.lng]);
+                    map.flyToBounds(L.latLngBounds(latlngs).pad(0.2), { duration: 1.5 });
+                }
+
+            } catch (e) {
+                console.error(e);
+                alert(`Magic Failed: ${e.message}\n(Check server console for details)`);
+            } finally {
+                btn.innerHTML = 'Generate Route';
+                btn.disabled = false;
+            }
+        }
+
+        // --- Rendering ---
+
+        function renderCityList() {
+            const container = document.getElementById('city-list-container');
+            const list = document.getElementById('city-list');
+
+            if (cities.length === 0) {
+                container.classList.add('hidden');
+                container.classList.remove('flex');
+                return;
+            } else {
+                container.classList.remove('hidden');
+                container.classList.add('flex');
+            }
+
+            list.innerHTML = '';
+
+            cities.forEach((city, index) => {
+                const isLast = index === cities.length - 1;
+
+                const div = document.createElement('div');
+                div.className = `city-item list-item-enter border rounded-xl p-3 flex flex-col gap-2 transition-colors ${city.isHidden ? 'bg-gray-100/50 border-dashed border-gray-300' : 'bg-white/40 hover:bg-white/70 border-white/20'}`;
+                div.setAttribute('data-id', city.id);
+
+                let modeSelectorHTML = '';
+                if (!isLast) {
+                    const displayMode = city.modeToNext;
+                    modeSelectorHTML = `
+                        <div class="flex items-center justify-between mt-2 pt-2 border-t border-gray-200/50">
+                            <div class="flex gap-1 bg-white/30 rounded-full p-1">
+                                <button onclick="updateCityProp(${city.id}, 'modeToNext', 'car')" class="w-8 h-6 rounded-full flex items-center justify-center text-xs transition-colors ${displayMode === 'car' ? 'bg-black text-white' : 'text-gray-500 hover:bg-white/50'}"><i class="fa-solid fa-car"></i></button>
+                                <button onclick="updateCityProp(${city.id}, 'modeToNext', 'plane')" class="w-8 h-6 rounded-full flex items-center justify-center text-xs transition-colors ${displayMode === 'plane' ? 'bg-black text-white' : 'text-gray-500 hover:bg-white/50'}"><i class="fa-solid fa-plane"></i></button>
+                                <button onclick="updateCityProp(${city.id}, 'modeToNext', 'direct')" class="w-8 h-6 rounded-full flex items-center justify-center text-xs transition-colors ${displayMode === 'direct' ? 'bg-black text-white' : 'text-gray-500 hover:bg-white/50'}"><i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                             <div class="flex items-center gap-1">
+                                <span class="text-[10px] text-gray-400 font-mono uppercase tracking-widest">Route</span>
+                                <input type="color" value="${city.pathColor}" oninput="updateCityProp(${city.id}, 'pathColor', this.value)" title="Route Color">
+                            </div>
+                        </div>
+                    `;
+                }
+
+                let customizationHTML = '';
+                if (!city.isHidden) {
+                    customizationHTML = `
+                        <div class="flex gap-3 mt-1">
+                            <div class="flex items-center gap-1">
+                                    <span class="text-[10px] text-gray-400 font-mono">PIN</span>
+                                    <input type="color" value="${city.markerColor}" oninput="updateCityProp(${city.id}, 'markerColor', this.value)">
+                            </div>
+                            <div class="flex items-center gap-1">
+                                    <span class="text-[10px] text-gray-400 font-mono">TEXT</span>
+                                    <input type="color" value="${city.labelColor}" oninput="updateCityProp(${city.id}, 'labelColor', this.value)">
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    customizationHTML = `<div class="mt-1 text-[10px] text-gray-400 italic"><i class="fa-solid fa-ghost"></i> Invisible on map</div>`;
+                }
+
+                div.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center gap-3 w-full">
+                            <span class="cursor-grab drag-handle text-gray-300 hover:text-gray-500"><i class="fa-solid fa-bars"></i></span>
+                            <div class="flex flex-col w-full">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-gray-800 text-sm ${city.isHidden ? 'text-gray-500 line-through decoration-transparent' : ''}">${city.name}</span>
+                                    <button onclick="removeCity(${city.id})" class="text-gray-300 hover:text-red-500 text-xs"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                                ${customizationHTML}
+                            </div>
+                        </div>
+                    </div>
+                    ${modeSelectorHTML}
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        async function renderRoutes() {
+            currentLayers.forEach(l => map.removeLayer(l));
+            currentLayers = [];
+
+            if (cities.length >= 2) {
+                for (let i = 0; i < cities.length - 1; i++) {
+                    const start = cities[i];
+                    const end = cities[i + 1];
+                    const mode = start.modeToNext;
+                    const color = start.pathColor;
+
+                    if (mode === 'car') {
+                        await drawOSRMRoute(start, end, color);
+                    } else if (mode === 'plane') {
+                        drawBezierCurve(start, end, color);
+                    } else if (mode === 'direct') {
+                        drawDirectLine(start, end, color);
+                    }
+                }
+            }
+
+            cities.forEach(city => {
+                if (city.isHidden) return;
+
+                const customIcon = L.divIcon({
+                    className: '',
+                    html: `<div class='aesthetic-marker' style='background-color: ${city.markerColor};'></div>`,
+                    iconSize: [14, 14],
+                    iconAnchor: [7, 7]
+                });
+
+                const marker = L.marker([city.lat, city.lng], { icon: customIcon }).addTo(map);
+
+                marker.on('click', function (e) {
+                    toggleLabelDirection(city.id);
+                });
+
+                let offset = [10, 0];
+                const dir = city.labelDirection || 'right';
+                if (dir === 'left') offset = [-10, 0];
+                if (dir === 'top') offset = [0, -10];
+                if (dir === 'bottom') offset = [0, 10];
+
+                marker.bindTooltip(city.name, {
+                    permanent: true,
+                    direction: dir,
+                    className: 'aesthetic-label',
+                    offset: offset
+                }).openTooltip();
+
+                marker.setTooltipContent(`<span style="color: ${city.labelColor}">${city.name}</span>`);
+
+                currentLayers.push(marker);
+            });
+        }
+
+        async function drawOSRMRoute(start, end, color) {
+            const url = `https://router.project-osrm.org/route/v1/driving/${start.lng},${start.lat};${end.lng},${end.lat}?overview=full&geometries=geojson`;
+            try {
+                const resp = await fetch(url);
+                const data = await resp.json();
+                if (data.routes && data.routes.length > 0) {
+                    const latlngs = data.routes[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
+                    const poly = L.polyline(latlngs, {
+                        color: color,
+                        weight: 4,
+                        opacity: 0.9,
+                        lineCap: 'round'
+                    }).addTo(map);
+                    currentLayers.push(poly);
+                }
+            } catch (e) {
+                drawDirectLine(start, end, color);
+            }
+        }
+
+        function drawDirectLine(start, end, color) {
+            const poly = L.polyline([[start.lat, start.lng], [end.lat, end.lng]], {
+                color: color,
+                weight: 2,
+                dashArray: '5, 10',
+                opacity: 0.7
+            }).addTo(map);
+            currentLayers.push(poly);
+        }
+
+        function drawBezierCurve(start, end, color) {
+            const midLat = (start.lat + end.lat) / 2;
+            const midLng = (start.lng + end.lng) / 2;
+            const dist = getDistanceFromLatLonInKm(start.lat, start.lng, end.lat, end.lng);
+            const curveHeight = dist * 0.2;
+
+            const controlLat = midLat + (curveHeight / 111);
+            const controlLng = midLng;
+
+            const pathCoords = [];
+            for (let t = 0; t <= 1; t += 0.05) {
+                const lat = (1 - t) * (1 - t) * start.lat + 2 * (1 - t) * t * controlLat + t * t * end.lat;
+                const lng = (1 - t) * (1 - t) * start.lng + 2 * (1 - t) * t * controlLng + t * t * end.lng;
+                pathCoords.push([lat, lng]);
+            }
+
+            const poly = L.polyline(pathCoords, {
+                color: color,
+                weight: 2,
+                opacity: 0.8,
+                lineCap: 'round'
+            }).addTo(map);
+            currentLayers.push(poly);
+
+            const apexLat = 0.25 * start.lat + 0.5 * controlLat + 0.25 * end.lat;
+            const apexLng = 0.25 * start.lng + 0.5 * controlLng + 0.25 * end.lng;
+            const angle = angleBetweenPoints(start, end);
+
+            const plane = L.marker([apexLat, apexLng], { icon: planeIcon }).addTo(map);
+
+            setTimeout(() => {
+                const el = plane.getElement();
+                if (el) {
+                    el.style.transform += ` rotate(${angle - 45}deg)`;
+                }
+            }, 50);
+
+            currentLayers.push(plane);
+        }
+
+        function showLoading(show) {
+            const el = document.getElementById('loading-indicator');
+            el.className = show ? 'absolute inset-y-0 right-0 flex items-center pr-3' : 'hidden';
+        }
+
+        function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+            var R = 6371;
+            var dLat = deg2rad(lat2 - lat1);
+            var dLon = deg2rad(lon2 - lon1);
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function deg2rad(deg) { return deg * (Math.PI / 180) }
+
+        function angleBetweenPoints(p1, p2) {
+            const y = Math.sin(deg2rad(p2.lng - p1.lng)) * Math.cos(deg2rad(p2.lat));
+            const x = Math.cos(deg2rad(p1.lat)) * Math.sin(deg2rad(p2.lat)) - Math.sin(deg2rad(p1.lat)) * Math.cos(deg2rad(p2.lng - p1.lng));
+            return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+        }
+
+        function takeSnapshot() {
+            const ui = document.getElementById('ui-sidebar');
+            const layerCtrl = document.getElementById('map-style').parentElement;
+            const modal = document.getElementById('ai-modal');
+
+            ui.style.display = 'none';
+            if (layerCtrl) layerCtrl.style.display = 'none';
+            if (modal) modal.style.display = 'none'; // Ensure modal hidden
+
+            html2canvas(document.body, { useCORS: true, allowTaint: false }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Vuja-Map.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                ui.style.display = 'flex';
+                if (layerCtrl) layerCtrl.style.display = 'flex';
+                if (modal) modal.style.removeProperty('display'); // Let css class handle it
+            });
+        }
+    </script>
+</body>
+
+</html>
