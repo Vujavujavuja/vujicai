@@ -38,7 +38,7 @@ export default function HomePage() {
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
                 <Sparkles className="h-4 w-4" />
-                Enterprise AI Solutions
+                AI Engineer & Data Scientist
               </span>
             </motion.div>
 
@@ -46,16 +46,15 @@ export default function HomePage() {
               variants={itemVariants}
               className="text-5xl font-bold tracking-tight text-foreground sm:text-7xl mb-8 heading-enhanced"
             >
-              Transform Your Business with{' '}
-              <span className="text-primary">Intelligent AI</span>
+              Building AI Systems That{' '}
+              <span className="text-primary">Actually Work</span>
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
               className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto text-enhanced leading-relaxed"
             >
-              Vujic AI (vAI) specializes in building production-ready AI systems powered by Large Language Models,
-              Generative AI, and cutting-edge machine learning. We turn AI innovation into measurable business impact.
+              I&apos;m Nemanja Vujić, and I design production-ready AI systems using Large Language Models, Generative AI, and modern machine learning. I focus on turning AI research into practical solutions that solve real problems.
             </motion.p>
 
             <motion.div
@@ -63,10 +62,10 @@ export default function HomePage() {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Link
-                href="/contact"
+                href="/products"
                 className="inline-flex items-center justify-center rounded-md bg-primary px-8 py-4 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
               >
-                Get Started
+                See My Work
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
 
@@ -74,7 +73,7 @@ export default function HomePage() {
                 href="/about"
                 className="inline-flex items-center justify-center rounded-md border border-white/20 bg-white/10 dark:bg-gray-900/20 backdrop-blur-sm px-8 py-4 text-base font-medium hover:bg-white/20 dark:hover:bg-gray-800/30 transition-colors"
               >
-                Learn About Us
+                About Me
               </Link>
             </motion.div>
           </motion.div>
@@ -93,10 +92,10 @@ export default function HomePage() {
           >
             <motion.div variants={itemVariants} className="text-center mb-20">
               <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl mb-6 heading-enhanced">
-                AI Solutions That Drive Results
+                What I Build
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                We build intelligent systems that understand, automate, and optimize your business operations.
+                I specialize in intelligent systems that understand context, automate workflows, and make sense of complex data.
               </p>
             </motion.div>
 
@@ -107,10 +106,10 @@ export default function HomePage() {
               >
                 <Brain className="h-14 w-14 text-primary mb-6" />
                 <h3 className="text-2xl font-semibold mb-4">
-                  Generative AI
+                  Generative AI Applications
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  ChatGPT-like systems, AI chatbots, and intelligent document processing using state-of-the-art LLMs.
+                  Custom AI assistants, intelligent document processing, and conversational systems built with state-of-the-art LLMs.
                 </p>
               </motion.div>
 
@@ -120,10 +119,10 @@ export default function HomePage() {
               >
                 <Code className="h-14 w-14 text-primary mb-6" />
                 <h3 className="text-2xl font-semibold mb-4">
-                  ML Engineering
+                  Production ML Systems
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Production-ready ML pipelines, model deployment, and monitoring systems built for scale.
+                  End-to-end ML pipelines, model deployment, and monitoring infrastructure designed for reliability and scale.
                 </p>
               </motion.div>
 
@@ -133,10 +132,10 @@ export default function HomePage() {
               >
                 <Zap className="h-14 w-14 text-primary mb-6" />
                 <h3 className="text-2xl font-semibold mb-4">
-                  RAG Systems
+                  RAG & Semantic Search
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Retrieval-Augmented Generation architectures that combine your data with powerful AI models.
+                  Retrieval-Augmented Generation architectures that connect your proprietary data with powerful AI models for accurate, context-aware responses.
                 </p>
               </motion.div>
             </div>
@@ -156,10 +155,10 @@ export default function HomePage() {
           >
             <motion.div variants={itemVariants} className="text-center mb-20">
               <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl mb-6 heading-enhanced">
-                Why Choose Vujic AI?
+                How I Work
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                We combine deep technical expertise with practical business understanding.
+                I combine hands-on technical experience with a research-driven approach to AI development.
               </p>
             </motion.div>
 
@@ -170,20 +169,20 @@ export default function HomePage() {
               >
                 <Rocket className="h-12 w-12 text-primary mb-6" />
                 <h3 className="text-2xl font-semibold mb-4">
-                  Proven Expertise
+                  Technical Experience
                 </h3>
                 <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                    <span>AI Engineer at MIT CSAIL&apos;s Data to AI Lab</span>
+                  </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
                     <span>Production deployments across Azure, AWS, and GCP</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                    <span>Advanced prompt engineering and model optimization</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                    <span>Full-stack AI development from concept to deployment</span>
+                    <span>Deep expertise in prompt engineering and model optimization</span>
                   </li>
                 </ul>
               </motion.div>
@@ -194,7 +193,7 @@ export default function HomePage() {
               >
                 <Target className="h-12 w-12 text-primary mb-6" />
                 <h3 className="text-2xl font-semibold mb-4">
-                  Modern Tech Stack
+                  Modern Tools & Methods
                 </h3>
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-2">
@@ -207,7 +206,7 @@ export default function HomePage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                    <span>MLflow and W&B for model monitoring and A/B testing</span>
+                    <span>MLflow and W&B for experiment tracking and model monitoring</span>
                   </li>
                 </ul>
               </motion.div>
@@ -231,25 +230,24 @@ export default function HomePage() {
               className="p-12 rounded-2xl border border-white/20 bg-white/10 dark:bg-gray-900/20 backdrop-blur-sm shadow-2xl"
             >
               <h2 className="text-3xl font-bold mb-6 heading-enhanced">
-                Ready to Transform Your Business with AI?
+                Let&apos;s Build Something Together
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Let&apos;s discuss how Vujic AI can help you leverage the power of artificial intelligence
-                to solve your unique business challenges.
+                Whether you&apos;re exploring AI possibilities or need help implementing a specific solution, I&apos;d love to hear about your project and see if I can help.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="/contact"
                   className="inline-flex items-center justify-center rounded-md bg-primary px-8 py-4 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
                 >
-                  Schedule a Consultation
+                  Get in Touch
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
                 <Link
-                  href="/services"
+                  href="/products"
                   className="inline-flex items-center justify-center rounded-md border border-white/20 bg-white/10 dark:bg-gray-900/20 backdrop-blur-sm px-8 py-4 text-base font-medium hover:bg-white/20 dark:hover:bg-gray-800/30 transition-colors"
                 >
-                  Explore Our Services
+                  View My Projects
                 </Link>
               </div>
             </motion.div>
