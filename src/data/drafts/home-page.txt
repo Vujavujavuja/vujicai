@@ -1,0 +1,63 @@
+================================================================================
+HOMEPAGE TEXT - PERSONAL BRAND REWRITE (CORRECTED)
+SECTION 1: HERO SECTION
+Badge Text:
+"AI Engineer & Data Scientist"
+Main Heading:
+"Building AI Systems That Actually Work"
+Subheading/Description:
+"I'm Nemanja Vujic, and I design production-ready AI systems using Large Language Models, Generative AI, and modern machine learning. I focus on turning AI research into practical solutions that solve real problems."
+CTA Buttons:
+
+Button 1: "See My Work" (links to /projects or /portfolio)
+Button 2: "About Me" (links to /about)
+
+================================================================================
+SECTION 2: WHAT I DO / AI EXPERTISE
+Section Heading:
+"What I Build"
+Section Subheading:
+"I specialize in intelligent systems that understand context, automate workflows, and make sense of complex data."
+Card 1 - Generative AI:
+Title: "Generative AI Applications"
+Description: "Custom AI assistants, intelligent document processing, and conversational systems built with state-of-the-art LLMs."
+Card 2 - ML Engineering:
+Title: "Production ML Systems"
+Description: "End-to-end ML pipelines, model deployment, and monitoring infrastructure designed for reliability and scale."
+Card 3 - RAG & Semantic Search:
+Title: "RAG Systems"
+Description: "Retrieval-Augmented Generation architectures that connect your proprietary data with powerful AI models for accurate, context-aware responses."
+================================================================================
+SECTION 3: MY APPROACH / BACKGROUND
+Section Heading:
+"How I Work"
+Section Subheading:
+"I combine hands-on technical experience with a research-driven approach to AI development."
+Card 1 - Technical Experience:
+Title: "Technical Experience"
+Features:
+
+"AI Engineer at MIT CSAIL's Data to AI Lab"
+"Production deployments across Azure, AWS, and GCP"
+"Deep expertise in prompt engineering and model optimization"
+
+Card 2 - Modern Tools & Methods:
+Title: "Modern Tools & Methods"
+Features:
+
+"LangChain, LangGraph, PyTorch for AI development"
+"Vector databases (FAISS, Milvus) for semantic search"
+"MLflow and W&B for experiment tracking and model monitoring"
+
+================================================================================
+SECTION 4: FINAL CTA
+Heading:
+"Let's Build Something Together"
+Description:
+"Whether you're exploring AI possibilities or need help implementing a specific solution, I'd love to hear about your project and see if I can help."
+CTA Buttons:
+
+Button 1: "Get in Touch" (links to /contact)
+Button 2: "View My Projects" (links to /projects or /portfolio)
+
+================================================================================

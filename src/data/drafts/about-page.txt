@@ -1,0 +1,86 @@
+================================================================================
+ABOUT PAGE - PERSONAL BRAND REWRITE
+================================================================================
+
+STRUCTURE: Personal story FIRST (always visible), remove company section entirely
+
+================================================================================
+SECTION 1: PAGE HEADER
+--------------------------------------------------------------------------------
+
+Page Title:
+"About Me"
+
+================================================================================
+SECTION 2: INTRODUCTION (with photo)
+--------------------------------------------------------------------------------
+
+Opening Paragraph:
+"I'm Nemanja Vujić, an AI Engineer and Data Scientist from Pančevo, Serbia. I build production-ready AI systems using Large Language Models, Generative AI, and modern machine learning techniques. Currently, I work as an AI Engineer at MIT CSAIL's Data to AI Lab and as a Data Scientist & AI Engineer at Vega IT in Belgrade."
+
+Photo:
+[Personal photo here - need professional headshot]
+
+================================================================================
+SECTION 3: MY AI JOURNEY
+--------------------------------------------------------------------------------
+
+Subsection Heading:
+"How I Got Into AI"
+
+Content:
+"My path into AI started in an unexpected way. Like many students, I was struggling with a class project and turned to ChatGPT for help. What began as a shortcut turned into an obsession. I was fascinated by how a model that 'just predicts the next word' could write code, answer questions, and hold conversations so effectively.
+
+That curiosity drove me to understand what was happening under the hood - how language models work, what makes them powerful, and how they can be applied to solve real problems. Since then, I've been immersed in machine learning, deep learning, and NLP. AI isn't just my career - it's how I view the world, a toolkit for innovation, and a constant source of inspiration."
+
+================================================================================
+SECTION 4: CAREER PATH
+--------------------------------------------------------------------------------
+
+Subsection Heading:
+"From Data Annotation to AI Engineering"
+
+Content:
+"I started in AI as a Data Annotator, evaluating Large Language Model outputs and reviewing their code generation capabilities. I'd examine model responses, identify errors, and correct them. This hands-on work naturally evolved into Prompt Engineering - one of my favorite aspects of AI development. There's something almost artistic about guiding a model's behavior through carefully crafted language.
+
+After a brief detour through software engineering at Luxoft, I earned my Azure AI Engineer Associate certification and returned to AI full-time. I joined Vega IT as a Data Scientist & AI Engineer, where I've worked on cutting-edge Generative AI projects and consulting engagements. I also mentor junior data scientists, which has been incredibly rewarding.
+
+More recently, I joined MIT CSAIL's Data to AI Lab as an AI Engineer, where I work on research-driven AI systems at the intersection of academia and practical applications."
+
+================================================================================
+SECTION 5: TECHNICAL BACKGROUND
+--------------------------------------------------------------------------------
+
+Subsection Heading:
+"What I Work With"
+
+Content:
+"My primary language is Python, and I work extensively with LangChain, LangGraph, PyTorch, Pandas, and NumPy. I've built RAG pipelines and semantic search engines using vector databases like FAISS and Milvus. I'm experienced with MLflow and Weights & Biases for experiment tracking and A/B testing in production.
+
+My cloud AI experience spans Azure (OpenAI GPT-4, AI Studio, Cognitive Services), GCP (Vertex AI, Natural Language AI), and AWS (Bedrock, SageMaker). I use Docker for containerization and deployment across these platforms. I specialize in fine-tuning language models, prompt optimization, and AI system architecture."
+
+================================================================================
+SECTION 6: EDUCATION
+--------------------------------------------------------------------------------
+
+Subsection Heading:
+"Academic Background"
+
+Content:
+"I earned my Bachelor's degree in Computer Science from the Faculty of Computing in Belgrade. I'm currently pursuing a Master's degree, exploring both Data Science and Artificial Intelligence specializations - both fields continue to fascinate me."
+
+================================================================================
+SECTION 7: BEYOND CODE
+--------------------------------------------------------------------------------
+
+Subsection Heading:
+"Beyond the Keyboard"
+
+Content:
+"Outside of AI, I'm passionate about mentoring. I guide junior data scientists at Vega IT and have developed AI learning labs for high school students. These programs teach young people how to use AI tools for learning and problem-solving, bridging the gap between traditional education and modern AI capabilities.
+
+You might also know me from my time as a competitive powerlifter. I competed with IPF Serbia and placed 4th nationally in the Junior -105kg category. The discipline, resilience, and focus on consistent progress from powerlifting carry directly into how I approach AI model optimization and engineering challenges."
+
+================================================================================
+END OF ABOUT PAGE CONTENT
+================================================================================
