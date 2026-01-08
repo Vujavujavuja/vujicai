@@ -1,0 +1,163 @@
+================================================================================
+NAVIGATION AND META TAGS - PERSONAL BRAND UPDATE
+================================================================================
+
+================================================================================
+HEADER / NAVIGATION
+--------------------------------------------------------------------------------
+
+Logo Text:
+"vujic.ai"
+
+Navigation Menu Items:
+- Home (href: /)
+- About (href: /about)
+- Blog (href: /blog)
+- Work With Me (href: /services)
+- Projects (href: /products)
+
+Theme Toggle Button:
+- Light/Dark mode toggle with Moon/Sun icons
+- Label: "Toggle theme"
+
+Mobile Menu Button:
+- Hamburger menu icon
+- Label: "Toggle menu"
+
+================================================================================
+FOOTER
+--------------------------------------------------------------------------------
+
+Copyright Text:
+"© {current year} Nemanja Vujić. All rights reserved."
+
+Footer Tagline (optional addition):
+"Building AI systems and sharing what I learn along the way."
+
+Technical Credit:
+"Built with Next.js, TypeScript, and Tailwind CSS"
+
+Social Links:
+- LinkedIn: https://linkedin.com/in/nemanja-vujic-vuja43
+- GitHub: https://github.com/vujavujavuja
+- Email: mailto:nemanja@vujic.ai
+
+================================================================================
+SEO META TAGS
+--------------------------------------------------------------------------------
+
+Title (default):
+"Nemanja Vujić - AI Engineer & Data Scientist | MIT CSAIL & Vega IT"
+
+Title Template:
+"%s | vujic.ai"
+
+Meta Description:
+"I'm Nemanja Vujić, an AI Engineer at MIT CSAIL's Data to AI Lab specializing in production-ready AI systems using LLMs, RAG architectures, and modern machine learning. Based in Serbia, working globally."
+
+Meta Keywords:
+Nemanja Vujić, AI Engineer MIT, Data Scientist Serbia, LLM Engineer, RAG Systems, Prompt Engineering, Python AI, LangChain, PyTorch, Azure OpenAI, Production ML, Vector Databases, FAISS, MIT CSAIL, Vega IT, AI Consulting
+
+Authors:
+Name: Nemanja Vujić
+URL: https://vujic.ai
+
+Creator:
+"Nemanja Vujić"
+
+Publisher:
+"vujic.ai"
+
+Category:
+"Technology"
+
+Classification:
+"Personal"
+
+================================================================================
+OPEN GRAPH META TAGS
+--------------------------------------------------------------------------------
+
+OG Title:
+"Nemanja Vujić - AI Engineer Building Production ML Systems"
+
+OG Description:
+"AI Engineer at MIT CSAIL specializing in LLMs, RAG systems, and production ML pipelines. Expert in Python, LangChain, PyTorch, and cloud AI platforms."
+
+OG URL:
+"https://vujic.ai"
+
+OG Site Name:
+"vujic.ai"
+
+OG Image:
+URL: /og-image.jpg
+Width: 1200
+Height: 630
+Alt: "Nemanja Vujić - AI Engineer & Data Scientist"
+
+OG Locale:
+"en_US"
+
+OG Type:
+"website"
+
+================================================================================
+TWITTER CARD META TAGS
+--------------------------------------------------------------------------------
+
+Twitter Card Type:
+"summary_large_image"
+
+Twitter Title:
+"Nemanja Vujić - AI Engineer & Data Scientist"
+
+Twitter Description:
+"AI Engineer at MIT CSAIL building production ML systems with LLMs, RAG architectures, and modern machine learning."
+
+Twitter Image:
+"/twitter-image.jpg"
+
+Twitter Creator:
+"@nemanja_vujic"
+
+================================================================================
+STRUCTURED DATA (JSON-LD)
+--------------------------------------------------------------------------------
+
+Type:
+"Person"
+
+Name:
+"Nemanja Vujić"
+
+Job Title:
+"AI Engineer & Data Scientist"
+
+Description:
+"AI Engineer at MIT CSAIL's Data to AI Lab specializing in production-ready AI systems using Large Language Models, RAG architectures, and modern machine learning"
+
+URL:
+"https://vujic.ai"
+
+Works For:
+1. Organization: "MIT CSAIL - Data to AI Lab"
+   URL: "https://dai.lids.mit.edu/"
+2. Organization: "Vega IT"
+   URL: "https://vegait.rs"
+
+Alumni Of:
+Organization: "University of Belgrade"
+
+Occupation Category:
+"Computer and Information Technology"
+
+Skills:
+Python, Machine Learning, Artificial Intelligence, Deep Learning, Natural Language Processing, Large Language Models, Generative AI, RAG Systems, Prompt Engineering, LangChain, PyTorch, TensorFlow, Azure, Google Cloud Platform, Amazon Web Services, Vector Databases, FAISS, Milvus, MLflow, Docker, Kubernetes
+
+Knows About:
+Artificial Intelligence, Machine Learning, Large Language Models, Generative AI, RAG Systems, Prompt Engineering, Python Programming, LangChain, PyTorch, Azure OpenAI, Google Cloud AI, AWS Bedrock, Vector Databases, FAISS, Milvus, MLflow, Weights & Biases, Data Science, Deep Learning, Natural Language Processing
+
+================================================================================
+END OF NAVIGATION AND META CONTENT
+================================================================================

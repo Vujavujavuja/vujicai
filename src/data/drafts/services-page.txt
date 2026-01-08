@@ -1,0 +1,82 @@
+================================================================================
+SERVICES PAGE - "WORK WITH ME" REWRITE
+================================================================================
+
+Remove inline forms entirely. Simple "Let's Talk" buttons that link to /contact.
+
+================================================================================
+PAGE HEADER
+--------------------------------------------------------------------------------
+
+Page Title:
+"Work With Me"
+
+Page Subtitle:
+"I help teams and companies build practical AI solutions that solve real problems. Here's how we can collaborate."
+
+================================================================================
+COLLABORATION AREA 1: AI STRATEGY & CONSULTING
+--------------------------------------------------------------------------------
+
+Title:
+"AI Strategy & Consulting"
+
+Description:
+"Need guidance on how AI can fit into your product or workflow? I'll help you assess what's realistic, identify the right approach, and create an implementation plan that makes sense for your context."
+
+What's Included:
+- AI feasibility assessment
+- Technology recommendations
+- Implementation roadmap
+- Prompt engineering strategy
+- Model selection guidance
+- Risk and cost analysis
+
+Button Text:
+"Let's Talk" (links to /contact)
+
+================================================================================
+COLLABORATION AREA 2: DATA SCIENCE & ANALYTICS
+--------------------------------------------------------------------------------
+
+Title:
+"Data Science & Analytics"
+
+Description:
+"Let's turn your data into actionable insights. Whether you need predictive models, data pipelines, or custom dashboards, I'll help you build systems that extract real value from your data."
+
+What's Included:
+- Data analysis & visualization
+- Predictive modeling
+- Statistical analysis
+- Data pipeline development
+- Custom analytics dashboards
+- Model evaluation & validation
+
+Button Text:
+"Let's Talk" (links to /contact)
+
+================================================================================
+COLLABORATION AREA 3: AI SYSTEM DEVELOPMENT
+--------------------------------------------------------------------------------
+
+Title:
+"AI System Development"
+
+Description:
+"I build production-ready AI systems - from RAG pipelines and semantic search to custom LLM applications. If you need something that actually works in production, not just a demo, let's work together."
+
+What's Included:
+- RAG system development
+- LLM application architecture
+- Semantic search implementation
+- Model deployment & optimization
+- System monitoring & maintenance
+- Cloud integration (Azure, AWS, GCP)
+
+Button Text:
+"Let's Talk" (links to /contact)
+
+================================================================================
+END OF SERVICES PAGE CONTENT
+================================================================================

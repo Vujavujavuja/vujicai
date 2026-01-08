@@ -1,0 +1,64 @@
+================================================================================
+CONTACT PAGE TEXT EXTRACTION - Current Content for Review & Rewrite
+================================================================================
+
+REWRITE INSTRUCTIONS:
+- Contact page is already mostly good (uses "I'm" voice)
+- Minor tweaks if needed to make it more personal/casual
+- Keep it simple and approachable
+
+================================================================================
+
+PAGE HEADER
+--------------------------------------------------------------------------------
+
+Page Title:
+"Get in Touch"
+
+Page Subtitle:
+"I'm always open to discussing AI, technology, and new opportunities"
+
+================================================================================
+
+CONTACT INFORMATION SECTION
+--------------------------------------------------------------------------------
+
+Section Heading:
+"Contact Information"
+
+Email:
+nemanja@vujic.ai
+
+Location:
+{personalInfo.location} (comes from content.ts - "Pančevo, Serbia")
+
+Social Links Heading:
+"Social Links"
+
+Social Links:
+- LinkedIn: https://linkedin.com/in/nemanja-vujic-vuja43
+- GitHub: https://github.com/vujavujavuja
+- Email: mailto:nemanja@vujic.ai
+
+================================================================================
+
+CONTACT FORM SECTION
+--------------------------------------------------------------------------------
+
+Section Heading:
+"Send a Message"
+
+Form Fields:
+- Name (required) - placeholder: "Your name"
+- Email (required) - placeholder: "your.email@example.com"
+- Message (required, textarea) - placeholder: "Your message..."
+
+Button Text:
+"Send Message"
+
+Form Action:
+https://formspree.io/f/mwpqpepj
+
+================================================================================
+END OF CONTACT PAGE CONTENT
+================================================================================
