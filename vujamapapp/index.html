@@ -186,57 +186,59 @@
 
     <!-- Sidebar -->
     <div id="ui-sidebar"
-        class="absolute top-4 left-4 right-4 md:left-6 md:w-80 md:right-auto max-h-[90vh] flex flex-col z-[1000] gap-4 pointer-events-none">
+        class="absolute top-2 left-2 right-2 md:top-6 md:left-6 md:w-80 md:right-auto max-h-[40vh] md:max-h-[90vh] flex flex-col z-[1000] gap-2 md:gap-4 pointer-events-none transition-opacity duration-300">
 
         <!-- Header -->
-        <div class="glass-panel rounded-3xl p-4 md:p-5 pointer-events-auto transition-all duration-300 hover:shadow-xl">
-            <h1 class="text-lg md:text-xl font-bold tracking-tight text-gray-900 mb-1">Vuja <span
+        <div
+            class="glass-panel rounded-2xl md:rounded-3xl p-3 md:p-5 pointer-events-auto transition-all duration-300 hover:shadow-xl">
+            <h1 class="text-base md:text-xl font-bold tracking-tight text-gray-900 mb-1">Vuja <span
                     class="text-gray-500 font-light">Mapapp</span></h1>
 
-            <div class="relative group mt-2">
+            <div class="relative group mt-1 md:mt-2">
                 <input type="text" id="city-input" placeholder="Add stop..."
-                    class="w-full bg-white/50 border border-gray-200 text-gray-800 text-sm rounded-full focus:ring-black focus:border-black block p-3 pl-10 outline-none transition-all shadow-sm group-hover:bg-white/80">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                    <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                    class="w-full bg-white/50 border border-gray-200 text-gray-800 text-sm rounded-full focus:ring-black focus:border-black block p-2 md:p-3 pl-8 md:pl-10 outline-none transition-all shadow-sm group-hover:bg-white/80">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-2.5 md:pl-3.5 pointer-events-none">
+                    <i class="fa-solid fa-magnifying-glass text-gray-400 text-xs md:text-sm"></i>
                 </div>
                 <div id="loading-indicator" class="absolute inset-y-0 right-0 flex items-center pr-3 hidden">
                     <div class="loader"></div>
                 </div>
             </div>
 
-            <!-- Mobile-only compact instructions -->
-            <p class="text-[10px] text-gray-500 mt-2 ml-1 md:block hidden">
+            <!-- Desktop-only instructions -->
+            <p class="text-[10px] text-gray-500 mt-2 ml-1 hidden md:block">
                 💡 <b>Left Click dot</b> to rotate label.<br>
                 💡 <b>Right Click map</b> to add waypoint.
             </p>
 
             <!-- AI Button -->
             <button onclick="openAIModal()"
-                class="w-full mt-3 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white text-xs font-bold py-2 rounded-full shadow-md hover:shadow-lg transform transition hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
+                class="w-full mt-2 md:mt-3 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white text-[10px] md:text-xs font-bold py-1.5 md:py-2 rounded-full shadow-md hover:shadow-lg transform transition hover:scale-105 active:scale-95 flex items-center justify-center gap-1 md:gap-2">
                 <i class="fa-solid fa-wand-magic-sparkles"></i> AI Magic Route
             </button>
         </div>
 
-        <!-- List -->
+        <!-- List - very compact on mobile -->
         <div id="city-list-container"
-            class="glass-panel rounded-3xl p-2 hidden pointer-events-auto flex-col max-h-[25vh] md:max-h-[60vh] overflow-hidden transition-all">
-            <div id="city-list" class="overflow-y-auto custom-scroll p-1 space-y-2">
+            class="glass-panel rounded-2xl md:rounded-3xl p-1.5 md:p-2 hidden pointer-events-auto flex-col max-h-[15vh] md:max-h-[60vh] overflow-hidden transition-all">
+            <div id="city-list" class="overflow-y-auto custom-scroll p-0.5 md:p-1 space-y-1 md:space-y-2">
                 <!-- Items -->
             </div>
         </div>
 
         <!-- Footer Actions -->
-        <div class="glass-panel rounded-full p-2 flex justify-between items-center pointer-events-auto">
-            <div class="flex gap-2">
+        <div class="glass-panel rounded-full p-1.5 md:p-2 flex justify-between items-center pointer-events-auto">
+            <div class="flex gap-1 md:gap-2">
                 <button onclick="clearAll()"
-                    class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
+                    class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
                     title="Clear All">
-                    <i class="fa-solid fa-trash"></i>
+                    <i class="fa-solid fa-trash text-xs md:text-sm"></i>
                 </button>
             </div>
-            <button onclick="takeSnapshot()"
-                class="bg-black text-white text-sm font-medium px-4 py-2 md:px-5 md:py-2.5 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center gap-2">
-                <i class="fa-solid fa-camera"></i> <span class="hidden md:inline">Snapshot</span>
+            <button id="hide-ui-btn"
+                class="bg-black text-white text-xs md:text-sm font-medium px-3 py-1.5 md:px-5 md:py-2.5 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center gap-1 md:gap-2 select-none"
+                title="Hold to hide UI for screenshot">
+                <i class="fa-solid fa-eye-slash"></i> <span class="hidden md:inline">Hold to Hide</span>
             </button>
         </div>
     </div>
@@ -326,6 +328,12 @@
         });
 
         function initMap() {
+            // Guard against re-initialization
+            if (map) {
+                console.log('Map already initialized, skipping');
+                return;
+            }
+
             map = L.map('map', {
                 zoomControl: false,
                 detectRetina: true,
@@ -389,7 +397,8 @@
             if (!query) return;
             showLoading(true);
             try {
-                const resp = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+                // Use proxy to avoid CORS issues
+                const resp = await fetch(`/api/geocode?q=${encodeURIComponent(query)}`);
                 const data = await resp.json();
                 if (data && data.length > 0) {
                     const result = data[0];
@@ -787,19 +796,23 @@
         }
 
         function initSnapshotButton() {
-            const btn = document.getElementById('snap-btn');
+            const btn = document.getElementById('hide-ui-btn');
+            if (!btn) return; // Safety check
+
             const ui = document.getElementById('ui-sidebar');
             const layerCtrl = document.getElementById('map-style') ? document.getElementById('map-style').parentElement : null;
 
             const hideUI = (e) => {
                 e.preventDefault();
                 ui.style.opacity = '0';
+                ui.style.pointerEvents = 'none';
                 if (layerCtrl) layerCtrl.style.opacity = '0';
             };
 
             const showUI = (e) => {
                 e.preventDefault();
                 ui.style.opacity = '1';
+                ui.style.pointerEvents = '';
                 if (layerCtrl) layerCtrl.style.opacity = '1';
             };
 
@@ -808,19 +821,14 @@
             btn.addEventListener('mouseleave', showUI);
 
             // Touch events for mobile
-            btn.addEventListener('touchstart', hideUI);
+            btn.addEventListener('touchstart', hideUI, { passive: false });
             btn.addEventListener('touchend', showUI);
             btn.addEventListener('touchcancel', showUI);
         }
 
-        // Call init in DOMContentLoaded
-        document.addEventListener('DOMContentLoaded', () => {
-            initMap();
-            initSortable();
-            initSnapshotButton();
-            // ... existing listeners
-
-        });
+        // Initialize the hide UI button after DOM is ready
+        // Note: initMap and initSortable are already called in the earlier DOMContentLoaded listener
+        document.addEventListener('DOMContentLoaded', initSnapshotButton);
     </script>
 </body>
 
