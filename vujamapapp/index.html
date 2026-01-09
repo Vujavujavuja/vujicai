@@ -186,15 +186,15 @@
 
     <!-- Sidebar -->
     <div id="ui-sidebar"
-        class="absolute top-6 left-6 w-80 max-h-[90vh] flex flex-col z-[1000] gap-4 pointer-events-none">
+        class="absolute top-4 left-4 right-4 md:left-6 md:w-80 md:right-auto max-h-[90vh] flex flex-col z-[1000] gap-4 pointer-events-none">
 
         <!-- Header -->
-        <div class="glass-panel rounded-3xl p-5 pointer-events-auto transition-all duration-300 hover:shadow-xl">
-            <h1 class="text-xl font-bold tracking-tight text-gray-900 mb-1">Vuja <span
+        <div class="glass-panel rounded-3xl p-4 md:p-5 pointer-events-auto transition-all duration-300 hover:shadow-xl">
+            <h1 class="text-lg md:text-xl font-bold tracking-tight text-gray-900 mb-1">Vuja <span
                     class="text-gray-500 font-light">Mapapp</span></h1>
 
             <div class="relative group mt-2">
-                <input type="text" id="city-input" placeholder="Add stop (e.g., Belgrade)..."
+                <input type="text" id="city-input" placeholder="Add stop..."
                     class="w-full bg-white/50 border border-gray-200 text-gray-800 text-sm rounded-full focus:ring-black focus:border-black block p-3 pl-10 outline-none transition-all shadow-sm group-hover:bg-white/80">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                     <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
@@ -203,7 +203,9 @@
                     <div class="loader"></div>
                 </div>
             </div>
-            <p class="text-[10px] text-gray-500 mt-2 ml-1">
+
+            <!-- Mobile-only compact instructions -->
+            <p class="text-[10px] text-gray-500 mt-2 ml-1 md:block hidden">
                 💡 <b>Left Click dot</b> to rotate label.<br>
                 💡 <b>Right Click map</b> to add waypoint.
             </p>
@@ -217,7 +219,7 @@
 
         <!-- List -->
         <div id="city-list-container"
-            class="glass-panel rounded-3xl p-2 hidden pointer-events-auto flex-col max-h-[60vh] overflow-hidden">
+            class="glass-panel rounded-3xl p-2 hidden pointer-events-auto flex-col max-h-[25vh] md:max-h-[60vh] overflow-hidden transition-all">
             <div id="city-list" class="overflow-y-auto custom-scroll p-1 space-y-2">
                 <!-- Items -->
             </div>
@@ -233,8 +235,8 @@
                 </button>
             </div>
             <button onclick="takeSnapshot()"
-                class="bg-black text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center gap-2">
-                <i class="fa-solid fa-camera"></i> Snapshot
+                class="bg-black text-white text-sm font-medium px-4 py-2 md:px-5 md:py-2.5 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center gap-2">
+                <i class="fa-solid fa-camera"></i> <span class="hidden md:inline">Snapshot</span>
             </button>
         </div>
     </div>
