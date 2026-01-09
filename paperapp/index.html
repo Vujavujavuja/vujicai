@@ -324,10 +324,12 @@
             </div>
         </div>
 
-        <!-- Right: Chat (Hidden by default on mobile, shown as drawer) -->
+        <!-- Right: Chat Panel -->
+        <!-- On mobile: Fixed drawer that slides down from top, hidden by default -->
+        <!-- On desktop: Normal sidebar on the right -->
         <div id="chat-panel"
-            class="w-96 glass-panel border-l border-white/40 flex flex-col z-50 shadow-lg relative bg-white/40 
-            fixed inset-x-0 top-0 h-[85vh] rounded-b-3xl transform -translate-y-full transition-transform duration-500 md:translate-y-0 md:relative md:h-auto md:w-96 md:rounded-none md:border-l md:block md:bg-white/40">
+            class="hidden md:flex w-96 glass-panel border-l border-white/40 flex-col z-50 shadow-lg relative bg-white/40
+            max-md:fixed max-md:inset-x-0 max-md:top-0 max-md:h-[85vh] max-md:rounded-b-3xl max-md:transform max-md:-translate-y-full max-md:transition-transform max-md:duration-500">
 
             <!-- Mobile Drawer Handle/Header -->
             <div class="p-4 border-b border-white/40 bg-white/20 backdrop-blur-md flex justify-between items-center">
@@ -694,6 +696,30 @@
 
         function resetApp() {
             location.reload();
+        }
+
+        function toggleMobileChat() {
+            const chatPanel = document.getElementById('chat-panel');
+            // Toggle visibility
+            if (chatPanel.classList.contains('hidden')) {
+                // Show the panel
+                chatPanel.classList.remove('hidden');
+                chatPanel.classList.add('flex');
+                // Animate in after a brief delay
+                setTimeout(() => {
+                    chatPanel.classList.remove('-translate-y-full');
+                    chatPanel.classList.add('translate-y-0');
+                }, 10);
+            } else {
+                // Hide with animation
+                chatPanel.classList.remove('translate-y-0');
+                chatPanel.classList.add('-translate-y-full');
+                // After animation completes, hide completely
+                setTimeout(() => {
+                    chatPanel.classList.add('hidden');
+                    chatPanel.classList.remove('flex');
+                }, 500);
+            }
         }
 
     </script>
