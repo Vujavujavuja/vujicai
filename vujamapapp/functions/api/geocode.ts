@@ -13,12 +13,14 @@ export const onRequest = async (context) => {
     }
 
     try {
-        const nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+        // Add accept-language=en to get Latin names instead of Cyrillic
+        const nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&accept-language=en`;
 
         const response = await fetch(nominatimUrl, {
             headers: {
                 'User-Agent': 'VujaMapapp/1.0 (https://map.vujic.ai)',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Accept-Language': 'en'
             }
         });
 
