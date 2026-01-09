@@ -786,48 +786,68 @@
             return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
         }
 
-        function takeSnapshot() {
+        function initSnapshotButton() {
+            const btn = document.getElementById('snap-btn');
             const ui = document.getElementById('ui-sidebar');
-            const layerCtrl = document.getElementById('map-style').parentElement;
-            const modal = document.getElementById('ai-modal');
-            const mapContainer = document.getElementById('map');
+            const layerCtrl = document.getElementById('map-style') ? document.getElementById('map-style').parentElement : null;
 
-            // Hide UI elements
-            ui.style.display = 'none';
-            if (layerCtrl) layerCtrl.style.display = 'none';
-            if (modal) modal.style.display = 'none';
+            const hideUI = (e) => {
+                e.preventDefault();
+                ui.style.opacity = '0';
+                if (layerCtrl) layerCtrl.style.opacity = '0';
+            };
 
-            // Wait a moment for reflow, then capture
-            setTimeout(() => {
-                html2canvas(mapContainer, {
-                    useCORS: true,
-                    allowTaint: false,
+            const showUI = (e) => {
+                e.preventDefault();
+                ui.style.opacity = '1';
+                if (layerCtrl) layerCtrl.style.opacity = '1';
+            };
+
+            btn.addEventListener('mousedown', hideUI);
+            btn.addEventListener('mouseup', showUI);
+            btn.addEventListener('mouseleave', showUI);
+
+            // Touch events for mobile
+            btn.addEventListener('touchstart', hideUI);
+            btn.addEventListener('touchend', showUI);
+            btn.addEventListener('touchcancel', showUI);
+        }
+
+        // Call init in DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            initSortable();
+            initSnapshotButton();
+            // ... existing listeners
+
+            useCORS: true,
+                allowTaint: false,
                     backgroundColor: '#1a1a1a',
-                    scale: 2,
-                    logging: false,
-                    width: mapContainer.offsetWidth,
-                    height: mapContainer.offsetHeight,
-                    x: 0,
-                    y: 0
-                }).then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = 'Vuja-Map.png';
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
+                        scale: 2,
+                            logging: false,
+                                width: mapContainer.offsetWidth,
+                                    height: mapContainer.offsetHeight,
+                                        x: 0,
+                                            y: 0
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'Vuja-Map.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
 
-                    // Restore UI
-                    ui.style.display = 'flex';
-                    if (layerCtrl) layerCtrl.style.display = 'flex';
-                    if (modal) modal.style.removeProperty('display');
-                }).catch(err => {
-                    console.error('Screenshot failed:', err);
-                    alert('Screenshot failed. Please try again.');
+            // Restore UI
+            ui.style.display = 'flex';
+            if (layerCtrl) layerCtrl.style.display = 'flex';
+            if (modal) modal.style.removeProperty('display');
+        }).catch(err => {
+            console.error('Screenshot failed:', err);
+            alert('Screenshot failed. Please try again.');
 
-                    // Restore UI even on error
-                    ui.style.display = 'flex';
-                    if (layerCtrl) layerCtrl.style.display = 'flex';
-                    if (modal) modal.style.removeProperty('display');
-                });
+            // Restore UI even on error
+            ui.style.display = 'flex';
+            if (layerCtrl) layerCtrl.style.display = 'flex';
+            if (modal) modal.style.removeProperty('display');
+        });
             }, 100);
         }
     </script>
