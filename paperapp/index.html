@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuja Paper | Chat with Research</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        glass: 'rgba(255, 255, 255, 0.7)',
+                        glassBorder: 'rgba(255, 255, 255, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    
+    <!-- Marked (for Markdown rendering in chat) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background: #f3f4f6;
+        }
+        
+        /* Glassmorphism */
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glassBorder);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,0,0,0.3);
+        }
+
+        /* Loading Animation */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* PDF Viewer Tweaks */
+        #pdf-container {
+            scroll-behavior: smooth;
+        }
+        
+        .pdf-page-wrapper {
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Selection Explain Tooltip */
+        #selection-tooltip {
+            transition: opacity 0.2s, transform 0.2s;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200">
+
+    <!-- Config Modal (Initial State) -->
+    <div id="config-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-black/20">
+        <div class="glass-panel w-full max-w-md p-8 rounded-3xl shadow-2xl animate-[fadeIn_0.5s_ease-out]">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/50 mb-4 shadow-sm">
+                    <i class="fa-solid fa-scroll text-2xl text-gray-700"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Vuja Paper</h1>
+                <p class="text-gray-500 text-sm">Chat with Arxiv papers using your own API key.<br>Everything runs locally in your browser.</p>
+            </div>
+
+            <form id="setup-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 ml-1">Arxiv PDF URL or ID</label>
+                    <input type="text" id="paper-url" required placeholder="e.g., https://arxiv.org/pdf/1706.03762.pdf" 
+                        class="w-full bg-white/50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black/10 transition-all font-medium text-gray-700">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 ml-1">OpenRouter API Key</label>
+                    <input type="password" id="api-key" required placeholder="sk-or-..." 
+                        class="w-full bg-white/50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black/10 transition-all font-mono text-sm text-gray-700">
+                </div>
+                
+                 <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 ml-1">Model Name</label>
+                     <input type="text" id="model-name" value="google/gemini-2.0-flash-exp:free" placeholder="google/gemini-2.0-flash-exp:free" 
+                        class="w-full bg-white/50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black/10 transition-all font-mono text-sm text-gray-700">
+                     <p class="text-[10px] text-gray-400 mt-1 ml-1">Default: Free Gemini 2.0 Flash</p>
+                </div>
+
+                <button type="submit" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg hover:shadow-xl mt-4 flex items-center justify-center gap-2">
+                    <span>Load Paper</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App Layout -->
+    <div id="app-container" class="flex h-full w-full hidden">
+        
+        <!-- Left: PDF Config & Info -->
+        <div class="w-64 glass-panel border-r border-white/40 flex flex-col z-20 shadow-lg">
+             <div class="p-5 border-b border-white/40">
+                <div class="flex items-center gap-2 font-bold text-lg mb-1">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Vuja Paper</span>
+                </div>
+                 <div class="text-[10px] text-gray-500 font-mono truncate" id="display-model">Model: Loading...</div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                 <div class="p-3 bg-white/40 rounded-xl border border-white/60">
+                    <h3 class="text-xs font-bold text-gray-500 uppercase mb-2">Paper Info</h3>
+                    <div id="paper-title" class="text-sm font-semibold leading-tight text-gray-800 mb-1">...</div>
+                    <div id="paper-authors" class="text-xs text-gray-500">...</div>
+                 </div>
+
+                 <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+                    <h3 class="text-xs font-bold text-blue-500 uppercase mb-2">How to use</h3>
+                    <ul class="text-xs text-gray-600 space-y-2">
+                        <li class="flex gap-2">
+                            <i class="fa-solid fa-mouse-pointer mt-0.5 opacity-50"></i>
+                            <span><b>Select text</b> in the PDF to explain it.</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i class="fa-solid fa-comment-dots mt-0.5 opacity-50"></i>
+                            <span><b>Chat</b> on the right to ask questions about the full paper.</span>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+
+            <div class="p-4 border-t border-white/40">
+                <button onclick="resetApp()" class="w-full py-2 bg-white/50 hover:bg-white text-gray-700 text-xs font-bold rounded-lg transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> New Paper
+                </button>
+            </div>
+        </div>
+
+        <!-- Center: PDF Viewer -->
+        <div class="flex-1 relative bg-gray-50/50 overflow-hidden flex flex-col">
+            <!-- Toolbar -->
+            <div class="h-12 border-b border-gray-200/50 bg-white/30 backdrop-blur-sm flex items-center justify-between px-4 z-10">
+                <div class="flex items-center gap-2 text-gray-600">
+                     <button id="zoom-out" class="w-8 h-8 rounded-full hover:bg-black/5 flex items-center justify-center transition"><i class="fa-solid fa-minus text-xs"></i></button>
+                     <span id="zoom-level" class="text-xs font-mono w-12 text-center">100%</span>
+                     <button id="zoom-in" class="w-8 h-8 rounded-full hover:bg-black/5 flex items-center justify-center transition"><i class="fa-solid fa-plus text-xs"></i></button>
+                </div>
+                 <div class="text-xs text-gray-400 font-medium">
+                    Page <span id="page-num" class="text-gray-700 font-bold">1</span> / <span id="page-count">--</span>
+                </div>
+            </div>
+
+            <!-- PDF Container -->
+            <div id="pdf-container" class="flex-1 overflow-y-auto p-8 relative flex flex-col items-center">
+                <!-- Pages will be rendered here -->
+                <div id="pdf-loader" class="hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div class="loader"></div>
+                </div>
+            </div>
+
+            <!-- Explanation Tooltip (Absolute) -->
+            <div id="selection-tooltip" class="absolute hidden z-50 max-w-sm bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden animate-[fadeIn_0.2s_ease-out]">
+                 <div class="bg-gray-900 px-3 py-2 flex justify-between items-center">
+                    <span class="text-xs font-bold text-white"><i class="fa-solid fa-wand-magic-sparkles text-purple-400 mr-1"></i> Explanation</span>
+                    <button onclick="hideTooltip()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xs"></i></button>
+                 </div>
+                 <div id="tooltip-content" class="p-4 text-sm text-gray-700 leading-relaxed max-h-60 overflow-y-auto">
+                    Loading explanation...
+                 </div>
+            </div>
+        </div>
+
+        <!-- Right: Chat -->
+        <div class="w-96 glass-panel border-l border-white/40 flex flex-col z-20 shadow-lg relative bg-white/40">
+             <div class="p-4 border-b border-white/40 bg-white/20 backdrop-blur-md">
+                <h2 class="text-sm font-bold text-gray-800">Chat with Paper</h2>
+            </div>
+            
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4">
+                 <!-- Messages -->
+                 <div class="flex gap-3">
+                     <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white text-xs shadow-md"><i class="fa-solid fa-robot"></i></div>
+                     <div class="bg-white rounded-2xl rounded-tl-none p-3 shadow-sm text-sm text-gray-700 max-w-[85%] border border-gray-100">
+                        Hello! I've read the paper. Ask me anything about specific sections, methodologies, or results.
+                     </div>
+                 </div>
+            </div>
+
+            <div class="p-4 bg-white/60 border-t border-white/40 backdrop-blur-md">
+                <div class="relative">
+                     <textarea id="chat-input" rows="1" class="w-full bg-white border border-gray-200 rounded-2xl pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 resize-none shadow-sm" placeholder="Ask a question..."></textarea>
+                     <button id="send-btn" class="absolute bottom-2 right-2 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-up text-xs"></i>
+                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // --- State ---
+        let state = {
+            pdfDoc: null,
+            currentPage: 1,
+            scale: 1.2,
+            apiKey: '',
+            modelName: '',
+            paperText: '', // Full text of the paper for context
+            isProcessing: false,
+            controller: null // For aborting fetch if needed
+        };
+
+        const els = {
+            configModal: document.getElementById('config-modal'),
+            setupForm: document.getElementById('setup-form'),
+            appContainer: document.getElementById('app-container'),
+            pdfContainer: document.getElementById('pdf-container'),
+            pdfLoader: document.getElementById('pdf-loader'),
+            modelDisplay: document.getElementById('display-model'),
+            chatInput: document.getElementById('chat-input'),
+            chatMessages: document.getElementById('chat-messages'),
+            sendBtn: document.getElementById('send-btn'),
+            paperTitle: document.getElementById('paper-title'),
+            selectionTooltip: document.getElementById('selection-tooltip'),
+            tooltipContent: document.getElementById('tooltip-content'),
+            zoomIn: document.getElementById('zoom-in'),
+            zoomOut: document.getElementById('zoom-out'),
+            zoomLevel: document.getElementById('zoom-level'),
+            pageCount: document.getElementById('page-count'),
+            pageNum: document.getElementById('page-num'),
+        };
+
+        // --- Initialization ---
+        
+        els.setupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const urlInput = document.getElementById('paper-url').value.trim();
+            const keyInput = document.getElementById('api-key').value.trim();
+            const modelInput = document.getElementById('model-name').value.trim();
+
+            if(!urlInput || !keyInput) return;
+
+            // Handle Arxiv ID conversion
+            let finalUrl = urlInput;
+            if (!urlInput.startsWith('http')) {
+                // Assume inputs like "2106.09685"
+                finalUrl = `https://arxiv.org/pdf/${urlInput}.pdf`;
+            } else if (urlInput.includes('/abs/')) {
+                 finalUrl = urlInput.replace('/abs/', '/pdf/') + '.pdf';
+            }
+
+            state.apiKey = keyInput;
+            state.modelName = modelInput || 'google/gemini-2.0-flash-exp:free';
+            els.modelDisplay.innerText = state.modelName;
+
+            els.configModal.classList.add('hidden');
+            els.appContainer.classList.remove('hidden');
+            
+            await loadPDF(finalUrl);
+        });
+
+        els.chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        els.sendBtn.addEventListener('click', sendMessage);
+
+        els.zoomIn.addEventListener('click', () => { state.scale += 0.2; renderAllPages(); updateZoomUI(); });
+        els.zoomOut.addEventListener('click', () => { state.scale = Math.max(0.6, state.scale - 0.2); renderAllPages(); updateZoomUI(); });
+
+        document.addEventListener('mouseup', handleTextSelection);
+
+        // --- PDF Logic ---
+
+        async function loadPDF(url) {
+            els.pdfLoader.classList.remove('hidden');
+            els.pdfContainer.innerHTML = ''; // Clear previous
+            els.pdfContainer.appendChild(els.pdfLoader); // Add loader back
+
+            try {
+                // Use our Cloudflare worker proxy
+                const proxyUrl = `/api/fetch-paper?url=${encodeURIComponent(url)}`;
+                
+                const loadingTask = pdfjsLib.getDocument(proxyUrl);
+                state.pdfDoc = await loadingTask.promise;
+                
+                els.pageCount.innerText = state.pdfDoc.numPages;
+                
+                // Extract text for AI Context
+                await extractFullText();
+                
+                // Render Pages
+                await renderAllPages();                
+
+                // Try to guess title from text (heuristic: first few lines of page 1)
+                const meta = await state.pdfDoc.getMetadata().catch(() => ({}));
+                if (meta.info && meta.info.Title) {
+                     els.paperTitle.innerText = meta.info.Title;
+                } else {
+                     // Fallback to filename or URL
+                     els.paperTitle.innerText = url.split('/').pop();
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert('Failed to load PDF. Check URL and CORS.');
+                resetApp();
+            } finally {
+                els.pdfLoader.classList.add('hidden');
+            }
+        }
+
+        async function extractFullText() {
+            let fullText = "";
+            const maxPages = Math.min(state.pdfDoc.numPages, 10); // Limit context to first 10 pages to avoid context window issues on big papers for now
+            
+            for (let i = 1; i <= maxPages; i++) {
+                const page = await state.pdfDoc.getPage(i);
+                const textContent = await page.getTextContent();
+                const pageText = textContent.items.map(item => item.str).join(' ');
+                fullText += `[Page ${i}] ${pageText}\n\n`;
+            }
+            state.paperText = fullText;
+            console.log("Extracted text length:", state.paperText.length);
+        }
+
+        async function renderAllPages() {
+            // Store scroll position?
+            els.pdfContainer.innerHTML = ''; // Full re-render for zoom
+            els.pdfContainer.appendChild(els.pdfLoader);
+
+            for (let i = 1; i <= state.pdfDoc.numPages; i++) {
+                await renderPage(i);
+            }
+            updateZoomUI();
+        }
+
+        async function renderPage(num) {
+            const page = await state.pdfDoc.getPage(num);
+            const viewport = page.getViewport({ scale: state.scale });
+            
+            const wrapper = document.createElement('div');
+            wrapper.className = 'pdf-page-wrapper relative bg-white';
+            wrapper.style.width = `${viewport.width}px`; // Use explicit width from viewport
+            wrapper.style.height = `${viewport.height}px`;
+
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            
+            wrapper.appendChild(canvas);
+            
+            // Create text layer
+            const textLayerDiv = document.createElement('div');
+            textLayerDiv.className = 'textLayer absolute inset-0';
+            textLayerDiv.style.setProperty('--scale-factor', state.scale); // Required for new PDF.js
+            wrapper.appendChild(textLayerDiv);
+            
+            els.pdfContainer.appendChild(wrapper);
+
+            await page.render(renderContext).promise;
+            
+            // Text Layer Render
+            const textContent = await page.getTextContent();
+            pdfjsLib.renderTextLayer({
+                textContentSource: textContent,
+                container: textLayerDiv,
+                viewport: viewport,
+                textDivs: []
+            });
+        }
+        
+        function updateZoomUI() {
+             els.zoomLevel.innerText = Math.round(state.scale * 100) + '%';
+        }
+
+        // --- Interaction Logic ---
+
+        function handleTextSelection(event) {
+             const selection = window.getSelection();
+             const text = selection.toString().trim();
+
+             // Only act if selection is inside PDF Container and has text
+             if (!text || !els.pdfContainer.contains(selection.anchorNode)) {
+                 if (!els.selectionTooltip.contains(event.target)) {
+                    hideTooltip();
+                 }
+                 return;
+             }
+
+             // Position tooltip near selection
+             const range = selection.getRangeAt(0);
+             const rect = range.getBoundingClientRect();
+             const containerRect = els.appContainer.getBoundingClientRect();
+
+             // Relative position
+             const top = rect.bottom - containerRect.top + 10;
+             const left = rect.left - containerRect.left; // Adjust to prevent overflow later if needed
+
+             showTooltip(left, top, text);
+        }
+
+        async function showTooltip(x, y, text) {
+             els.selectionTooltip.style.left = `${Math.min(x, window.innerWidth - 350)}px`; // Prevent right overflow
+             els.selectionTooltip.style.top = `${y}px`;
+             els.selectionTooltip.classList.remove('hidden');
+             
+             els.tooltipContent.innerHTML = '<div class="flex items-center gap-2"><div class="loader w-4 h-4 border-2"></div> <span class="text-xs text-gray-500">Explaining...</span></div>';
+
+             // AI Call
+             try {
+                const explanation = await completion(`Explain the following text from the paper concisely: "${text}"`, false);
+                els.tooltipContent.innerHTML = marked.parse(explanation);
+             } catch (e) {
+                els.tooltipContent.innerText = "Error getting explanation.";
+             }
+        }
+
+        function hideTooltip() {
+            els.selectionTooltip.classList.add('hidden');
+        }
+
+        // --- Chat Logic ---
+
+        async function sendMessage() {
+            const text = els.chatInput.value.trim();
+            if (!text || state.isProcessing) return;
+
+            addMessage(text, 'user');
+            els.chatInput.value = '';
+            els.sendBtn.disabled = true;
+            state.isProcessing = true;
+
+            const loadingId = addMessage('Thinking...', 'ai', true);
+
+            try {
+                // Construct prompt with context
+                const systemPrompt = "You are a helpful research assistant utilizing the context of the provided paper. Answer the user's question based strictly on the paper's content. If you verify the answer, cite the page number if possible. Paper text: " + state.paperText.substring(0, 100000); // Truncate to safety limit
+                
+                const response = await completion(text, true, systemPrompt);
+                
+                removeMessage(loadingId);
+                addMessage(response, 'ai');
+            } catch (e) {
+                removeMessage(loadingId);
+                addMessage(`Error: ${e.message}`, 'ai');
+            } finally {
+                state.isProcessing = false;
+                els.sendBtn.disabled = false;
+                els.chatInput.focus();
+            }
+        }
+
+        function addMessage(text, role, isLoading = false) {
+             const id = Date.now();
+             const div = document.createElement('div');
+             div.className = 'flex gap-3 animate-[slideIn_0.3s_ease-out]';
+             div.id = `msg-${id}`;
+             
+             if (role === 'ai') {
+                 div.innerHTML = `
+                     <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white text-xs shadow-md shrink-0"><i class="fa-solid fa-robot"></i></div>
+                     <div class="bg-white rounded-2xl rounded-tl-none p-3 shadow-sm text-sm text-gray-700 max-w-[85%] border border-gray-100 prose prose-sm">
+                        ${isLoading ? '<div class="loader w-4 h-4 border-purple-500 border-2"></div>' : marked.parse(text)}
+                     </div>
+                 `;
+             } else {
+                 div.innerHTML = `
+                     <div class="bg-black text-white rounded-2xl rounded-br-none p-3 shadow-sm text-sm max-w-[85%] ml-auto">
+                        ${text}
+                     </div>
+                 `;
+             }
+             
+             els.chatMessages.appendChild(div);
+             els.chatMessages.scrollTop = els.chatMessages.scrollHeight;
+             return id;
+        }
+
+        function removeMessage(id) {
+            const el = document.getElementById(`msg-${id}`);
+            if (el) el.remove();
+        }
+
+        async function completion(prompt, useFullContext = true, systemOverride = null) {
+             const messages = [
+                 {
+                     role: "system",
+                     content: systemOverride || "You are a helpful assistant explaining academic concepts concisely."
+                 },
+                 {
+                     role: "user",
+                     content: prompt
+                 }
+             ];
+
+             const resp = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                 method: "POST",
+                 headers: {
+                     "Authorization": `Bearer ${state.apiKey}`,
+                     "Content-Type": "application/json",
+                     "HTTP-Referer": window.location.href, // Required by OpenRouter
+                     "X-Title": "Vuja Paper"
+                 },
+                 body: JSON.stringify({
+                     "model": state.modelName,
+                     "messages": messages
+                 })
+             });
+
+             if (!resp.ok) {
+                 const err = await resp.json();
+                 throw new Error(err.error?.message || "API Error");
+             }
+
+             const data = await resp.json();
+             return data.choices[0].message.content;
+        }
+
+        function resetApp() {
+            location.reload();
+        }
+
+    </script>
+    
+    <!-- PDF.js CSS Fixes for Text Layer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.css">
+</body>
+</html>
