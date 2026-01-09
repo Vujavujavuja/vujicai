@@ -1,5 +1,5 @@
 
-export const onRequest: PagesFunction = async (context) => {
+export const onRequest = async (context) => {
   const url = new URL(context.request.url);
   const paperUrl = url.searchParams.get('url');
 
@@ -10,7 +10,7 @@ export const onRequest: PagesFunction = async (context) => {
   // Basic validation to ensure it's attempting to fetch a PDF
   // We can expand this to be stricter (e.g., only arxiv.org) if needed
   if (!paperUrl.toLowerCase().startsWith('http')) {
-     return new Response('Invalid URL', { status: 400 });
+    return new Response('Invalid URL', { status: 400 });
   }
 
   try {
@@ -32,7 +32,7 @@ export const onRequest: PagesFunction = async (context) => {
       status: 200,
       headers: newHeaders
     });
-  } catch (err) {
-    return new Response(`Error fetching PDF: ${err.message}`, { status: 500 });
+  } catch (err: any) {
+    return new Response(`Error fetching PDF: ${err.message || err}`, { status: 500 });
   }
 }
