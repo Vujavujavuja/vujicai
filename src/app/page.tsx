@@ -1,6 +1,11 @@
 import { HeroSection } from '@/components/ui/hero-dithering-card';
+import { LatestPostCard } from '@/components/ui/latest-post-card';
+import { getPostSummaries } from '@/lib/blog';
 
 export default function HomePage() {
+  const posts = getPostSummaries();
+  const latestPost = posts[0];
+
   return (
     <div className="pb-20 md:pb-0">
       <HeroSection />
@@ -66,6 +71,15 @@ export default function HomePage() {
           </p>
         </section>
       </div>
+
+      {/* Latest Blog Post */}
+      {latestPost && (
+        <LatestPostCard
+          title={latestPost.title}
+          description={latestPost.description}
+          href={`/blog/${latestPost.slug}/`}
+        />
+      )}
     </div>
   );
 }
