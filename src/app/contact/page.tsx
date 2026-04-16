@@ -8,6 +8,9 @@ export default function ContactPage() {
     <div className="py-20 pb-32 md:pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-xl md:pl-24">
         <div className="mb-12 text-center">
+          <p className="text-xs md:text-sm text-muted-foreground/50 italic tracking-wide mb-2">
+            how to
+          </p>
           <h1 className="font-serif text-5xl md:text-6xl font-medium tracking-tight mb-4">
             Get in Touch
           </h1>
