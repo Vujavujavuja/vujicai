@@ -19,6 +19,9 @@ export default function BlogPage() {
     <div className="py-20 pb-32 md:pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl md:pl-24">
         <div className="mb-16 text-center">
+          <p className="text-xs md:text-sm text-muted-foreground/50 italic tracking-wide mb-2">
+            my
+          </p>
           <h1 className="font-serif text-5xl md:text-6xl font-medium tracking-tight mb-4">
             Blog
           </h1>

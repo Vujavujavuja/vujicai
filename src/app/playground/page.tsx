@@ -46,6 +46,9 @@ export default function PlaygroundPage() {
   return (
     <div className="pb-32 md:pb-0">
       <div className="pt-20 text-center px-4">
+        <p className="text-xs md:text-sm text-muted-foreground/50 italic tracking-wide mb-2">
+          enjoy the
+        </p>
         <h1 className="font-serif text-5xl md:text-6xl font-medium tracking-tight mb-4">
           Playground
         </h1>
