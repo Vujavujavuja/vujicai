@@ -1,21 +1,29 @@
 import './globals.css';
-import { Poppins } from 'next/font/google';
+import { Cormorant_Garamond, Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
+import { FloatingNav } from '@/components/floating-nav';
+import { MobileMenu } from '@/components/ui/modern-mobile-menu';
+import { FooterSection } from '@/components/ui/footer-section';
 import { cn } from '@/lib/utils';
 
-const poppins = Poppins({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-poppins',
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-heading',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-body',
 });
 
 export const metadata = {
   metadataBase: new URL('https://vujic.ai'),
   title: {
-    default: 'Nemanja Vujic - Data Scientist & AI Engineer | Vujic AI',
-    template: '%s | Vujic AI',
+    default: 'Nemanja Vujic - Data Scientist & AI Engineer',
+    template: '%s | Nemanja Vujic',
   },
   description:
     'Nemanja Vujic is a Data Scientist & AI Engineer from Serbia specializing in LLMs, generative AI, RAG systems, and prompt engineering.',
@@ -26,7 +34,7 @@ export const metadata = {
     description:
       'AI Engineer from Serbia specializing in LLMs, RAG systems, and production ML pipelines.',
     url: 'https://vujic.ai',
-    siteName: 'Vujic AI',
+    siteName: 'Nemanja Vujic',
     locale: 'en_US',
     type: 'website',
   },
@@ -48,19 +56,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={poppins.variable}>
-      <body className={cn(poppins.className, 'min-h-screen font-sans antialiased')}>
+    <html lang="en" suppressHydrationWarning className={cn(cormorant.variable, inter.variable)}>
+      <body className={cn(inter.className, 'min-h-screen font-sans antialiased')}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
+          <FloatingNav />
+          <MobileMenu />
+          <main className="flex-1">{children}</main>
+          <FooterSection />
         </ThemeProvider>
       </body>
     </html>

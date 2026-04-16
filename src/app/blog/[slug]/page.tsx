@@ -24,18 +24,17 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const htmlContent = markdownToHtml(post.content);
 
   return (
-    <div className="py-20">
+    <div className="py-20 pb-32 md:pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <Link
           href="/blog/"
-          className="text-sm text-muted-foreground hover:text-foreground mb-8 inline-block"
+          className="text-sm text-muted-foreground hover:text-primary mb-8 inline-block transition-colors"
         >
-          &larr; Back to Blog
+          &larr; Back to Journal
         </Link>
 
-        {/* Post header */}
-        <header className="mb-10">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+        <header className="mb-12">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-6 leading-[1.1]">
             {post.title}
           </h1>
           <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
@@ -48,7 +47,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs px-2 py-1 bg-muted rounded"
+                  className="text-xs px-2.5 py-1 bg-primary/10 text-primary rounded-full"
                 >
                   {tag}
                 </span>
@@ -57,14 +56,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           )}
         </header>
 
-        {/* Two-column layout: ToC + Article */}
-        <div className="flex gap-10">
-          {/* Table of Contents - left sidebar */}
+        <div className="flex gap-12">
           <aside className="hidden lg:block w-64 flex-shrink-0">
             <TableOfContents headings={post.headings} />
           </aside>
 
-          {/* Article content */}
           <article className="flex-1 min-w-0">
             <div
               className="prose max-w-none"

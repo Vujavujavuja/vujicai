@@ -4,48 +4,48 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --background: 40 20% 97%;
+    --foreground: 20 10% 12%;
+    --card: 40 20% 95%;
+    --card-foreground: 20 10% 12%;
+    --popover: 40 20% 97%;
+    --popover-foreground: 20 10% 12%;
+    --primary: 20 90% 48%;
+    --primary-foreground: 40 20% 97%;
+    --secondary: 40 15% 92%;
+    --secondary-foreground: 20 10% 12%;
+    --muted: 40 15% 92%;
+    --muted-foreground: 20 5% 45%;
+    --accent: 350 60% 35%;
+    --accent-foreground: 40 20% 97%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 20% 97%;
+    --border: 30 15% 88%;
+    --input: 30 15% 88%;
+    --ring: 20 90% 48%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --background: 20 10% 8%;
+    --foreground: 40 20% 93%;
+    --card: 20 10% 11%;
+    --card-foreground: 40 20% 93%;
+    --popover: 20 10% 8%;
+    --popover-foreground: 40 20% 93%;
+    --primary: 20 90% 52%;
+    --primary-foreground: 20 10% 8%;
+    --secondary: 20 8% 16%;
+    --secondary-foreground: 40 20% 93%;
+    --muted: 20 8% 16%;
+    --muted-foreground: 30 10% 55%;
+    --accent: 350 55% 45%;
+    --accent-foreground: 40 20% 93%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 40 20% 93%;
+    --border: 20 8% 18%;
+    --input: 20 8% 18%;
+    --ring: 20 90% 52%;
   }
 }
 
@@ -55,6 +55,11 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
   }
 }
 
@@ -64,27 +69,30 @@ html {
 
 /* Prose styles for blog content */
 .prose h2 {
-  @apply text-2xl font-bold mt-8 mb-4;
+  font-family: var(--font-heading);
+  @apply text-3xl font-medium mt-10 mb-5 tracking-tight;
 }
 
 .prose h3 {
-  @apply text-xl font-semibold mt-6 mb-3;
+  font-family: var(--font-heading);
+  @apply text-2xl font-medium mt-8 mb-4 tracking-tight;
 }
 
 .prose h4 {
-  @apply text-lg font-semibold mt-4 mb-2;
+  font-family: var(--font-heading);
+  @apply text-xl font-medium mt-6 mb-3;
 }
 
 .prose p {
-  @apply mb-4 leading-relaxed;
+  @apply mb-5 leading-relaxed;
 }
 
 .prose a {
-  @apply underline hover:text-foreground/80;
+  @apply text-primary underline underline-offset-4 hover:text-primary/80 transition-colors;
 }
 
 .prose strong {
-  @apply font-bold;
+  @apply font-semibold;
 }
 
 .prose em {
@@ -92,15 +100,15 @@ html {
 }
 
 .prose blockquote {
-  @apply border-l-4 border-muted-foreground/30 pl-4 italic my-4;
+  @apply border-l-4 border-primary/30 pl-5 italic my-6 text-muted-foreground;
 }
 
 .prose ul {
-  @apply list-disc pl-6 mb-4 space-y-1;
+  @apply list-disc pl-6 mb-5 space-y-2;
 }
 
 .prose ol {
-  @apply list-decimal pl-6 mb-4 space-y-1;
+  @apply list-decimal pl-6 mb-5 space-y-2;
 }
 
 .prose code {
@@ -108,9 +116,115 @@ html {
 }
 
 .prose pre {
-  @apply bg-muted p-4 rounded-lg overflow-x-auto my-4;
+  @apply bg-muted p-5 rounded-xl overflow-x-auto my-6;
 }
 
 .prose pre code {
   @apply bg-transparent p-0;
+}
+
+/* =============================================
+   InteractiveMenu (Mobile Nav) BEM Styles
+   ============================================= */
+
+:root {
+  --component-inactive-color: hsl(var(--muted-foreground));
+  --component-bg: hsl(var(--card));
+  --component-shadow: hsl(var(--border));
+  --component-active-bg: hsl(var(--secondary));
+  --component-line-inactive-color: hsl(var(--border));
+  --component-active-color-default: hsl(var(--primary));
+}
+
+.dark {
+  --component-inactive-color: hsl(var(--muted-foreground));
+  --component-bg: hsl(var(--card));
+  --component-shadow: hsl(var(--border));
+  --component-active-bg: hsl(var(--secondary));
+  --component-line-inactive-color: hsl(var(--muted-foreground));
+  --component-active-color-default: hsl(var(--primary));
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  background: var(--component-bg);
+  border-top: 1px solid var(--component-shadow);
+  width: 100%;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.menu__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 0.75rem;
+  transition: background-color 0.3s ease;
+  position: relative;
+  min-width: 60px;
+}
+
+.menu__item .menu__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu__item .menu__icon .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--component-inactive-color);
+  transition: color 0.3s ease;
+}
+
+.menu__item.active .menu__icon .icon {
+  color: var(--component-active-color, var(--component-active-color-default));
+  animation: iconBounce 0.5s ease;
+}
+
+.menu__text {
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--component-inactive-color);
+  transition: color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.7;
+}
+
+.menu__text.active {
+  color: var(--component-active-color, var(--component-active-color-default));
+  opacity: 1;
+}
+
+.menu__item.active {
+  background: var(--component-active-bg);
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-0.3em);
+  }
+  40% {
+    transform: translateY(0);
+  }
+  60% {
+    transform: translateY(-0.1em);
+  }
+  80% {
+    transform: translateY(0);
+  }
 }
