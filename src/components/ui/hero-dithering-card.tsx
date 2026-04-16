@@ -34,6 +34,9 @@ export function HeroSection() {
           </Suspense>
 
           <div className="relative z-10 px-6 max-w-4xl mx-auto text-center flex flex-col items-center">
+            <p className="text-xs md:text-sm text-muted-foreground/50 italic tracking-wide mb-2">
+              I am
+            </p>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-foreground mb-8 leading-[1.05]">
               Nemanja Vujic
             </h1>
