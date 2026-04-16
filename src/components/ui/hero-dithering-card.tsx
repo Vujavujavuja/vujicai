@@ -39,8 +39,9 @@ export function HeroSection() {
             </h1>
 
             <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-12 leading-relaxed">
-              Building smart, scalable AI systems that solve real-world problems.
-              Specializing in LLMs, Generative AI, and RAG architectures.
+              Building, experiencing, researching and talking...
+              <br />
+              From AI and tech to Music and Geopolitics, putting my own thoughts in words.
             </p>
 
             <Link href="/blog/">
