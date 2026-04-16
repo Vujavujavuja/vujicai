@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, BookOpen, Rocket, Mail } from 'lucide-react';
+import { Home, BookOpen, Rocket, Coffee, Trophy, Mail } from 'lucide-react';
 
 type IconComponentType = React.ElementType<{ className?: string }>;
 
@@ -16,6 +16,8 @@ const menuItems: InteractiveMenuItem[] = [
   { label: 'home', icon: Home, href: '/' },
   { label: 'blog', icon: BookOpen, href: '/blog' },
   { label: 'play', icon: Rocket, href: '/playground' },
+  { label: 'corner', icon: Coffee, href: '/corner' },
+  { label: 'wins', icon: Trophy, href: '/accomplishments' },
   { label: 'contact', icon: Mail, href: '/contact' },
 ];
 
@@ -58,7 +60,7 @@ export function MobileMenu() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
-      <nav className="menu" role="navigation" style={{ justifyContent: 'center', gap: '0.5rem' }}>
+      <nav className="menu" role="navigation" style={{ justifyContent: 'center', gap: '0.1rem' }}>
         {menuItems.map((item, index) => {
           const isActive = index === selectedIndex;
           const IconComponent = item.icon;
@@ -68,7 +70,7 @@ export function MobileMenu() {
               className={`menu__item ${isActive ? 'active' : ''}`}
               onClick={() => handleItemClick(index)}
               ref={(el) => { itemRefs.current[index] = el; }}
-              style={{ '--lineWidth': '0px' } as React.CSSProperties}
+              style={{ '--lineWidth': '0px', minWidth: '48px', padding: '0.5rem 0.4rem' } as React.CSSProperties}
             >
               <div className="menu__icon">
                 <IconComponent className="icon" />

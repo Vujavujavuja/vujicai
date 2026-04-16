@@ -4,6 +4,8 @@ export const navigation: NavigationItem[] = [
   { label: "Home", href: "/" },
   { label: "Blog", href: "/blog" },
   { label: "Playground", href: "/playground" },
+  { label: "Corner", href: "/corner" },
+  { label: "Wins", href: "/accomplishments" },
   { label: "Contact", href: "/contact" },
 ];
 

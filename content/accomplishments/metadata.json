@@ -1,0 +1,27 @@
+[
+  {
+    "id": "azure-ai-102",
+    "icon": "/accomplishments/azure.svg",
+    "title": "Azure AI Engineer (AI-102)",
+    "shortDescription": "Certified Azure AI Engineer Associate",
+    "longDescription": "Passed the Microsoft Azure AI Engineer Associate (AI-102) certification. Covers building, managing, and deploying AI solutions using Azure Cognitive Services, Azure AI Search, and Azure OpenAI.",
+    "date": "2025",
+    "blogSlug": "how-to-pass-azure-ai-engineer-ai-102-certificate-exam"
+  },
+  {
+    "id": "powerlifting-4th",
+    "icon": "/accomplishments/trophy.svg",
+    "title": "4th Place Nationals",
+    "shortDescription": "Serbian Junior Powerlifting -105kg",
+    "longDescription": "Placed 4th nationally in Serbia's Junior -105kg powerlifting category. Years of training, discipline, and progressive overload translated into national-level competition.",
+    "date": "2022"
+  },
+  {
+    "id": "vega-ai",
+    "icon": "/accomplishments/briefcase.svg",
+    "title": "Data Scientist at Vega IT",
+    "shortDescription": "Leading AI projects and mentoring",
+    "longDescription": "Working on advanced AI projects at Vega IT in Belgrade. Mentoring junior data scientists and developing AI learning labs for high school students.",
+    "date": "2023-present"
+  }
+]
