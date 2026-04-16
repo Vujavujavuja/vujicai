@@ -1,24 +1,29 @@
-export interface BlogPost {
+export interface BlogPostMeta {
   slug: string;
+  filename: string;
   title: string;
   description: string;
-  pubDate: string;
-  updatedDate?: string;
-  heroImage?: string;
-  content: string;
+  tags: string[];
+  date: string;
 }
 
-export interface PersonalInfo {
-  name: string;
+export interface TocHeading {
+  text: string;
+  level: number;
+  id: string;
+}
+
+export interface BlogPost extends BlogPostMeta {
+  content: string;
+  readingTime: number;
+  headings: TocHeading[];
+}
+
+export interface PlaygroundProject {
   title: string;
-  location: string;
-  company: string;
-  bio: string;
-  about: string;
-  powerlifting: string;
-  skills: string;
-  experience: string;
-  mentoring: string;
+  description: string;
+  tags: string[];
+  url: string;
 }
 
 export interface NavigationItem {

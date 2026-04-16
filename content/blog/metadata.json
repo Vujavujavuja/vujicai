@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "how-to-pass-azure-ai-engineer-ai-102-certificate-exam",
+    "filename": "How to Pass Azure AI Engineer AI-102 Certificate Exam.md",
+    "title": "How to Pass Azure AI Engineer AI-102 Certificate Exam",
+    "description": "A comprehensive guide to preparing for and passing the Azure AI Engineer AI-102 certification exam.",
+    "tags": ["azure", "certification", "ai-engineer", "ai-102"],
+    "date": "2025-07-20"
+  },
+  {
+    "slug": "why-every-product-should-have-a-dedicated-mcp-server",
+    "filename": "Why Every Product Should Have a Dedicated MCP Server.md",
+    "title": "Why Every Product Should Have a Dedicated MCP Server",
+    "description": "A practical look at why Model Context Protocol (MCP) is about to become the essential bridge between AI agents and real-world applications.",
+    "tags": ["mcp", "ai-agents", "anthropic", "ai-native"],
+    "date": "2025-07-18"
+  },
+  {
+    "slug": "transforming-ai-development-with-claude-code",
+    "filename": "Transforming AI Development with Claude Code.md",
+    "title": "Transforming AI Development with Claude Code (and other tools)",
+    "description": "How Claude Code is revolutionizing the way we build AI applications and accelerating development workflows for data scientists and engineers.",
+    "tags": ["claude-code", "ai-development", "productivity", "coding-assistants"],
+    "date": "2025-07-16"
+  }
+]
