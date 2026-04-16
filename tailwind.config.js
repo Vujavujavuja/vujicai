@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-body)', 'Georgia', 'serif'],
         heading: ['var(--font-heading)', 'Georgia', 'serif'],
         serif: ['var(--font-heading)', 'Georgia', 'serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'monospace'],

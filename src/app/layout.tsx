@@ -1,5 +1,5 @@
 import './globals.css';
-import { Cormorant_Garamond, Inter } from 'next/font/google';
+import { Cormorant_Garamond, EB_Garamond } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { FloatingNav } from '@/components/floating-nav';
 import { MobileMenu } from '@/components/ui/modern-mobile-menu';
@@ -13,9 +13,10 @@ const cormorant = Cormorant_Garamond({
   variable: '--font-heading',
 });
 
-const inter = Inter({
+const ebGaramond = EB_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
   variable: '--font-body',
 });
 
@@ -56,8 +57,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn(cormorant.variable, inter.variable)}>
-      <body className={cn(inter.className, 'min-h-screen font-sans antialiased')}>
+    <html lang="en" suppressHydrationWarning className={cn(cormorant.variable, ebGaramond.variable)}>
+      <body className={cn(ebGaramond.className, 'min-h-screen font-sans antialiased')}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
