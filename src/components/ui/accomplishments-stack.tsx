@@ -96,7 +96,7 @@ export function AccomplishmentsStack({ items }: AccomplishmentsStackProps) {
   const expandedItem = items.find((i) => i.id === expandedId);
 
   return (
-    <div className="relative flex h-[75vh] w-full items-center justify-center overflow-hidden">
+    <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.04] blur-3xl" />
@@ -191,19 +191,6 @@ export function AccomplishmentsStack({ items }: AccomplishmentsStackProps) {
             aria-label={`Go to item ${index + 1}`}
           />
         ))}
-      </div>
-
-      {/* Counter */}
-      <div className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2">
-        <div className="flex flex-col items-center">
-          <span className="text-4xl font-light text-foreground tabular-nums">
-            {String(currentIndex + 1).padStart(2, '0')}
-          </span>
-          <div className="my-2 h-px w-8 bg-foreground/20" />
-          <span className="text-sm text-muted-foreground tabular-nums">
-            {String(items.length).padStart(2, '0')}
-          </span>
-        </div>
       </div>
 
       {/* Instruction hint */}
