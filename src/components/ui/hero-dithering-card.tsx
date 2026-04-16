@@ -2,6 +2,7 @@
 
 import { useState, Suspense, lazy } from 'react';
 import Link from 'next/link';
+import { StarButton } from '@/components/ui/star-button';
 
 const Dithering = lazy(() =>
   import('@paper-design/shaders-react').then((mod) => ({ default: mod.Dithering }))
@@ -42,11 +43,14 @@ export function HeroSection() {
               Specializing in LLMs, Generative AI, and RAG architectures.
             </p>
 
-            <Link
-              href="/blog/"
-              className="group relative inline-flex h-14 items-center justify-center gap-3 overflow-hidden rounded-full bg-primary px-12 text-base font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:scale-105 active:scale-95 hover:ring-4 hover:ring-primary/20"
-            >
-              Read my Blog
+            <Link href="/blog/">
+              <StarButton
+                lightColor="#EC4E02"
+                duration={3}
+                className="rounded-3xl px-10 h-14 text-base"
+              >
+                Read my Blog
+              </StarButton>
             </Link>
           </div>
         </div>

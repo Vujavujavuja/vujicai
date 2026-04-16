@@ -105,7 +105,7 @@ export function StarButton({
       >
         <StarBackground color={backgroundColor} />
       </div>
-      <span className="z-10 relative bg-gradient-to-t dark:from-white dark:to-neutral-500 from-black to-neutral-400 inline-block text-transparent bg-clip-text">
+      <span className="z-10 relative bg-gradient-to-t dark:from-orange-100 dark:to-orange-300 from-orange-900 to-orange-600 inline-block text-transparent bg-clip-text font-medium">
         {children}
       </span>
     </button>
