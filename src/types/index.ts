@@ -26,6 +26,16 @@ export interface PlaygroundProject {
   url: string;
 }
 
+export interface Accomplishment {
+  id: string;
+  icon: string;
+  title: string;
+  shortDescription: string;
+  longDescription: string;
+  date: string;
+  blogSlug?: string;
+}
+
 export interface NavigationItem {
   label: string;
   href: string;
