@@ -114,3 +114,6 @@ temp/
 
 # Legacy Astro files
 .astro/
+
+# Claude Code worktrees
+.claude/worktrees/
