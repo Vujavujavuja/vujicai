@@ -51,7 +51,7 @@ interface StarButtonProps {
 export function StarButton({
   children,
   lightWidth = 110,
-  duration = 3,
+  duration = 6,
   lightColor = "#FAFAFA",
   backgroundColor = "currentColor",
   borderWidth = 2,
@@ -75,6 +75,7 @@ export function StarButton({
       style={
         {
           "--duration": duration,
+          "--hover-duration": Math.max(1, duration * 0.35),
           "--light-width": `${lightWidth}px`,
           "--light-color": lightColor,
           "--border-width": `${borderWidth}px`,
@@ -83,13 +84,13 @@ export function StarButton({
       }
       ref={pathRef}
       className={cn(
-        "relative z-[3] overflow-hidden h-10 px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-3xl text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 group/star-button",
+        "relative z-[3] overflow-hidden h-10 px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-3xl text-sm font-medium transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 group/star-button hover:scale-105 active:scale-95 hover:shadow-[0_0_20px_-3px_var(--light-color)]",
         className,
       )}
       {...props}
     >
       <div
-        className="absolute aspect-square inset-0 animate-star-btn bg-[radial-gradient(ellipse_at_center,var(--light-color),transparent,transparent)]"
+        className="absolute aspect-square inset-0 animate-star-btn group-hover/star-button:animate-star-btn-fast bg-[radial-gradient(ellipse_at_center,var(--light-color),transparent,transparent)]"
         style={
           {
             offsetPath: "var(--path)",
@@ -99,13 +100,13 @@ export function StarButton({
         }
       />
       <div
-        className="absolute inset-0 dark:border-white/15 border-black/10 z-[4] overflow-hidden rounded-[inherit] dark:text-black text-white"
+        className="absolute inset-0 dark:border-white/15 border-black/10 z-[4] overflow-hidden rounded-[inherit] dark:text-black text-white transition-all duration-300 group-hover/star-button:border-[var(--light-color)]/30"
         style={{ borderWidth: "var(--border-width)" }}
         aria-hidden="true"
       >
         <StarBackground color={backgroundColor} />
       </div>
-      <span className="z-10 relative bg-gradient-to-t dark:from-orange-100 dark:to-orange-300 from-orange-900 to-orange-600 inline-block text-transparent bg-clip-text font-medium">
+      <span className="z-10 relative bg-gradient-to-t dark:from-orange-100 dark:to-orange-300 from-orange-900 to-orange-600 inline-block text-transparent bg-clip-text font-medium transition-all duration-300 group-hover/star-button:dark:from-orange-50 group-hover/star-button:dark:to-orange-200 group-hover/star-button:from-orange-800 group-hover/star-button:to-orange-500">
         {children}
       </span>
     </button>

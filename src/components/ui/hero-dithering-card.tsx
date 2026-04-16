@@ -46,7 +46,7 @@ export function HeroSection() {
             <Link href="/blog/">
               <StarButton
                 lightColor="#EC4E02"
-                duration={3}
+                duration={8}
                 className="rounded-3xl px-10 h-14 text-base"
               >
                 Read my Blog
