@@ -12,17 +12,17 @@ export default function BlogPage() {
 
   return (
     <div className="py-20 pb-32 md:pb-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl md:pl-24">
         <div className="mb-16 text-center">
           <h1 className="font-serif text-5xl md:text-6xl font-medium tracking-tight mb-4">
-            Journal
+            Blog
           </h1>
           <p className="text-muted-foreground">
             Thoughts on AI, technology, and the craft of building
           </p>
         </div>
 
-        <div className="flex flex-col space-y-8">
+        <div className="flex flex-col space-y-6 md:space-y-8">
           {posts.map((post) => (
             <BlogCard
               key={post.slug}
