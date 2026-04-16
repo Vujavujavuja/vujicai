@@ -1,16 +1,8 @@
 'use client';
 
 import { StarButton } from '@/components/ui/star-button';
-import { useTheme } from 'next-themes';
-import { useState, useEffect } from 'react';
 
 export default function ContactPage() {
-  const { theme } = useTheme();
-  const [lightColor, setLightColor] = useState('#FAFAFA');
-
-  useEffect(() => {
-    setLightColor(theme === 'dark' ? '#FAFAFA' : '#EC4E02');
-  }, [theme]);
 
   return (
     <div className="py-20 pb-32 md:pb-20">
@@ -63,7 +55,7 @@ export default function ContactPage() {
           </div>
 
           <div className="flex justify-center pt-2">
-            <StarButton lightColor={lightColor} className="rounded-3xl px-8 h-12">
+            <StarButton lightColor="#EC4E02" duration={4} borderWidth={1} className="rounded-3xl px-10 h-14 text-base">
               Send Message
             </StarButton>
           </div>

@@ -71,7 +71,7 @@ export default function RadialOrbitalTimeline({
     let timer: NodeJS.Timeout;
     if (autoRotate) {
       timer = setInterval(() => {
-        setRotationAngle((prev) => Number(((prev + 0.3) % 360).toFixed(3)));
+        setRotationAngle((prev) => Number(((prev + 0.08) % 360).toFixed(3)));
       }, 50);
     }
     return () => { if (timer) clearInterval(timer); };
