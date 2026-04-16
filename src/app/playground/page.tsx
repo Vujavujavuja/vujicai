@@ -1,62 +1,59 @@
-import { ExternalLink } from 'lucide-react';
-import { getAllProjects } from '@/lib/playground';
+'use client';
 
-export const metadata = {
-  title: 'Playground',
-  description: 'AI-powered tools and projects by Nemanja Vujic.',
-};
+import { Globe, FileText, Layers, Rocket, Map } from 'lucide-react';
+import RadialOrbitalTimeline from '@/components/ui/radial-orbital-timeline';
+
+const projectData = [
+  {
+    id: 1,
+    title: "Vuja Mapapp",
+    date: "2025",
+    content: "AI-powered travel route generator that creates aesthetic maps based on your vibes. Describe your dream trip and let AI design a beautiful route.",
+    category: "AI Tool",
+    icon: Map,
+    relatedIds: [2],
+    status: "completed" as const,
+    energy: 100,
+    url: "https://map.vujic.ai",
+  },
+  {
+    id: 2,
+    title: "Vuja Paper",
+    date: "2025",
+    content: "AI-first research assistant that transforms static PDFs into interactive conversations. Chat with any Arxiv paper using the latest AI models.",
+    category: "AI Tool",
+    icon: FileText,
+    relatedIds: [1, 3],
+    status: "completed" as const,
+    energy: 90,
+    url: "https://paper.vujic.ai",
+  },
+  {
+    id: 3,
+    title: "PromptStratum",
+    date: "2025",
+    content: "Free MCP server for prompt layering. Get more out of your AI usage with a simple prompt layer (stratum).",
+    category: "MCP",
+    icon: Layers,
+    relatedIds: [2],
+    status: "in-progress" as const,
+    energy: 60,
+    url: "https://promptstratum.com",
+  },
+];
 
 export default function PlaygroundPage() {
-  const projects = getAllProjects();
-
   return (
-    <div className="py-20 pb-32 md:pb-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <div className="mb-16 text-center">
-          <h1 className="font-serif text-5xl md:text-6xl font-medium tracking-tight mb-4">
-            Playground
-          </h1>
-          <p className="text-muted-foreground">
-            AI-powered tools and side projects
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((project) => (
-            <a
-              key={project.title}
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block rounded-2xl border border-border p-6 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
-            >
-              <div className="flex items-start justify-between mb-3">
-                <h2 className="font-serif text-2xl font-medium group-hover:text-primary transition-colors">
-                  {project.title}
-                </h2>
-                <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary flex-shrink-0 mt-2 transition-colors" />
-              </div>
-
-              <p className="text-muted-foreground mb-5 text-sm leading-relaxed">
-                {project.description}
-              </p>
-
-              {project.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2.5 py-1 bg-primary/10 text-primary rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </a>
-          ))}
-        </div>
+    <div className="pb-32 md:pb-0">
+      <div className="pt-20 text-center px-4">
+        <h1 className="font-serif text-5xl md:text-6xl font-medium tracking-tight mb-4">
+          Playground
+        </h1>
+        <p className="text-muted-foreground mb-4">
+          Click on a node to explore
+        </p>
       </div>
+      <RadialOrbitalTimeline timelineData={projectData} />
     </div>
   );
 }

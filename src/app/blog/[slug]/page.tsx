@@ -25,16 +25,16 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
   return (
     <div className="py-20 pb-32 md:pb-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl md:pl-24">
         <Link
           href="/blog/"
           className="text-sm text-muted-foreground hover:text-primary mb-8 inline-block transition-colors"
         >
-          &larr; Back to Journal
+          &larr; Back to Blog
         </Link>
 
         <header className="mb-12">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-6 leading-[1.1]">
+          <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-6 leading-[1.1]">
             {post.title}
           </h1>
           <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
@@ -45,10 +45,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs px-2.5 py-1 bg-primary/10 text-primary rounded-full"
-                >
+                <span key={tag} className="text-xs px-2.5 py-1 bg-primary/10 text-primary rounded-full">
                   {tag}
                 </span>
               ))}
@@ -60,12 +57,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <aside className="hidden lg:block w-64 flex-shrink-0">
             <TableOfContents headings={post.headings} />
           </aside>
-
           <article className="flex-1 min-w-0">
-            <div
-              className="prose max-w-none"
-              dangerouslySetInnerHTML={{ __html: htmlContent }}
-            />
+            <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: htmlContent }} />
           </article>
         </div>
       </div>

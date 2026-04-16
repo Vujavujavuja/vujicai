@@ -15,7 +15,7 @@ interface InteractiveMenuItem {
 const menuItems: InteractiveMenuItem[] = [
   { label: 'home', icon: Home, href: '/' },
   { label: 'blog', icon: BookOpen, href: '/blog' },
-  { label: 'playground', icon: Rocket, href: '/playground' },
+  { label: 'play', icon: Rocket, href: '/playground' },
   { label: 'contact', icon: Mail, href: '/contact' },
 ];
 
@@ -57,8 +57,8 @@ export function MobileMenu() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden safe-bottom">
-      <nav className="menu" role="navigation">
+    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+      <nav className="menu" role="navigation" style={{ justifyContent: 'center', gap: '0.5rem' }}>
         {menuItems.map((item, index) => {
           const isActive = index === selectedIndex;
           const IconComponent = item.icon;
