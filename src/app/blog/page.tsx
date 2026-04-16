@@ -1,6 +1,6 @@
 import { getPostSummaries } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
-import { BlogCard } from '@/components/ui/blog-cards';
+import { InfiniteBlogList } from '@/components/ui/infinite-blog-list';
 
 export const metadata = {
   title: 'Blog',
@@ -8,7 +8,12 @@ export const metadata = {
 };
 
 export default function BlogPage() {
-  const posts = getPostSummaries();
+  const posts = getPostSummaries().map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    date: formatDate(post.date),
+    description: post.description,
+  }));
 
   return (
     <div className="py-20 pb-32 md:pb-20">
@@ -22,17 +27,7 @@ export default function BlogPage() {
           </p>
         </div>
 
-        <div className="flex flex-col space-y-6 md:space-y-8">
-          {posts.map((post) => (
-            <BlogCard
-              key={post.slug}
-              title={post.title}
-              date={formatDate(post.date)}
-              description={post.description}
-              href={`/blog/${post.slug}/`}
-            />
-          ))}
-        </div>
+        <InfiniteBlogList posts={posts} batchSize={5} />
       </div>
     </div>
   );
