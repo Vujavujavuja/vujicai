@@ -55,7 +55,7 @@ export default function ContactPage() {
           </div>
 
           <div className="flex justify-center pt-2">
-            <StarButton lightColor="#EC4E02" duration={4} borderWidth={1} className="rounded-3xl px-10 h-14 text-base">
+            <StarButton lightColor="#EC4E02" duration={8} borderWidth={1} className="rounded-3xl px-10 h-14 text-base">
               Send Message
             </StarButton>
           </div>

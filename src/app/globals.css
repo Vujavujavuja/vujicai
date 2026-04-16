@@ -245,3 +245,7 @@ html {
 .animate-star-btn {
   animation: star-btn calc(var(--duration) * 1s) linear infinite;
 }
+
+.animate-star-btn-fast {
+  animation: star-btn calc(var(--hover-duration, 1) * 1s) linear infinite;
+}
