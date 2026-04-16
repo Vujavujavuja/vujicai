@@ -1,8 +1,17 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
+import { getAllPostsMeta } from '@/lib/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://vujic.ai'
-  const currentDate = new Date().toISOString()
+  const baseUrl = 'https://vujic.ai';
+  const currentDate = new Date().toISOString();
+
+  const posts = getAllPostsMeta();
+  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}/`,
+    lastModified: post.date,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
 
   return [
     {
@@ -12,28 +21,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${baseUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/blog`,
+      url: `${baseUrl}/blog/`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/contact`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/services`,
+      url: `${baseUrl}/playground/`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-  ]
+    {
+      url: `${baseUrl}/contact/`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    ...blogEntries,
+  ];
 }

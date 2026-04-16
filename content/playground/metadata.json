@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Vuja Mapapp",
+    "description": "An AI-powered travel route generator that creates aesthetic travel maps based on your vibes. Describe your dream trip, and let AI design a beautiful route with custom styling and map themes.",
+    "tags": ["AI-Powered", "Cloudflare Workers", "Interactive Maps", "OpenRouter API"],
+    "url": "https://map.vujic.ai"
+  },
+  {
+    "title": "Vuja Paper",
+    "description": "An AI-first research assistant that transforms static PDFs into interactive conversations. Link any Arxiv paper and chat with it using the latest AI models directly in your browser.",
+    "tags": ["Local-First", "Arxiv Integration", "PDF.js", "OpenRouter"],
+    "url": "https://paper.vujic.ai"
+  },
+  {
+    "title": "PromptStratum",
+    "description": "Get more out of your AI usage with a simple prompt layer (stratum) using my free MCP server.",
+    "tags": ["MCP Server", "Prompt Engineering", "AI Tools"],
+    "url": "https://promptstratum.com"
+  }
+]
