@@ -31,6 +31,7 @@ export default function RadialOrbitalTimeline({
   const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({});
   const [centerOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
+  const [radius, setRadius] = useState(200);
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
@@ -68,6 +69,15 @@ export default function RadialOrbitalTimeline({
   };
 
   useEffect(() => {
+    const updateRadius = () => {
+      setRadius(window.innerWidth < 640 ? 120 : 200);
+    };
+    updateRadius();
+    window.addEventListener('resize', updateRadius);
+    return () => window.removeEventListener('resize', updateRadius);
+  }, []);
+
+  useEffect(() => {
     let timer: NodeJS.Timeout;
     if (autoRotate) {
       timer = setInterval(() => {
@@ -85,7 +95,6 @@ export default function RadialOrbitalTimeline({
 
   const calculateNodePosition = (index: number, total: number) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 200;
     const radian = (angle * Math.PI) / 180;
     const x = radius * Math.cos(radian) + centerOffset.x;
     const y = radius * Math.sin(radian) + centerOffset.y;
@@ -134,7 +143,7 @@ export default function RadialOrbitalTimeline({
           </div>
 
           {/* Orbit ring */}
-          <div className="absolute w-96 h-96 rounded-full border border-border/30" />
+          <div className="absolute w-64 h-64 sm:w-96 sm:h-96 rounded-full border border-border/30" />
 
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
