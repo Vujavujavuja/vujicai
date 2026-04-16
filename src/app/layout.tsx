@@ -47,7 +47,7 @@ export const metadata = {
     canonical: 'https://vujic.ai',
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/favicon.png',
   },
 };
 
