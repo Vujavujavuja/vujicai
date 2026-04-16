@@ -37,20 +37,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-6 leading-[1.1]">
             {post.title}
           </h1>
-          <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <time>{formatDate(post.date)}</time>
             <span>&middot;</span>
             <span>{post.readingTime} min read</span>
           </div>
-          {post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span key={tag} className="text-xs px-2.5 py-1 bg-primary/10 text-primary rounded-full">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
         </header>
 
         <div className="flex gap-12">
