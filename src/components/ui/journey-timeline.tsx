@@ -36,9 +36,9 @@ export function JourneyTimeline({ items, rowSize = 4 }: JourneyTimelineProps) {
  * ================================================================ */
 
 const VB_WIDTH = 1000;
-const ROW_HEIGHT = 220;
+const ROW_HEIGHT = 180;
 const PADDING_X = 60;
-const PADDING_Y = 20;
+const PADDING_Y = 120;
 const CORNER_RADIUS = 28;
 
 interface DotPosition {
@@ -193,18 +193,22 @@ function DesktopDot({ item, index, totalItems, doneItems, progress, left, top, r
       className="absolute -translate-x-1/2 -translate-y-1/2"
       style={{ left: `${left}%`, top: `${top}%` }}
     >
+      {/* Role/company label: ABOVE for even rows, BELOW for odd rows so they
+          don't invade the adjacent row's space */}
       <div
-        className="absolute bottom-full pb-4 whitespace-nowrap"
+        className={cn(
+          'absolute whitespace-nowrap',
+          isOddRow ? 'top-full pt-4' : 'bottom-full pb-4'
+        )}
         style={{
-          left: isOddRow ? 'auto' : '50%',
-          right: isOddRow ? '50%' : 'auto',
+          left: '50%',
           transform: isOddRow
-            ? 'translateX(20%) rotate(35deg)'
+            ? 'translateX(-20%) rotate(35deg)'
             : 'translateX(-20%) rotate(-35deg)',
-          transformOrigin: isOddRow ? 'bottom right' : 'bottom left',
+          transformOrigin: isOddRow ? 'top left' : 'bottom left',
         }}
       >
-        <div className={cn('flex flex-col leading-tight', isOddRow && 'items-end')}>
+        <div className="flex flex-col leading-tight">
           <span
             className={cn(
               'text-sm md:text-base font-serif font-medium',
@@ -221,6 +225,7 @@ function DesktopDot({ item, index, totalItems, doneItems, progress, left, top, r
         </div>
       </div>
 
+      {/* Dot */}
       <div
         className={cn(
           'relative h-4 w-4 rounded-full ring-4 ring-background',
@@ -237,7 +242,14 @@ function DesktopDot({ item, index, totalItems, doneItems, progress, left, top, r
         )}
       </div>
 
-      <span className="absolute top-full mt-3 left-1/2 -translate-x-1/2 font-mono text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground/80 whitespace-nowrap">
+      {/* Age caption: BELOW for even rows, ABOVE for odd rows — always in the
+          "inside" gap between rows */}
+      <span
+        className={cn(
+          'absolute left-1/2 -translate-x-1/2 font-mono text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground/80 whitespace-nowrap',
+          isOddRow ? 'bottom-full mb-3' : 'top-full mt-3'
+        )}
+      >
         Age {item.age}
       </span>
     </div>
