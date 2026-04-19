@@ -10,6 +10,7 @@ interface FooterLink {
   href: string;
   icon?: React.ComponentType<{ className?: string }>;
   external?: boolean;
+  me?: boolean;
 }
 
 interface FooterSection {
@@ -40,9 +41,9 @@ const footerLinks: FooterSection[] = [
   {
     label: 'Connect',
     links: [
-      { title: 'LinkedIn', href: 'https://linkedin.com/in/nemanja-vujic-vuja43', icon: Linkedin, external: true },
-      { title: 'GitHub', href: 'https://github.com/vujavujavuja', icon: Github, external: true },
-      { title: 'Email', href: 'mailto:nemanja@vujic.ai', icon: Mail },
+      { title: 'LinkedIn', href: 'https://linkedin.com/in/nemanja-vujic-vuja43', icon: Linkedin, external: true, me: true },
+      { title: 'GitHub', href: 'https://github.com/vujavujavuja', icon: Github, external: true, me: true },
+      { title: 'Email', href: 'mailto:nemanja@vujic.ai', icon: Mail, me: true },
     ],
   },
 ];
@@ -76,7 +77,14 @@ export function FooterSection() {
                       <a
                         href={link.href}
                         className="hover:text-foreground inline-flex items-center transition-all duration-300"
-                        {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        {...(link.external
+                          ? {
+                              target: '_blank',
+                              rel: `noopener noreferrer${link.me ? ' me' : ''}`,
+                            }
+                          : link.me
+                            ? { rel: 'me' }
+                            : {})}
                       >
                         {link.icon && <link.icon className="me-1.5 size-3.5" />}
                         {link.title}
