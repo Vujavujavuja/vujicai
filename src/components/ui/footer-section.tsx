@@ -54,14 +54,14 @@ export function FooterSection() {
 
       <div className="grid w-full gap-8 xl:grid-cols-3 xl:gap-8">
         <AnimatedContainer className="space-y-4">
-          <div className="font-serif text-2xl font-medium tracking-tight">Nemanja Vujic</div>
-          <p className="text-muted-foreground text-sm">
-            Data Scientist & AI Engineer from Serbia.
+          <div className="font-serif text-2xl font-medium tracking-tight">Nemanja Vujić</div>
+          <p className="text-muted-foreground text-sm italic">
+            Building, experiencing, researching, talking and listening.
             <br />
-            Building smart AI systems that solve real problems.
+            Putting my own thoughts in words.
           </p>
           <p className="text-muted-foreground mt-8 text-xs md:mt-0">
-            &copy; {new Date().getFullYear()} Nemanja Vujic. All rights reserved.
+            &copy; {new Date().getFullYear()} Nemanja Vujić. All rights reserved.
           </p>
         </AnimatedContainer>
 

@@ -23,21 +23,27 @@ const literata = Literata({
 export const metadata = {
   metadataBase: new URL('https://vujic.ai'),
   title: {
-    default: 'Nemanja Vujic - Data Scientist & AI Engineer',
-    template: '%s | Nemanja Vujic',
+    default: 'Nemanja Vujić',
+    template: '%s · Nemanja Vujić',
   },
   description:
-    'Nemanja Vujic is a Data Scientist & AI Engineer from Serbia specializing in LLMs, generative AI, RAG systems, and prompt engineering.',
-  authors: [{ name: 'Nemanja Vujic', url: 'https://vujic.ai' }],
-  creator: 'Nemanja Vujic',
+    'Building, experiencing, researching, talking and listening. From AI and tech to Music and Geopolitics — putting my own thoughts in words.',
+  authors: [{ name: 'Nemanja Vujić', url: 'https://vujic.ai' }],
+  creator: 'Nemanja Vujić',
   openGraph: {
-    title: 'Nemanja Vujic - Data Scientist & AI Engineer',
+    title: 'Nemanja Vujić',
     description:
-      'AI Engineer from Serbia specializing in LLMs, RAG systems, and production ML pipelines.',
+      'Building, experiencing, researching, talking and listening. From AI and tech to Music and Geopolitics — putting my own thoughts in words.',
     url: 'https://vujic.ai',
-    siteName: 'Nemanja Vujic',
+    siteName: 'Nemanja Vujić',
     locale: 'en_US',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Nemanja Vujić',
+    description:
+      'Building, experiencing, researching, talking and listening. From AI and tech to Music and Geopolitics — putting my own thoughts in words.',
   },
   robots: {
     index: true,
@@ -47,7 +53,11 @@ export const metadata = {
     canonical: 'https://vujic.ai',
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 };
 
