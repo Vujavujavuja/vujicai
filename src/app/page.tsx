@@ -77,11 +77,9 @@ export default function HomePage() {
             <p>
               Most recently I decided on a big move to DataCebo as a Forward Deployed
               Engineer. It was a hard decision, but one I do not regret. The FDE role is a
-              wide one, and that is exactly why I love it: it covers technical sales and
-              field engineering, content and marketing and developer education, bug hunting
-              on the product, and account management across enterprise accounts. It&apos;s
-              the closest thing to running a little piece of the company end to end, and
-              it&apos;s everything I was trying to move towards for years.
+              wide one, and that is exactly why I love it: technical sales and field
+              engineering, content and marketing and developer education, bug hunting on
+              the product, and account management across enterprise accounts.
             </p>
           </div>
 
@@ -106,8 +104,7 @@ export default function HomePage() {
             </p>
             <p>
               I also adore mentoring people &mdash; it&apos;s one of the things I did the
-              most at Vega. Outside of work I currently mentor two promising people who I
-              am trying to give the best head start possible.
+              most at Vega. Outside of work I currently mentor two promising people.
             </p>
           </div>
         </section>
@@ -124,9 +121,9 @@ export default function HomePage() {
               level, but deep understanding and reading of research in that area. As I
               mentioned, powerlifting used to be a big part of it and still is
               occasionally, as I retired from competing. Geopolitics and the financial state
-              of the world, shocker right &mdash; but I find all the nuances so intriguing
-              and interesting, and the level to which people think it&apos;s all black and
-              white when talking to them shocks me. More on that on my blog.
+              of the world &mdash; I find the nuances fascinating, and the level to which
+              people think it&apos;s all black and white when talking to them shocks me.
+              More on that on my blog.
             </p>
             <p>
               A lot of what I do outside work is reading. Research papers mostly &mdash; AI,
