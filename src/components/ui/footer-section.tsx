@@ -23,7 +23,7 @@ const footerLinks: FooterSection[] = [
     label: 'Navigate',
     links: [
       { title: 'Home', href: '/' },
-      { title: 'Blog', href: '/blog' },
+      { title: 'Thoughts', href: '/thoughts' },
       { title: 'Playground', href: '/playground' },
       { title: 'Corner', href: '/corner' },
       { title: 'Wins', href: '/accomplishments' },

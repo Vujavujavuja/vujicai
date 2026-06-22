@@ -14,7 +14,7 @@ interface InteractiveMenuItem {
 
 const menuItems: InteractiveMenuItem[] = [
   { label: 'home', icon: Home, href: '/' },
-  { label: 'blog', icon: BookOpen, href: '/blog' },
+  { label: 'thoughts', icon: BookOpen, href: '/thoughts' },
   { label: 'contact', icon: Mail, href: '/contact' },
 ];
 

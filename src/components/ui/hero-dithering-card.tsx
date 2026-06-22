@@ -49,13 +49,13 @@ export function HeroSection() {
               Putting my own thoughts in words.
             </p>
 
-            <Link href="/blog/">
+            <Link href="/thoughts/">
               <StarButton
                 lightColor="#EC4E02"
                 duration={8}
                 className="rounded-3xl px-10 h-14 text-base"
               >
-                Read my Blog
+                Read my Thoughts
               </StarButton>
             </Link>
           </div>
