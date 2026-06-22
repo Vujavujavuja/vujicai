@@ -50,7 +50,7 @@ interface StarButtonProps {
 
 export function StarButton({
   children,
-  lightWidth = 110,
+  lightWidth = 75,
   duration = 6,
   lightColor = "#FAFAFA",
   backgroundColor = "currentColor",
@@ -75,7 +75,7 @@ export function StarButton({
       style={
         {
           "--duration": duration,
-          "--hover-duration": Math.max(1, duration * 0.35),
+          "--hover-duration": Math.max(2, duration * 0.6),
           "--light-width": `${lightWidth}px`,
           "--light-color": lightColor,
           "--border-width": `${borderWidth}px`,
@@ -84,13 +84,13 @@ export function StarButton({
       }
       ref={pathRef}
       className={cn(
-        "relative z-[3] overflow-hidden h-10 px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-3xl text-sm font-medium transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 group/star-button hover:scale-105 active:scale-95 hover:shadow-[0_0_20px_-3px_var(--light-color)]",
+        "relative z-[3] overflow-hidden h-10 px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-3xl text-sm font-medium transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 group/star-button hover:scale-[1.02] active:scale-95 hover:shadow-[0_0_12px_-6px_var(--light-color)]",
         className,
       )}
       {...props}
     >
       <div
-        className="absolute aspect-square inset-0 animate-star-btn group-hover/star-button:animate-star-btn-fast bg-[radial-gradient(ellipse_at_center,var(--light-color),transparent,transparent)]"
+        className="absolute aspect-square inset-0 opacity-60 animate-star-btn group-hover/star-button:animate-star-btn-fast bg-[radial-gradient(ellipse_at_center,var(--light-color),transparent,transparent)]"
         style={
           {
             offsetPath: "var(--path)",

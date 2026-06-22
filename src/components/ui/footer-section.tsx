@@ -64,6 +64,12 @@ export function FooterSection() {
           <p className="text-muted-foreground mt-8 text-xs md:mt-0">
             &copy; {new Date().getFullYear()} Nemanja Vujić. All rights reserved.
           </p>
+          <a
+            href="/privacy"
+            className="text-muted-foreground/70 hover:text-foreground text-xs transition-colors duration-300"
+          >
+            Privacy Policy
+          </a>
         </AnimatedContainer>
 
         <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-3 xl:col-span-2 xl:mt-0">
