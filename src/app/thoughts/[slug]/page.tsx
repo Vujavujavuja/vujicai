@@ -4,6 +4,8 @@ import { getAllSlugs, getPostBySlug, markdownToHtml } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
 import { TableOfContents } from '@/components/table-of-contents';
 
+const SITE_URL = 'https://vujic.ai';
+
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
 }
@@ -11,9 +13,21 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const post = getPostBySlug(params.slug);
   if (!post) return { title: 'Post Not Found' };
+  const url = `${SITE_URL}/thoughts/${post.slug}/`;
   return {
     title: post.title,
     description: post.description,
+    alternates: { canonical: `/thoughts/${post.slug}/` },
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.description,
+      url,
+      publishedTime: post.date,
+      modifiedTime: post.date,
+      authors: [SITE_URL],
+      tags: post.tags,
+    },
   };
 }
 
@@ -22,9 +36,46 @@ export default function ThoughtPage({ params }: { params: { slug: string } }) {
   if (!post) notFound();
 
   const htmlContent = markdownToHtml(post.content);
+  const url = `${SITE_URL}/thoughts/${post.slug}/`;
+
+  // BlogPosting + breadcrumb structured data so answer engines can extract,
+  // attribute, and cite the post (author, dates, headline).
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: { '@type': 'Person', name: 'Nemanja Vujić', url: SITE_URL },
+    publisher: { '@type': 'Person', name: 'Nemanja Vujić', url: SITE_URL },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    image: `${SITE_URL}/og-image.png`,
+    url,
+    inLanguage: 'en',
+    ...(post.tags?.length ? { keywords: post.tags.join(', ') } : {}),
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: 'Thoughts', item: `${SITE_URL}/thoughts/` },
+      { '@type': 'ListItem', position: 3, name: post.title, item: url },
+    ],
+  };
 
   return (
     <div className="py-20 pb-32 md:pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl md:pl-24">
         <Link
           href="/thoughts/"
@@ -38,7 +89,7 @@ export default function ThoughtPage({ params }: { params: { slug: string } }) {
             {post.title}
           </h1>
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <time>{formatDate(post.date)}</time>
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
             <span>&middot;</span>
             <span>{post.readingTime} min read</span>
           </div>

@@ -1,0 +1,26 @@
+# Nemanja Vujić — vujic.ai
+
+> Personal site and blog of Nemanja Vujić, a Forward Deployed Engineer at DataCebo based in Belgrade, Serbia. Writing and building across AI, large language models, retrieval-augmented generation, and data science — with detours into powerlifting, health and longevity research, music, and geopolitics.
+
+## About
+- Nemanja Vujić is a Forward Deployed Engineer at DataCebo. He works with AI agents, large language models (LLMs), retrieval-augmented generation (RAG), and data science. Also known as "Vuja". Based in Belgrade, Serbia.
+
+## Thoughts
+- [Thoughts](https://vujic.ai/thoughts/): essays and notes on AI, technology, and the craft of building.
+- [An edge stops working the moment it becomes famous](https://vujic.ai/thoughts/an-edge-stops-working-the-moment-it-becomes-famous/): being early to a tool was never the edge — how optimized marketing and an urgency-driven feed manufacture the feeling of falling behind.
+
+## Pages
+- [Home](https://vujic.ai/)
+- [Contact](https://vujic.ai/contact/)
+- [Wins / Accomplishments](https://vujic.ai/accomplishments/)
+- [Vuja's Corner](https://vujic.ai/corner/)
+- [Playground](https://vujic.ai/playground/)
+- [Privacy Policy](https://vujic.ai/privacy/)
+
+## Connect
+- LinkedIn: https://linkedin.com/in/nemanja-vujic-vuja43
+- GitHub: https://github.com/vujavujavuja
+- Email: nemanja@vujic.ai
+
+## Notes
+- The full, always-current list of pages and posts is in the sitemap: https://vujic.ai/sitemap.xml

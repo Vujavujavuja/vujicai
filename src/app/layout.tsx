@@ -77,12 +77,17 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: SITE_URL,
+    // Relative './' resolves per-route against metadataBase, so every page
+    // gets a self-referential canonical instead of all pointing at the homepage.
+    canonical: './',
   },
   icons: {
-    icon: [{ url: '/favicon.ico', sizes: 'any' }],
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.png', type: 'image/png', sizes: '512x512' },
+    ],
     shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    apple: '/favicon.png',
   },
 };
 
