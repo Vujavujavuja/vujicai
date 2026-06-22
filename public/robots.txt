@@ -23,6 +23,27 @@ Allow: /
 User-agent: Claude-Web
 Allow: /
 
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 # Block spam bots
 User-agent: SemrushBot
 Disallow: /
