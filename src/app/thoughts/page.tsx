@@ -3,11 +3,11 @@ import { formatDate } from '@/lib/utils';
 import { InfiniteBlogList } from '@/components/ui/infinite-blog-list';
 
 export const metadata = {
-  title: 'Blog',
-  description: 'Thoughts on AI, technology, and my journey in data science.',
+  title: 'Thoughts',
+  description: 'Thoughts on AI, technology, and the craft of building.',
 };
 
-export default function BlogPage() {
+export default function ThoughtsPage() {
   const posts = getPostSummaries().map((post) => ({
     slug: post.slug,
     title: post.title,
@@ -23,7 +23,7 @@ export default function BlogPage() {
             my
           </p>
           <h1 className="font-serif text-5xl md:text-6xl font-medium tracking-tight mb-4">
-            Blog
+            Thoughts
           </h1>
           <p className="text-muted-foreground">
             Thoughts on AI, technology, and the craft of building

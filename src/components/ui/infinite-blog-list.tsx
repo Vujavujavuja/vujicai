@@ -52,7 +52,7 @@ export function InfiniteBlogList({ posts, batchSize = 5 }: InfiniteBlogListProps
             title={post.title}
             date={post.date}
             description={post.description}
-            href={`/blog/${post.slug}/`}
+            href={`/thoughts/${post.slug}/`}
           />
         ))}
       </div>

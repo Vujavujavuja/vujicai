@@ -17,7 +17,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+export default function ThoughtPage({ params }: { params: { slug: string } }) {
   const post = getPostBySlug(params.slug);
   if (!post) notFound();
 
@@ -27,10 +27,10 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     <div className="py-20 pb-32 md:pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl md:pl-24">
         <Link
-          href="/blog/"
+          href="/thoughts/"
           className="text-sm text-muted-foreground hover:text-primary mb-8 inline-block transition-colors"
         >
-          &larr; Back to Blog
+          &larr; Back to Thoughts
         </Link>
 
         <header className="mb-12">

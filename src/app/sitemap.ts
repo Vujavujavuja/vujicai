@@ -6,8 +6,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date().toISOString();
 
   const posts = getAllPostsMeta();
-  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}/`,
+  const thoughtEntries: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${baseUrl}/thoughts/${post.slug}/`,
     lastModified: post.date,
     changeFrequency: 'monthly',
     priority: 0.7,
@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${baseUrl}/blog/`,
+      url: `${baseUrl}/thoughts/`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -50,6 +50,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
-    ...blogEntries,
+    ...thoughtEntries,
   ];
 }

@@ -3,7 +3,7 @@ import { NavigationItem, SocialLink } from '@/types';
 // Visible in main navigation (floating nav + mobile bottom menu)
 export const navigation: NavigationItem[] = [
   { label: "Home", href: "/" },
-  { label: "Blog", href: "/blog" },
+  { label: "Thoughts", href: "/thoughts" },
   { label: "Contact", href: "/contact" },
 ];
 

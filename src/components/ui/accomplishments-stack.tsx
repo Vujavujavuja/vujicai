@@ -257,7 +257,7 @@ export function AccomplishmentsStack({ items }: AccomplishmentsStackProps) {
 
               {expandedItem.blogSlug && (
                 <div className="flex justify-center">
-                  <Link href={`/blog/${expandedItem.blogSlug}/`}>
+                  <Link href={`/thoughts/${expandedItem.blogSlug}/`}>
                     <StarButton
                       lightColor="#EC4E02"
                       duration={8}
