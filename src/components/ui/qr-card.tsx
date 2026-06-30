@@ -30,13 +30,6 @@ export function QrCard() {
           </Suspense>
 
           <div className="relative z-10 w-full px-8 flex flex-col items-center">
-            <p className="text-xs md:text-sm text-muted-foreground/60 italic tracking-wide mb-2">
-              I am
-            </p>
-            <h1 className="font-serif text-4xl md:text-5xl font-medium tracking-tight text-foreground mb-12 leading-[1.05] text-center">
-              Nemanja Vujic
-            </h1>
-
             <nav className="w-full flex flex-col gap-4">
               <Link href="/" className={linkClass}>
                 Who am I?
