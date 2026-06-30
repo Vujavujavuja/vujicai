@@ -2,6 +2,8 @@ export interface BlogPostMeta {
   slug: string;
   filename: string;
   title: string;
+  /** Short title shown on the Thoughts index card (falls back to title). */
+  cardTitle?: string;
   description: string;
   tags: string[];
   date: string;

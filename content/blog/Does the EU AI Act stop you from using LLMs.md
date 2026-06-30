@@ -17,4 +17,4 @@ Being high-risk doesn't instantly mean it's forbidden — it just means there ar
 
 Here is the risk spectrum you can save for later:
 
-![The EU AI Act risk spectrum, from Prohibited (banned outright) and High Risk (allowed but heavily regulated) down to Limited Risk (must be transparent) and Minimal Risk (use freely)](/eu-ai-act-risk-spectrum.png)
+![The EU AI Act risk spectrum, from Prohibited (banned outright) and High Risk (allowed but heavily regulated) down to Limited Risk (must be transparent) and Minimal Risk (use freely)](/eu-ai-act-risk-spectrum.webp)
