@@ -10,7 +10,7 @@ export const metadata = {
 export default function ThoughtsPage() {
   const posts = getPostSummaries().map((post) => ({
     slug: post.slug,
-    title: post.title,
+    title: post.cardTitle ?? post.title,
     date: formatDate(post.date),
     description: post.description,
   }));

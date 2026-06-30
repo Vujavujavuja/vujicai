@@ -12,10 +12,10 @@ export function BlogCard({ title, date, description, href }: BlogCardProps) {
     <Link href={href} className="block">
       <div className="w-full p-3 md:p-4 space-y-1 group hover:cursor-pointer">
         <div className="flex justify-center gap-2 items-end relative">
-          <div className="md:text-2xl text-base font-serif whitespace-nowrap text-foreground group-hover:text-primary transition-all duration-500 ease-out truncate max-w-[45%] md:max-w-none">
+          <div className="md:text-2xl text-base font-serif whitespace-nowrap text-foreground group-hover:text-primary transition-all duration-500 ease-out truncate">
             {title}
           </div>
-          <span className="w-full min-w-8 border-b-[0.5px] border-dashed border-border group-hover:border-primary mb-[6px] flex-shrink" />
+          <span className="flex-1 min-w-8 border-b-[0.5px] border-dashed border-border group-hover:border-primary mb-[6px]" />
           <div className="text-muted-foreground whitespace-nowrap uppercase group-hover:text-primary font-mono md:text-sm text-[10px] flex-shrink-0">
             {date}
           </div>
