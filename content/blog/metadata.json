@@ -1,5 +1,13 @@
 [
   {
+    "slug": "does-the-eu-ai-act-stop-you-using-llms",
+    "filename": "Does the EU AI Act stop you from using LLMs.md",
+    "title": "Does the EU AI Act stop you and your employees from using ChatGPT, Claude and other LLMs?",
+    "description": "For most everyday uses of ChatGPT, Claude and other LLMs, the EU AI Act's heavy obligations fall on the vendor, not you. What actually makes a use case high-risk — and what that means for deployers.",
+    "tags": ["eu-ai-act", "llms", "ai-regulation", "compliance", "ai-governance"],
+    "date": "2026-06-30"
+  },
+  {
     "slug": "an-edge-stops-working-the-moment-it-becomes-famous",
     "filename": "An edge stops working the moment it becomes famous.md",
     "title": "An edge stops working the moment it becomes famous.",
