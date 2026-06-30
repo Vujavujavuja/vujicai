@@ -3,6 +3,7 @@
 import React from 'react';
 import type { ComponentProps, ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
+import { usePathname } from 'next/navigation';
 import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 
 interface FooterLink {
@@ -49,6 +50,11 @@ const footerLinks: FooterSection[] = [
 ];
 
 export function FooterSection() {
+  const pathname = usePathname();
+
+  // Hidden QR landing has no site chrome.
+  if (pathname?.startsWith('/qr')) return null;
+
   return (
     <footer className="relative w-full max-w-6xl mx-auto flex flex-col items-center justify-center rounded-t-3xl md:rounded-t-[48px] border-t bg-[radial-gradient(35%_128px_at_50%_0%,hsl(var(--primary)/8%),transparent)] px-6 py-12 lg:py-16">
       <div className="absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full blur bg-foreground/20" />
