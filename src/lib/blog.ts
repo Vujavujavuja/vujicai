@@ -89,6 +89,15 @@ export function markdownToHtml(content: string): string {
       continue;
     }
 
+    // Standalone image -> figure
+    const imageMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imageMatch) {
+      processed.push(
+        `<figure><img src="${imageMatch[2]}" alt="${imageMatch[1]}" loading="lazy" /></figure>`
+      );
+      continue;
+    }
+
     // Headings
     const headingMatch = trimmed.match(/^(#{1,6})\s+(.+)$/);
     if (headingMatch) {
@@ -152,6 +161,8 @@ function processInline(text: string): string {
   result = result.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   // Italic
   result = result.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  // Images (before links so ![alt](src) isn't parsed as a link)
+  result = result.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy" />');
   // Links
   result = result.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
   return result;
