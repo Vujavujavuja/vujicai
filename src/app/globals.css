@@ -68,6 +68,17 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Text selection — warm dark-gray highlight with brownish-orange text
+   instead of the default blue. */
+::selection {
+  background-color: #2a2420;
+  color: #c75a1e;
+}
+::-moz-selection {
+  background-color: #2a2420;
+  color: #c75a1e;
+}
+
 /* Prose styles for blog content */
 .prose h2 {
   font-family: var(--font-heading);
