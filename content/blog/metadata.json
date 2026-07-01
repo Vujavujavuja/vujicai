@@ -1,5 +1,14 @@
 [
   {
+    "slug": "three-things-that-improved-my-sleep",
+    "filename": "The three things that improved my sleep the most.md",
+    "title": "The three things that improved my sleep the most",
+    "cardTitle": "My top 3 sleep changes",
+    "description": "A friend asked what has the biggest impact on my sleep. My answer — blue-light-blocking glasses, a constant cool temperature, and a humidifier — and the sleep research behind why each earns its spot.",
+    "tags": ["sleep", "health", "circadian-rhythm", "blue-light", "longevity"],
+    "date": "2026-07-01"
+  },
+  {
     "slug": "does-the-eu-ai-act-stop-you-using-llms",
     "filename": "Does the EU AI Act stop you from using LLMs.md",
     "title": "Does the EU AI Act stop you and your employees from using ChatGPT, Claude and other LLMs?",
