@@ -1,10 +1,14 @@
 import { getAllAccomplishments } from '@/lib/accomplishments';
 import { AccomplishmentsStack } from '@/components/ui/accomplishments-stack';
 import { LockBodyScroll } from '@/components/ui/lock-body-scroll';
+import { sharePreview } from '@/lib/seo';
+
+const DESC = 'Milestones, certifications, and wins along the way.';
 
 export const metadata = {
   title: 'Accomplishments',
-  description: 'Milestones, certifications, and wins along the way.',
+  description: DESC,
+  ...sharePreview('Accomplishments · Nemanja Vujić', DESC),
 };
 
 export default function AccomplishmentsPage() {
