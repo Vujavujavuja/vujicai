@@ -4,6 +4,7 @@
   "description": "Nemanja Vujić - Data Scientist & AI Engineer Personal Website",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/gen-llms.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

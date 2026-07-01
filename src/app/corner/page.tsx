@@ -1,6 +1,11 @@
+import { sharePreview } from '@/lib/seo';
+
+const DESC = "My random top picks and whatever I like / dislike.";
+
 export const metadata = {
   title: "Vuja's Corner",
-  description: "My random top picks and whatever I like / dislike.",
+  description: DESC,
+  ...sharePreview("Vuja's Corner · Nemanja Vujić", DESC),
 };
 
 export default function CornerPage() {
