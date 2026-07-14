@@ -79,6 +79,34 @@ html {
   color: #c75a1e;
 }
 
+/* Custom scrollbar — slim, inset thumb that sits quiet and warms to the
+   accent on hover (Chromium / Safari / Edge). */
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted-foreground) / 0.35);
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--primary) / 0.7);
+}
+
+/* Firefox — scoped so it doesn't disable the WebKit scrollbar above in
+   Chromium (setting scrollbar-width there suppresses ::-webkit-scrollbar). */
+@supports (-moz-appearance: none) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.4) transparent;
+  }
+}
+
 /* Prose styles for blog content */
 .prose h2 {
   font-family: var(--font-heading);
