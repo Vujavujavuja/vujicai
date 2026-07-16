@@ -5,14 +5,12 @@ import { PenLine, Trash2, RefreshCw, ExternalLink, ArrowDownToLine } from 'lucid
 import { sessionsDB } from '@/lib/wrttr/db';
 import { countWords, DEFAULT_TARGET, TARGET_MIN, TARGET_MAX } from '@/lib/wrttr/config';
 import {
-  getToken,
   getLibraryItems,
   unpublishFromRepo,
   deleteFromRepo,
   invalidateLibraryCache,
   WrttrError,
 } from '@/lib/wrttr/github';
-import { TokenPanel } from '@/components/wrttr/token-panel';
 import type { LocalSession, LibraryItem, LibraryState } from '@/lib/wrttr/types';
 
 function fmtDate(ms: number) {
@@ -40,10 +38,6 @@ export function Library() {
   }, []);
 
   const loadRepo = useCallback(async (force = false) => {
-    if (!getToken()) {
-      setRepoItems([]);
-      return;
-    }
     setRepoLoading(true);
     setRepoErr('');
     try {
@@ -109,10 +103,6 @@ export function Library() {
           <h1 className="font-serif text-5xl md:text-6xl font-medium tracking-tight">wrttr</h1>
         </header>
 
-        <div className="flex justify-end mb-4">
-          <TokenPanel onChange={() => loadRepo(true)} />
-        </div>
-
         {/* New session */}
         <div className="rounded-2xl border border-border p-6 mb-8">
           <div className="flex items-center gap-4">
@@ -138,15 +128,13 @@ export function Library() {
 
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-xs uppercase tracking-wider text-muted-foreground/60">Library</h2>
-          {getToken() && (
-            <button
-              onClick={() => loadRepo(true)}
-              className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${repoLoading ? 'animate-spin' : ''}`} />
-              refresh
-            </button>
-          )}
+          <button
+            onClick={() => loadRepo(true)}
+            className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${repoLoading ? 'animate-spin' : ''}`} />
+            refresh
+          </button>
         </div>
         {repoErr && <p className="text-xs text-red-400 mb-3">{repoErr}</p>}
 
