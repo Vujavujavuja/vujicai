@@ -61,6 +61,16 @@ export default function HomePage() {
               others deal with it. Thus, at 24, I am where I am now, working closely with synthetic
               data, the tool built especially for that problem.
             </p>
+
+            <figure className="my-8 max-w-sm mx-auto">
+              <img
+                src="/home-fde.webp"
+                alt="Silhouette of a person working at a wall of monitors, in orange halftone"
+                loading="lazy"
+                className="w-full rounded-2xl border border-border"
+              />
+            </figure>
+
             <p>
               In the background of all of this, I have never stopped working in parallel on my own
               consultancy, a client here and there, helping mostly small businesses achieve their
@@ -70,6 +80,16 @@ export default function HomePage() {
               actually gives you the personality and perspective that is often missed in those big
               offices.
             </p>
+
+            <figure className="my-8 max-w-sm mx-auto">
+              <img
+                src="/home-skyline.webp"
+                alt="Silhouette of the Pančevo skyline at dusk reflected in the water, in orange halftone"
+                loading="lazy"
+                className="w-full rounded-2xl border border-border"
+              />
+            </figure>
+
             <p>
               Doing that much must come at a big health cost, right? Well, imagine I told you that
               during that time I first hit my 200kg squat, and later an all-time PR of 255kg, on the
@@ -80,6 +100,16 @@ export default function HomePage() {
               sports. My next goal is simple: be the healthiest I can be; I chase performance
               numbers, not vanity ones.
             </p>
+
+            <figure className="my-8 max-w-sm mx-auto">
+              <img
+                src="/home-squat.webp"
+                alt="Silhouette of a lifter at the bottom of a barbell squat, in orange halftone"
+                loading="lazy"
+                className="w-full rounded-2xl border border-border"
+              />
+            </figure>
+
             <p>
               Bringing it all back to the opening question: the combined I of my three I&apos;s is
               now working with Fortune 500 companies to bring them closer to synthetic data, building
