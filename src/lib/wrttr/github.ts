@@ -287,6 +287,73 @@ export async function saveDraftToRepo(input: PublishInput & { peekCount?: number
   return commitTree(state, entries, `wrttr: save draft "${input.title}"`);
 }
 
+export interface LoadedPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  tags: string[];
+  body: string;
+  filename?: string; // published: the .md file in content/blog
+}
+
+function parseTagList(v?: string): string[] {
+  if (!v) return [];
+  return v
+    .replace(/^\[|\]$/g, '')
+    .split(',')
+    .map((s) => s.trim().replace(/^"|"$/g, ''))
+    .filter(Boolean);
+}
+
+/** Load an existing repo post (published or draft) into editable fields. */
+export async function loadRepoPost(slug: string, kind: 'published' | 'draft'): Promise<LoadedPost> {
+  const state = await getRepoState();
+  if (kind === 'published') {
+    const metaEntry = state.tree.find((t) => t.path === 'content/blog/metadata.json');
+    const meta: BlogPostMeta[] = metaEntry ? JSON.parse(await getBlobText(metaEntry.sha)) : [];
+    const m = meta.find((p) => p.slug === slug);
+    if (!m) throw new WrttrError('not-found', `No published post "${slug}".`);
+    const fileEntry = state.tree.find((t) => t.path === `content/blog/${m.filename}`);
+    const body = fileEntry ? await getBlobText(fileEntry.sha) : '';
+    return { slug, title: m.title, excerpt: m.description, tags: m.tags || [], body, filename: m.filename };
+  }
+  const fileEntry = state.tree.find((t) => t.path === `content/drafts/${slug}.md`);
+  if (!fileEntry) throw new WrttrError('not-found', `No draft "${slug}".`);
+  const fm = parseFrontmatter(await getBlobText(fileEntry.sha));
+  return {
+    slug,
+    title: fm.title || slug,
+    excerpt: fm.excerpt || '',
+    tags: parseTagList(fm.tags),
+    body: fm.body || '',
+  };
+}
+
+/** Update a published post in place (EDIT-9): overwrite the .md + its metadata
+ *  entry (keeping the original date), add any new images. One commit. */
+export async function updatePublished(
+  input: PublishInput & { filename?: string }
+): Promise<{ commit: string; url: string }> {
+  const state = await getRepoState();
+  const metaEntry = state.tree.find((t) => t.path === 'content/blog/metadata.json');
+  const meta: (BlogPostMeta & { wordCount?: number })[] = metaEntry ? JSON.parse(await getBlobText(metaEntry.sha)) : [];
+  const idx = meta.findIndex((m) => m.slug === input.slug);
+  if (idx === -1) throw new WrttrError('not-found', `No published post "${input.slug}".`);
+  const filename = input.filename || meta[idx].filename || `${input.slug}.md`;
+  meta[idx] = { ...meta[idx], title: input.title, description: input.excerpt, tags: input.tags, filename };
+
+  const body = rewriteImagePaths(input.body, input.images, `/thoughts/${input.slug}`);
+  const entries: Entry[] = [
+    { path: `content/blog/${filename}`, mode: '100644', type: 'blob', sha: await createTextBlob(body) },
+    { path: 'content/blog/metadata.json', mode: '100644', type: 'blob', sha: await createTextBlob(JSON.stringify(meta, null, 2) + '\n') },
+  ];
+  for (const img of input.images) {
+    entries.push({ path: `public/thoughts/${input.slug}/${img.filename}`, mode: '100644', type: 'blob', sha: await createBinaryBlob(img.blob) });
+  }
+  const commit = await commitTree(state, entries, `Update: ${input.title}`);
+  return { commit, url: `${SITE}/thoughts/${input.slug}/` };
+}
+
 /** Publish: one atomic commit adding the post + metadata entry + images (and
  *  removing the draft if it came from one). Returns the live URL. */
 export async function publishToRepo(input: PublishInput): Promise<{ commit: string; url: string }> {
