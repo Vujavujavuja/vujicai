@@ -79,8 +79,10 @@ export function Library() {
         ) : (
           <ul className="space-y-3">
             {sessions.map((s) => {
-              const wc = countWords(s.rawText);
-              const resumeHref = `/wrttr/session?id=${s.id}`;
+              const wc = countWords(s.body ?? s.rawText);
+              // Finished drafts open in the editor; in-progress ones resume the session.
+              const resumeHref =
+                s.state === 'drafting' ? `/wrttr/edit?id=${s.id}` : `/wrttr/session?id=${s.id}`;
               return (
                 <li key={s.id} className="group flex items-center gap-4 rounded-xl border border-border px-5 py-4 hover:border-primary/50 transition-colors">
                   <a href={resumeHref} className="flex-1 min-w-0">
