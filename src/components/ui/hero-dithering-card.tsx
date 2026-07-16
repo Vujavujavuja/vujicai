@@ -42,11 +42,9 @@ export function HeroSection() {
             </h1>
 
             <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-12 leading-relaxed">
-              Building, experiencing, researching, talking and listening.
+              Building, experiencing, competing, talking and listening.
               <br />
-              From AI and tech to Music and Geopolitics;
-              <br />
-              Putting my own thoughts in words.
+              All I do is try my best...
             </p>
 
             <Link href="/thoughts/">
