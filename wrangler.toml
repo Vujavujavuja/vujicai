@@ -7,3 +7,9 @@ directory = "./out"
 binding = "ASSETS"
 # Static assets are served first; the Worker only runs for non-asset routes
 # (i.e. /api/gh/*). Normal pages never touch the Worker.
+
+# Non-secret identifiers used to validate the Cloudflare Access login.
+# (The GitHub token is a dashboard-only secret, never committed here.)
+[vars]
+TEAM_DOMAIN = "https://black-math-ee84.cloudflareaccess.com"
+POLICY_AUD = "89bb232b7ff9507a2780b04f722790f4b42d53366ce2fba807e5fa6947c64cf8"
