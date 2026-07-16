@@ -62,14 +62,14 @@ export default function PrivacyPage() {
           <h2>Third parties</h2>
           <ul>
             <li>
-              <strong>Formspree</strong> &mdash; processes contact form submissions. See{' '}
+              <strong>Formspree</strong>, which processes contact form submissions. See{' '}
               <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">
                 Formspree&rsquo;s privacy policy
               </a>
               .
             </li>
             <li>
-              <strong>Cloudflare</strong> &mdash; hosting and content delivery. See{' '}
+              <strong>Cloudflare</strong>, for hosting and content delivery. See{' '}
               <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">
                 Cloudflare&rsquo;s privacy policy
               </a>

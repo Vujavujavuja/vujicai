@@ -25,8 +25,8 @@ export default function HomePage() {
             <p>
               I sometimes catch myself wondering the exact same thing that D-503, the protagonist
               of Yevgeny Zamyatin&apos;s <em>We</em>, asks himself. I find myself in D-503 more
-              often than not &mdash; the mathematician-engineer working on tight schedules, whose
-              world cracks when he discovers the irrational self that lives within.
+              often than not, the mathematician-engineer working on tight schedules, whose world
+              cracks when he discovers the irrational self that lives within.
             </p>
             <p>
               Am I only an FDE at DataCebo, an MIT spinout? Am I a 24-year-old kid from Pančevo, a
@@ -40,46 +40,45 @@ export default function HomePage() {
             </p>
             <p>
               Currently I am, as mentioned, a Forward Deployed Engineer at an MIT spinout, with a
-              deep interest in governance and compliance. To some that might come off as boring
-              &mdash; but boring is exactly where the leverage is, and compliance has been
-              intertwined with my career from the very start. Closely following the first AI boom
-              and the ChatGPT craze, I was offered a job as a Data Annotator, monitoring chatbot
-              outputs &mdash; mainly coding ones &mdash; flagging mischief and keeping compliance in
-              mind the whole time, all as a 2nd-year CS student. The transition to a proper Software
-              Engineer role at Luxoft seemed like the right call at the time, but in retrospect I
-              didn&apos;t enjoy that bland, corporate role. I was wondering about a switch when I got
-              the chance to move to a different company and become a Data Scientist &mdash; a dream
-              step up. Soon after joining, compliance came back into the picture: my first real
-              project was a mental health AI, which, as many can imagine, is a compliance nightmare.
-              The acronyms &mdash; HIPAA, FERPA, GDPR &mdash; are a wall most companies in that space
-              run into, and our team was no exception, on top of the underlying issues that come with
-              combining mental health and AI. Not long after the project started, I saw an opening
-              when the person leading it left, and I took my chance and stepped up &mdash; me, a
-              23-year-old kid, leading a project with big compliance implications and a team with
-              three times my experience. The step up was, to say the least, amazing: it felt like I
-              was finally where I needed to be, and I shined there. Then came the natural next step:
-              instead of dealing with compliance for yourself, help others deal with it. Thus, at 24,
-              I am where I am now, working closely with synthetic data &mdash; the tool built
-              especially for that problem.
+              deep interest in governance and compliance. To some that might come off as boring, but
+              boring is exactly where the leverage is, and compliance has been intertwined with my
+              career from the very start. Closely following the first AI boom and the ChatGPT craze,
+              I was offered a job as a Data Annotator, monitoring chatbot outputs, mainly coding
+              ones, flagging mischief and keeping compliance in mind the whole time, all as a
+              2nd-year CS student. The transition to a proper Software Engineer role at Luxoft seemed
+              like the right call at the time, but in retrospect I didn&apos;t enjoy that bland,
+              corporate role. I was wondering about a switch when I got the chance to move to a
+              different company and become a Data Scientist, a dream step up. Soon after joining,
+              compliance came back into the picture: my first real project was a mental health AI,
+              which, as many can imagine, is a compliance nightmare. The acronyms HIPAA, FERPA and
+              GDPR are a wall most companies in that space run into, and our team was no exception,
+              on top of the underlying issues that come with combining mental health and AI. Not long
+              after the project started, I saw an opening when the person leading it left, and I took
+              my chance and stepped up, a 23-year-old kid leading a project with big compliance
+              implications and a team with three times my experience. The step up was, to say the
+              least, amazing: it felt like I was finally where I needed to be, and I shined there.
+              Then came the natural next step; instead of dealing with compliance for yourself, help
+              others deal with it. Thus, at 24, I am where I am now, working closely with synthetic
+              data, the tool built especially for that problem.
             </p>
             <p>
               In the background of all of this, I have never stopped working in parallel on my own
-              consultancy &mdash; a client here and there, helping mostly small businesses achieve
-              their big data and AI dreams. Doing all of this while being from Pančevo might seem
+              consultancy, a client here and there, helping mostly small businesses achieve their
+              big data and AI dreams. Doing all of this while being from Pančevo might seem
               impossible. People often say you have to move to make opportunities for yourself, that
-              a small city only ties you down &mdash; but with the right mentors, I found the small
-              city actually gives you the personality and perspective that is often missed in those
-              big offices.
+              a small city only ties you down, but with the right mentors I found the small city
+              actually gives you the personality and perspective that is often missed in those big
+              offices.
             </p>
             <p>
               Doing that much must come at a big health cost, right? Well, imagine I told you that
-              during that time I first hit my 200kg squat &mdash; and later an all-time PR of 255kg,
-              on the squat of all exercises. Then came competing at a national level and hitting
-              numbers I had only dreamed of before. It all started with a friend suggesting an
-              outlandish idea: let&apos;s compete at nationals. The end of that story is that we now
-              own our very own powerlifting club, with over 20 competitors, run as a non-profit to
-              get kids into sports. My next goal is simple: be the healthiest I can be &mdash; I
-              chase performance numbers, not vanity ones.
+              during that time I first hit my 200kg squat, and later an all-time PR of 255kg, on the
+              squat of all exercises. Then came competing at a national level and hitting numbers I
+              had only dreamed of before. It all started with a friend suggesting an outlandish idea:
+              let&apos;s compete at nationals. The end of that story is that we now own our very own
+              powerlifting club, with over 20 competitors, run as a non-profit to get kids into
+              sports. My next goal is simple: be the healthiest I can be; I chase performance
+              numbers, not vanity ones.
             </p>
             <p>
               Bringing it all back to the opening question: the combined I of my three I&apos;s is
@@ -92,12 +91,12 @@ export default function HomePage() {
               <Link href="/thoughts/" className="text-primary hover:underline">
                 Thoughts
               </Link>{' '}
-              tab &mdash; that&apos;s where this page continues. And if something there strikes you,
-              or you think I&apos;ve got it wrong, email me at{' '}
+              tab. That&apos;s where this page continues. And if something there strikes you, or you
+              think I&apos;ve got it wrong, email me at{' '}
               <a href="mailto:nemanja@vujic.ai" className="text-primary hover:underline">
                 nemanja@vujic.ai
               </a>
-              . Tell me where I&apos;m wrong &mdash; those are my favourite messages.
+              . Tell me where I&apos;m wrong; those are my favourite messages.
             </p>
           </div>
         </section>
