@@ -107,6 +107,13 @@ html {
   }
 }
 
+/* Writing surface (/wrttr) uses the muted burnt-orange accent, not the bright
+   site orange. Remapping the token recolors every primary utility inside. */
+.wrttr {
+  --primary: 22 70% 42%;
+  --ring: 22 70% 42%;
+}
+
 /* Prose styles for blog content */
 .prose h2 {
   font-family: var(--font-heading);

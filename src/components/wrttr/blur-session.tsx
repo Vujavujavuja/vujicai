@@ -207,34 +207,26 @@ export function BlurSession() {
     );
   }
 
-  // Post-target: blur lifts, text becomes an editable draft (M1 seam → M2 editor).
+  // Post-target: blur lifts. The words are frozen as the draft; move to the editor.
   if (done) {
     return (
-      <div className="min-h-[100svh] bg-background text-foreground flex flex-col items-center px-4 py-12">
-        <div className="w-full max-w-2xl">
-          <p className="text-sm text-muted-foreground italic mb-6 text-center">
-            {wordCount} words. The blur is gone — this is yours to edit now.
+      <div className="min-h-[100svh] bg-background text-foreground flex flex-col items-center justify-center px-4 py-12">
+        <div className="w-full max-w-xl text-center">
+          <p className="font-serif text-2xl md:text-3xl mb-2">{wordCount} words.</p>
+          <p className="text-sm text-muted-foreground italic mb-10">
+            The blur is gone. It&apos;s yours to shape now.
           </p>
-          <textarea
-            value={text}
-            onChange={(e) => {
-              setText(e.target.value);
-              persist({ rawText: session?.rawText ?? text, body: e.target.value, state: 'drafting' });
-            }}
-            className="w-full min-h-[55svh] bg-transparent border border-border rounded-2xl p-6 text-lg leading-relaxed focus:outline-none focus:ring-2 focus:ring-primary/40 resize-none font-sans"
-            spellCheck
-          />
-          <div className="flex items-center justify-between mt-6 text-sm">
+          <div className="flex items-center justify-center gap-3 text-sm">
             <button onClick={copyAll} className="px-4 py-2 rounded-xl border border-border hover:border-primary hover:text-primary transition-colors">
               {copied ? 'Copied' : 'Copy text'}
             </button>
-            <a href="/wrttr/" className="px-4 py-2 rounded-xl border border-border hover:border-primary hover:text-primary transition-colors">
-              Back to library
+            <a
+              href={`/wrttr/edit?id=${idRef.current}`}
+              className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
+            >
+              Continue to editor →
             </a>
           </div>
-          <p className="text-xs text-muted-foreground/60 mt-6 text-center">
-            Full editor, images and publish land in the next stage.
-          </p>
         </div>
       </div>
     );
