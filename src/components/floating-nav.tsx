@@ -11,8 +11,8 @@ export function FloatingNav() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
 
-  // Hidden QR landing has no site chrome.
-  if (pathname?.startsWith('/qr')) return null;
+  // Hidden landing surfaces have no site chrome.
+  if (pathname?.startsWith('/qr') || pathname?.startsWith('/wrttr')) return null;
 
   return (
     <nav className="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-start gap-1 rounded-2xl border border-primary/20 bg-background/80 backdrop-blur-xl shadow-[0_0_16px_-8px_hsl(var(--primary)/0.15)] px-3 py-4">

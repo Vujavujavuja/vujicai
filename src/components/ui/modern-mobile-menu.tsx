@@ -55,8 +55,8 @@ export function MobileMenu() {
     router.push(menuItems[index].href);
   };
 
-  // Hidden QR landing has no site chrome.
-  if (pathname?.startsWith('/qr')) return null;
+  // Hidden landing surfaces have no site chrome.
+  if (pathname?.startsWith('/qr') || pathname?.startsWith('/wrttr')) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>

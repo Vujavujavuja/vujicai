@@ -52,8 +52,8 @@ const footerLinks: FooterSection[] = [
 export function FooterSection() {
   const pathname = usePathname();
 
-  // Hidden QR landing has no site chrome.
-  if (pathname?.startsWith('/qr')) return null;
+  // Hidden landing surfaces have no site chrome.
+  if (pathname?.startsWith('/qr') || pathname?.startsWith('/wrttr')) return null;
 
   return (
     <footer className="relative w-full max-w-6xl mx-auto flex flex-col items-center justify-center rounded-t-3xl md:rounded-t-[48px] border-t bg-[radial-gradient(35%_128px_at_50%_0%,hsl(var(--primary)/8%),transparent)] px-6 py-12 lg:py-16">
