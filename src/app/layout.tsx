@@ -22,7 +22,7 @@ const literata = Literata({
 
 const SITE_URL = 'https://vujic.ai';
 const DESCRIPTION =
-  'Building, experiencing, researching, talking and listening. From AI and tech to Music and Geopolitics — putting my own thoughts in words.';
+  'Building, experiencing, researching, talking and listening. From AI and tech to Music and Geopolitics, putting my own thoughts in words.';
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),

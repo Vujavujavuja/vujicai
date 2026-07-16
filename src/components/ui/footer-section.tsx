@@ -4,7 +4,7 @@ import React from 'react';
 import type { ComponentProps, ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { usePathname } from 'next/navigation';
-import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, Instagram, X, ExternalLink } from 'lucide-react';
 
 interface FooterLink {
   title: string;
@@ -21,29 +21,12 @@ interface FooterSection {
 
 const footerLinks: FooterSection[] = [
   {
-    label: 'Navigate',
-    links: [
-      { title: 'Home', href: '/' },
-      { title: 'Thoughts', href: '/thoughts' },
-      { title: 'Playground', href: '/playground' },
-      { title: 'Corner', href: '/corner' },
-      { title: 'Wins', href: '/accomplishments' },
-      { title: 'Contact', href: '/contact' },
-    ],
-  },
-  {
-    label: 'Projects',
-    links: [
-      { title: 'Vuja Mapapp', href: 'https://map.vujic.ai', external: true },
-      { title: 'Vuja Paper', href: 'https://paper.vujic.ai', external: true },
-      { title: 'PromptStratum', href: 'https://promptstratum.com', external: true },
-    ],
-  },
-  {
     label: 'Connect',
     links: [
       { title: 'LinkedIn', href: 'https://linkedin.com/in/nemanja-vujic-vuja43', icon: Linkedin, external: true, me: true },
       { title: 'GitHub', href: 'https://github.com/vujavujavuja', icon: Github, external: true, me: true },
+      { title: 'Instagram', href: 'https://instagram.com/vuja.43', icon: Instagram, external: true, me: true },
+      { title: 'X', href: 'https://x.com/nemanjavujicc', icon: X, external: true, me: true },
       { title: 'Email', href: 'mailto:nemanja@vujic.ai', icon: Mail, me: true },
     ],
   },

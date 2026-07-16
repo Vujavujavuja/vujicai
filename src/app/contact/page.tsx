@@ -2,7 +2,7 @@ import { StarButton } from '@/components/ui/star-button';
 import { sharePreview } from '@/lib/seo';
 
 const DESC =
-  'Get in touch with Nemanja Vujić — always open to discussing AI, technology, and new opportunities.';
+  'Get in touch with Nemanja Vujić, always open to discussing AI, technology, and new opportunities.';
 
 export const metadata = {
   title: 'Contact',
