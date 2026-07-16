@@ -11,21 +11,12 @@ import type { BlogPostMeta } from '@/types';
 import type { LibraryItem } from './types';
 
 const REPO = 'Vujavujavuja/vujicai';
-const API = `https://api.github.com/repos/${REPO}`;
+// The browser never talks to GitHub directly and never holds a token. It calls
+// the same-origin Worker proxy (worker/index.ts), which validates the
+// Cloudflare Access login and injects the GitHub token server-side.
+const API = '/api/gh';
 const BRANCH = 'main';
 const SITE = 'https://vujic.ai';
-const TOKEN_KEY = 'wrttr_gh_pat';
-
-// ---------- token ----------
-export function getToken(): string | null {
-  return typeof localStorage !== 'undefined' ? localStorage.getItem(TOKEN_KEY) : null;
-}
-export function setToken(t: string) {
-  localStorage.setItem(TOKEN_KEY, t.trim());
-}
-export function clearToken() {
-  localStorage.removeItem(TOKEN_KEY);
-}
 
 // ---------- errors (PUB-9: never fail silently) ----------
 export type WrttrErrorKind =
@@ -57,10 +48,10 @@ function mapHttpError(status: number, body: string): WrttrError {
       return body.slice(0, 200);
     }
   })();
-  if (status === 401) return new WrttrError('auth', 'GitHub token is invalid or expired. Re-enter it.', status);
+  if (status === 401) return new WrttrError('auth', `Server GitHub token rejected: ${msg}`, status);
   if (status === 403) {
     if (/rate limit/i.test(msg)) return new WrttrError('rate-limit', 'GitHub rate limit hit. Wait and retry.', status);
-    return new WrttrError('permission', `Token lacks permission: ${msg}`, status);
+    return new WrttrError('permission', msg || 'Not authorized.', status);
   }
   if (status === 404) return new WrttrError('not-found', `Not found: ${msg}`, status);
   if (status === 409 || status === 422) {
@@ -72,14 +63,12 @@ function mapHttpError(status: number, body: string): WrttrError {
 }
 
 async function ghFetch(path: string, init: RequestInit = {}): Promise<Response> {
-  const token = getToken();
-  if (!token) throw new WrttrError('no-token', 'No GitHub token set. Add one in settings.');
   let res: Response;
   try {
-    res = await fetch(path.startsWith('http') ? path : `${API}${path}`, {
+    res = await fetch(`${API}${path}`, {
       ...init,
+      credentials: 'same-origin', // send the Cloudflare Access cookie
       headers: {
-        Authorization: `Bearer ${token}`,
         Accept: 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
         ...(init.headers || {}),
@@ -90,16 +79,6 @@ async function ghFetch(path: string, init: RequestInit = {}): Promise<Response> 
   }
   if (!res.ok) throw mapHttpError(res.status, await res.text());
   return res;
-}
-
-/** Cheap validity check for a freshly entered token. */
-export async function verifyToken(): Promise<{ ok: boolean; error?: string }> {
-  try {
-    await ghFetch('');
-    return { ok: true };
-  } catch (e) {
-    return { ok: false, error: (e as WrttrError).message };
-  }
 }
 
 // ---------- encoding helpers ----------

@@ -7,7 +7,6 @@ import { compressToWebp, imageFilename } from '@/lib/wrttr/image';
 import { markdownToHtml, slugify } from '@/lib/markdown';
 import { countWords } from '@/lib/wrttr/config';
 import {
-  getToken,
   publishToRepo,
   saveDraftToRepo,
   WrttrError,
@@ -33,7 +32,6 @@ export function Editor() {
 
   const idRef = useRef('');
   const bodyRef = useRef<HTMLTextAreaElement>(null);
-  const hasToken = typeof window !== 'undefined' && !!getToken();
 
   useEffect(() => {
     const id = new URLSearchParams(window.location.search).get('id');
@@ -274,16 +272,14 @@ export function Editor() {
             )}
             <button
               onClick={doSaveDraft}
-              disabled={!hasToken || pubBusy !== null}
-              title={hasToken ? '' : 'Connect GitHub in the library first'}
+              disabled={pubBusy !== null}
               className="px-4 py-2 rounded-xl border border-border hover:border-primary hover:text-primary transition-colors text-sm disabled:opacity-40 disabled:hover:border-border disabled:hover:text-foreground"
             >
               {pubBusy === 'draft' ? 'saving…' : 'Save draft'}
             </button>
             <button
               onClick={doPublish}
-              disabled={!hasToken || pubBusy !== null}
-              title={hasToken ? '' : 'Connect GitHub in the library first'}
+              disabled={pubBusy !== null}
               className="px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
             >
               {pubBusy === 'publish' ? 'publishing…' : 'Publish'}
