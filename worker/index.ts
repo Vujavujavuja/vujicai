@@ -43,10 +43,13 @@ function json(status: number, body: unknown): Response {
 }
 
 async function proxyGitHub(request: Request, env: Env, url: URL): Promise<Response> {
-  if (!env.GITHUB_TOKEN || !env.TEAM_DOMAIN || !env.POLICY_AUD) {
-    return json(500, {
-      message: 'Publishing is not configured. Set GITHUB_TOKEN, TEAM_DOMAIN and POLICY_AUD on the Worker.',
-    });
+  const missing = [
+    !env.GITHUB_TOKEN && 'GITHUB_TOKEN',
+    !env.TEAM_DOMAIN && 'TEAM_DOMAIN',
+    !env.POLICY_AUD && 'POLICY_AUD',
+  ].filter(Boolean);
+  if (missing.length) {
+    return json(500, { message: `Publishing is not configured. Missing on the Worker: ${missing.join(', ')}.` });
   }
 
   // Only requests that passed Cloudflare Access carry this header.
