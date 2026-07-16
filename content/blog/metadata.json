@@ -4,8 +4,14 @@
     "filename": "The three things that improved my sleep the most.md",
     "title": "The three things that improved my sleep the most",
     "cardTitle": "My top 3 sleep changes",
-    "description": "A friend asked what has the biggest impact on my sleep. My answer — blue-light-blocking glasses, a constant cool temperature, and a humidifier — and the sleep research behind why each earns its spot.",
-    "tags": ["sleep", "health", "circadian-rhythm", "blue-light", "longevity"],
+    "description": "A friend asked what has the biggest impact on my sleep.",
+    "tags": [
+      "sleep",
+      "health",
+      "circadian-rhythm",
+      "blue-light",
+      "longevity"
+    ],
     "date": "2026-07-01"
   },
   {
@@ -14,7 +20,13 @@
     "title": "Does the EU AI Act stop you and your employees from using ChatGPT, Claude and other LLMs?",
     "cardTitle": "The EU AI Act & using LLMs",
     "description": "For most everyday uses of ChatGPT, Claude and other LLMs, the EU AI Act's heavy obligations fall on the vendor, not you. What actually makes a use case high-risk — and what that means for deployers.",
-    "tags": ["eu-ai-act", "llms", "ai-regulation", "compliance", "ai-governance"],
+    "tags": [
+      "eu-ai-act",
+      "llms",
+      "ai-regulation",
+      "compliance",
+      "ai-governance"
+    ],
     "date": "2026-06-30"
   },
   {
@@ -23,7 +35,12 @@
     "title": "An edge stops working the moment it becomes famous.",
     "cardTitle": "When an edge gets famous",
     "description": "Being early to a tool was never the edge. A look at how optimized marketing and an urgency-driven feed manufacture the panic that you're falling behind.",
-    "tags": ["ai", "hype", "marketing", "tools"],
+    "tags": [
+      "ai",
+      "hype",
+      "marketing",
+      "tools"
+    ],
     "date": "2026-06-22"
   }
 ]
