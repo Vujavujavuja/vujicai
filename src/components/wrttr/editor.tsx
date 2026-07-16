@@ -6,6 +6,13 @@ import { sessionsDB, imagesDB, newId } from '@/lib/wrttr/db';
 import { compressToWebp, imageFilename } from '@/lib/wrttr/image';
 import { markdownToHtml, slugify } from '@/lib/markdown';
 import { countWords } from '@/lib/wrttr/config';
+import {
+  getToken,
+  publishToRepo,
+  saveDraftToRepo,
+  WrttrError,
+  type DraftImage,
+} from '@/lib/wrttr/github';
 import type { LocalSession, LocalImage } from '@/lib/wrttr/types';
 
 export function Editor() {
@@ -21,9 +28,12 @@ export function Editor() {
   const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [pubBusy, setPubBusy] = useState<'draft' | 'publish' | null>(null);
+  const [status, setStatus] = useState<{ kind: 'ok' | 'err'; msg: string; url?: string } | null>(null);
 
   const idRef = useRef('');
   const bodyRef = useRef<HTMLTextAreaElement>(null);
+  const hasToken = typeof window !== 'undefined' && !!getToken();
 
   useEffect(() => {
     const id = new URLSearchParams(window.location.search).get('id');
@@ -156,6 +166,70 @@ export function Editor() {
     }
   }
 
+  async function gatherImages(): Promise<DraftImage[]> {
+    const imgs = await imagesDB.forSession(idRef.current);
+    return imgs.map((i) => ({ filename: i.filename, blob: i.blob }));
+  }
+
+  async function doSaveDraft() {
+    if (!title.trim() || !slug.trim()) {
+      setStatus({ kind: 'err', msg: 'Add a title first.' });
+      return;
+    }
+    save(false);
+    setPubBusy('draft');
+    setStatus(null);
+    try {
+      await saveDraftToRepo({
+        slug,
+        title,
+        excerpt,
+        tags: tagsArr,
+        body,
+        wordCount: countWords(body),
+        images: await gatherImages(),
+        peekCount: session?.peekCount,
+        target: session?.target,
+      });
+      setStatus({ kind: 'ok', msg: 'Draft saved to the repo.' });
+    } catch (e) {
+      setStatus({ kind: 'err', msg: (e as WrttrError).message });
+    } finally {
+      setPubBusy(null);
+    }
+  }
+
+  async function doPublish() {
+    if (!title.trim() || !slug.trim()) {
+      setStatus({ kind: 'err', msg: 'Title and slug are required.' });
+      return;
+    }
+    if (!body.trim()) {
+      setStatus({ kind: 'err', msg: 'Nothing to publish yet.' });
+      return;
+    }
+    if (!window.confirm(`Publish "${title}" to vujic.ai/thoughts/${slug}?`)) return;
+    save(false);
+    setPubBusy('publish');
+    setStatus(null);
+    try {
+      const { url } = await publishToRepo({
+        slug,
+        title,
+        excerpt,
+        tags: tagsArr,
+        body,
+        wordCount: countWords(body),
+        images: await gatherImages(),
+      });
+      setStatus({ kind: 'ok', msg: 'Published. Cloudflare is deploying it now.', url });
+    } catch (e) {
+      setStatus({ kind: 'err', msg: (e as WrttrError).message });
+    } finally {
+      setPubBusy(null);
+    }
+  }
+
   const previewHtml = useMemo(() => {
     let html = markdownToHtml(body || '');
     for (const [filename, url] of Object.entries(imageUrls)) {
@@ -194,26 +268,46 @@ export function Editor() {
           <span className="text-xs text-muted-foreground/60 tabular-nums">{countWords(body)} words</span>
           <div className="ml-auto flex items-center gap-3">
             {saved && (
-              <span className="text-xs text-primary flex items-center gap-1">
-                <Check className="w-3.5 h-3.5" /> saved
+              <span className="text-xs text-muted-foreground flex items-center gap-1">
+                <Check className="w-3.5 h-3.5" /> saved locally
               </span>
             )}
             <button
-              onClick={() => save(true)}
-              className="px-4 py-2 rounded-xl border border-border hover:border-primary hover:text-primary transition-colors text-sm"
+              onClick={doSaveDraft}
+              disabled={!hasToken || pubBusy !== null}
+              title={hasToken ? '' : 'Connect GitHub in the library first'}
+              className="px-4 py-2 rounded-xl border border-border hover:border-primary hover:text-primary transition-colors text-sm disabled:opacity-40 disabled:hover:border-border disabled:hover:text-foreground"
             >
-              Save
+              {pubBusy === 'draft' ? 'saving…' : 'Save draft'}
             </button>
             <button
-              disabled
-              title="Publishing lands with your GitHub token in the next stage"
-              className="px-4 py-2 rounded-xl bg-primary/40 text-primary-foreground text-sm font-medium cursor-not-allowed"
+              onClick={doPublish}
+              disabled={!hasToken || pubBusy !== null}
+              title={hasToken ? '' : 'Connect GitHub in the library first'}
+              className="px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
             >
-              Publish
+              {pubBusy === 'publish' ? 'publishing…' : 'Publish'}
             </button>
           </div>
         </div>
       </div>
+
+      {status && (
+        <div className="mx-auto max-w-6xl px-6 pt-4">
+          <div
+            className={`rounded-xl border px-4 py-3 text-sm ${
+              status.kind === 'ok' ? 'border-primary/40 text-foreground' : 'border-red-500/40 text-red-300'
+            }`}
+          >
+            {status.msg}
+            {status.url && (
+              <a href={status.url} target="_blank" rel="noopener noreferrer" className="underline text-primary ml-1">
+                view →
+              </a>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="mx-auto max-w-6xl px-6 py-8">
         {/* metadata */}
