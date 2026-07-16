@@ -151,24 +151,21 @@ export function Library() {
             {all.map((item) => {
               const meta = STATE_META[item.state];
               const isLocal = item.state === 'local' || item.state === 'incomplete';
+              // local -> editor by id, incomplete -> resume session,
+              // published/draft -> open the repo post in the editor to edit.
               const href =
                 item.state === 'local'
                   ? `/wrttr/edit?id=${item.id}`
                   : item.state === 'incomplete'
                     ? `/wrttr/session?id=${item.id}`
-                    : item.liveUrl || undefined;
+                    : `/wrttr/edit?slug=${item.slug}&kind=${item.state}`;
               const busy = acting === item.slug;
               return (
                 <li
                   key={`${item.state}-${item.id}`}
                   className="group flex items-center gap-4 rounded-xl border border-border px-5 py-4 hover:border-primary/40 transition-colors"
                 >
-                  <a
-                    href={href}
-                    target={item.state === 'published' ? '_blank' : undefined}
-                    rel={item.state === 'published' ? 'noopener noreferrer' : undefined}
-                    className="flex-1 min-w-0"
-                  >
+                  <a href={href} className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className={`text-xs uppercase tracking-wider font-mono ${meta.cls}`}>{meta.label}</span>
                       {item.date > 0 && <span className="text-xs text-muted-foreground/50">{fmtDate(item.date)}</span>}

@@ -9,10 +9,14 @@ import { countWords } from '@/lib/wrttr/config';
 import {
   publishToRepo,
   saveDraftToRepo,
+  updatePublished,
+  loadRepoPost,
   WrttrError,
   type DraftImage,
 } from '@/lib/wrttr/github';
 import type { LocalSession, LocalImage } from '@/lib/wrttr/types';
+
+type Source = 'local' | 'published' | 'draft';
 
 export function Editor() {
   const [session, setSession] = useState<LocalSession | null>(null);
@@ -32,14 +36,54 @@ export function Editor() {
 
   const idRef = useRef('');
   const bodyRef = useRef<HTMLTextAreaElement>(null);
+  const filenameRef = useRef<string | undefined>(undefined);
+  const [source, setSource] = useState<Source>('local');
 
   useEffect(() => {
-    const id = new URLSearchParams(window.location.search).get('id');
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const repoSlug = params.get('slug');
+    const kind = params.get('kind') as 'published' | 'draft' | null;
+
+    // Editing an existing repo post/draft (EDIT-9).
+    if (repoSlug && kind) {
+      idRef.current = repoSlug; // any new images are keyed under the slug
+      setSource(kind);
+      (async () => {
+        try {
+          const post = await loadRepoPost(repoSlug, kind);
+          filenameRef.current = post.filename;
+          setSession({
+            id: repoSlug,
+            createdAt: 0,
+            updatedAt: 0,
+            state: 'drafting',
+            target: 0,
+            rawText: post.body,
+            peekCount: 0,
+            durationMs: 0,
+          });
+          setTitle(post.title);
+          setSlug(post.slug);
+          setSlugTouched(true);
+          setExcerpt(post.excerpt);
+          setTags(post.tags.join(', '));
+          setBody(post.body);
+        } catch (e) {
+          setNotFound(true);
+          setStatus({ kind: 'err', msg: (e as WrttrError).message });
+        }
+      })();
+      return;
+    }
+
+    // Editing a local session.
     if (!id) {
       setNotFound(true);
       return;
     }
     idRef.current = id;
+    setSource('local');
     (async () => {
       const s = await sessionsDB.get(id);
       if (!s) {
@@ -75,7 +119,7 @@ export function Editor() {
 
   const save = useCallback(
     (flash = true) => {
-      if (!idRef.current || !session) return;
+      if (source !== 'local' || !idRef.current || !session) return; // repo posts don't touch IndexedDB
       const s: LocalSession = {
         ...session,
         title,
@@ -93,7 +137,7 @@ export function Editor() {
         setTimeout(() => setSaved(false), 1500);
       }
     },
-    [session, title, slug, excerpt, tagsArr, body]
+    [source, session, title, slug, excerpt, tagsArr, body]
   );
 
   // Debounced autosave.
@@ -167,6 +211,33 @@ export function Editor() {
   async function gatherImages(): Promise<DraftImage[]> {
     const imgs = await imagesDB.forSession(idRef.current);
     return imgs.map((i) => ({ filename: i.filename, blob: i.blob }));
+  }
+
+  async function doUpdate() {
+    if (!title.trim() || !body.trim()) {
+      setStatus({ kind: 'err', msg: 'Title and body are required.' });
+      return;
+    }
+    if (!window.confirm(`Update the published "${title}"?`)) return;
+    setPubBusy('publish');
+    setStatus(null);
+    try {
+      const { url } = await updatePublished({
+        slug,
+        title,
+        excerpt,
+        tags: tagsArr,
+        body,
+        wordCount: countWords(body),
+        images: await gatherImages(),
+        filename: filenameRef.current,
+      });
+      setStatus({ kind: 'ok', msg: 'Updated. Cloudflare is redeploying.', url });
+    } catch (e) {
+      setStatus({ kind: 'err', msg: (e as WrttrError).message });
+    } finally {
+      setPubBusy(null);
+    }
   }
 
   async function doSaveDraft() {
@@ -264,26 +335,41 @@ export function Editor() {
             ← library
           </a>
           <span className="text-xs text-muted-foreground/60 tabular-nums">{countWords(body)} words</span>
+          {source === 'published' && (
+            <span className="text-xs uppercase tracking-wider text-primary/80 font-mono">editing live post</span>
+          )}
           <div className="ml-auto flex items-center gap-3">
-            {saved && (
+            {saved && source === 'local' && (
               <span className="text-xs text-muted-foreground flex items-center gap-1">
                 <Check className="w-3.5 h-3.5" /> saved locally
               </span>
             )}
-            <button
-              onClick={doSaveDraft}
-              disabled={pubBusy !== null}
-              className="px-4 py-2 rounded-xl border border-border hover:border-primary hover:text-primary transition-colors text-sm disabled:opacity-40 disabled:hover:border-border disabled:hover:text-foreground"
-            >
-              {pubBusy === 'draft' ? 'saving…' : 'Save draft'}
-            </button>
-            <button
-              onClick={doPublish}
-              disabled={pubBusy !== null}
-              className="px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
-            >
-              {pubBusy === 'publish' ? 'publishing…' : 'Publish'}
-            </button>
+            {source === 'published' ? (
+              <button
+                onClick={doUpdate}
+                disabled={pubBusy !== null}
+                className="px-5 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
+              >
+                {pubBusy === 'publish' ? 'updating…' : 'Update'}
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={doSaveDraft}
+                  disabled={pubBusy !== null}
+                  className="px-4 py-2 rounded-xl border border-border hover:border-primary hover:text-primary transition-colors text-sm disabled:opacity-40 disabled:hover:border-border disabled:hover:text-foreground"
+                >
+                  {pubBusy === 'draft' ? 'saving…' : 'Save draft'}
+                </button>
+                <button
+                  onClick={doPublish}
+                  disabled={pubBusy !== null}
+                  className="px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
+                >
+                  {pubBusy === 'publish' ? 'publishing…' : 'Publish'}
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
