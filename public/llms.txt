@@ -7,7 +7,7 @@
 
 ## Thoughts
 - [Thoughts](https://vujic.ai/thoughts/): essays and notes on AI, technology, and the craft of building.
-- [The three things that improved my sleep the most](https://vujic.ai/thoughts/three-things-that-improved-my-sleep/): A friend asked what has the biggest impact on my sleep. My answer — blue-light-blocking glasses, a constant cool temperature, and a humidifier — and the sleep research behind why each earns its spot.
+- [The three things that improved my sleep the most](https://vujic.ai/thoughts/three-things-that-improved-my-sleep/): A friend asked what has the biggest impact on my sleep.
 - [Does the EU AI Act stop you and your employees from using ChatGPT, Claude and other LLMs?](https://vujic.ai/thoughts/does-the-eu-ai-act-stop-you-using-llms/): For most everyday uses of ChatGPT, Claude and other LLMs, the EU AI Act's heavy obligations fall on the vendor, not you. What actually makes a use case high-risk — and what that means for deployers.
 - [An edge stops working the moment it becomes famous.](https://vujic.ai/thoughts/an-edge-stops-working-the-moment-it-becomes-famous/): Being early to a tool was never the edge. A look at how optimized marketing and an urgency-driven feed manufacture the panic that you're falling behind.
 

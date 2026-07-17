@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { HeroSection } from '@/components/ui/hero-dithering-card';
 import { LatestPostCard } from '@/components/ui/latest-post-card';
+import { DitherCanvas } from '@/components/ui/dither-canvas';
 import { getPostSummaries } from '@/lib/blog';
 
 export default function HomePage() {
@@ -62,12 +63,11 @@ export default function HomePage() {
               data, the tool built especially for that problem.
             </p>
 
-            <figure className="my-10 max-w-md mx-auto">
-              <img
-                src="/home-fde-3.webp"
-                alt="Silhouette of a person working at a wall of monitors, in orange halftone"
-                loading="lazy"
-                className="w-full"
+            <figure className="my-12 max-w-xl mx-auto">
+              <DitherCanvas
+                scene="desk"
+                label="Silhouette of a person working at a wall of monitors, in orange dither"
+                className="block w-full"
               />
             </figure>
 
@@ -81,12 +81,11 @@ export default function HomePage() {
               offices.
             </p>
 
-            <figure className="my-10 max-w-md mx-auto">
-              <img
-                src="/home-skyline-3.webp"
-                alt="Silhouette of the Pančevo skyline at dusk reflected in the water, in orange halftone"
-                loading="lazy"
-                className="w-full"
+            <figure className="my-12 max-w-xl mx-auto">
+              <DitherCanvas
+                scene="skyline"
+                label="Silhouette of the Pančevo skyline at dusk reflected in the water, in orange dither"
+                className="block w-full"
               />
             </figure>
 
@@ -101,12 +100,11 @@ export default function HomePage() {
               numbers, not vanity ones.
             </p>
 
-            <figure className="my-10 max-w-md mx-auto">
-              <img
-                src="/home-squat-3.webp"
-                alt="Silhouette of a lifter at the bottom of a barbell squat, in orange halftone"
-                loading="lazy"
-                className="w-full"
+            <figure className="my-12 max-w-xl mx-auto">
+              <DitherCanvas
+                scene="squat"
+                label="Silhouette of a lifter at the bottom of a barbell squat, in orange dither"
+                className="block w-full"
               />
             </figure>
 
