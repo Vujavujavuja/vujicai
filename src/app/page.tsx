@@ -62,12 +62,12 @@ export default function HomePage() {
               data, the tool built especially for that problem.
             </p>
 
-            <figure className="my-8 max-w-sm mx-auto">
+            <figure className="my-10 max-w-md mx-auto">
               <img
                 src="/home-fde.webp"
                 alt="Silhouette of a person working at a wall of monitors, in orange halftone"
                 loading="lazy"
-                className="w-full rounded-2xl border border-border"
+                className="w-full"
               />
             </figure>
 
@@ -81,12 +81,12 @@ export default function HomePage() {
               offices.
             </p>
 
-            <figure className="my-8 max-w-sm mx-auto">
+            <figure className="my-10 max-w-md mx-auto">
               <img
                 src="/home-skyline.webp"
                 alt="Silhouette of the Pančevo skyline at dusk reflected in the water, in orange halftone"
                 loading="lazy"
-                className="w-full rounded-2xl border border-border"
+                className="w-full"
               />
             </figure>
 
@@ -101,12 +101,12 @@ export default function HomePage() {
               numbers, not vanity ones.
             </p>
 
-            <figure className="my-8 max-w-sm mx-auto">
+            <figure className="my-10 max-w-md mx-auto">
               <img
                 src="/home-squat.webp"
                 alt="Silhouette of a lifter at the bottom of a barbell squat, in orange halftone"
                 loading="lazy"
-                className="w-full rounded-2xl border border-border"
+                className="w-full"
               />
             </figure>
 
