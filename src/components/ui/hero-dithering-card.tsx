@@ -3,6 +3,7 @@
 import { useState, Suspense, lazy } from 'react';
 import Link from 'next/link';
 import { StarButton } from '@/components/ui/star-button';
+import { MagneticText } from '@/components/ui/magnetic-text';
 
 const Dithering = lazy(() =>
   import('@paper-design/shaders-react').then((mod) => ({ default: mod.Dithering }))
@@ -34,18 +35,28 @@ export function HeroSection() {
           </Suspense>
 
           <div className="relative z-10 px-6 max-w-4xl mx-auto text-center flex flex-col items-center">
-            <p className="text-xs md:text-sm text-muted-foreground/50 italic tracking-wide mb-2">
-              I am
-            </p>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-foreground mb-8 leading-[1.05]">
-              Nemanja Vujic
-            </h1>
+            <MagneticText
+              as="p"
+              text="I am"
+              radius={90}
+              strength={14}
+              className="text-xs md:text-sm text-muted-foreground/50 italic tracking-wide mb-2"
+            />
+            <MagneticText
+              as="h1"
+              text="Nemanja Vujic"
+              radius={160}
+              strength={42}
+              className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-foreground mb-8 leading-[1.05]"
+            />
 
-            <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-12 leading-relaxed">
-              Building, experiencing, competing, talking and listening.
-              <br />
-              All I do is try my best...
-            </p>
+            <MagneticText
+              as="p"
+              text={'Building, experiencing, competing, talking and listening.\nAll I do is try my best...'}
+              radius={110}
+              strength={20}
+              className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-12 leading-relaxed"
+            />
 
             <Link href="/thoughts/">
               <StarButton
