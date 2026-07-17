@@ -64,7 +64,7 @@ export default function HomePage() {
 
             <figure className="my-10 max-w-md mx-auto">
               <img
-                src="/home-fde.webp"
+                src="/home-fde-2.webp"
                 alt="Silhouette of a person working at a wall of monitors, in orange halftone"
                 loading="lazy"
                 className="w-full"
@@ -83,7 +83,7 @@ export default function HomePage() {
 
             <figure className="my-10 max-w-md mx-auto">
               <img
-                src="/home-skyline.webp"
+                src="/home-skyline-2.webp"
                 alt="Silhouette of the Pančevo skyline at dusk reflected in the water, in orange halftone"
                 loading="lazy"
                 className="w-full"
@@ -103,7 +103,7 @@ export default function HomePage() {
 
             <figure className="my-10 max-w-md mx-auto">
               <img
-                src="/home-squat.webp"
+                src="/home-squat-2.webp"
                 alt="Silhouette of a lifter at the bottom of a barbell squat, in orange halftone"
                 loading="lazy"
                 className="w-full"
