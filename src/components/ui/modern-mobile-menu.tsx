@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, BookOpen, Mail } from 'lucide-react';
+import { Home, BookOpen, Library, Mail } from 'lucide-react';
 
 type IconComponentType = React.ElementType<{ className?: string }>;
 
@@ -15,6 +15,7 @@ interface InteractiveMenuItem {
 const menuItems: InteractiveMenuItem[] = [
   { label: 'home', icon: Home, href: '/' },
   { label: 'thoughts', icon: BookOpen, href: '/thoughts' },
+  { label: 'deep', icon: Library, href: '/deep-thoughts' },
   { label: 'contact', icon: Mail, href: '/contact' },
 ];
 
@@ -59,7 +60,7 @@ export function MobileMenu() {
   if (pathname?.startsWith('/qr') || pathname?.startsWith('/wrttr')) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+    <div className="site-mobilenav fixed bottom-0 left-0 right-0 z-50 md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
       <nav className="menu" role="navigation" style={{ justifyContent: 'center', gap: '1rem' }}>
         {menuItems.map((item, index) => {
           const isActive = index === selectedIndex;

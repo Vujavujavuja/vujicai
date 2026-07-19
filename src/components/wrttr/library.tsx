@@ -158,7 +158,7 @@ export function Library() {
                   ? `/wrttr/edit?id=${item.id}`
                   : item.state === 'incomplete'
                     ? `/wrttr/session?id=${item.id}`
-                    : `/wrttr/edit?slug=${item.slug}&kind=${item.state}`;
+                    : `/wrttr/edit?slug=${item.slug}&kind=${item.state}&collection=${item.collection ?? 'thought'}`;
               const busy = acting === item.slug;
               return (
                 <li
@@ -168,6 +168,9 @@ export function Library() {
                   <a href={href} className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className={`text-xs uppercase tracking-wider font-mono ${meta.cls}`}>{meta.label}</span>
+                      {item.collection === 'deep' && (
+                        <span className="text-xs uppercase tracking-wider font-mono text-primary/70">deep</span>
+                      )}
                       {item.date > 0 && <span className="text-xs text-muted-foreground/50">{fmtDate(item.date)}</span>}
                     </div>
                     <div className="truncate mt-1 font-serif text-lg">{item.title}</div>
@@ -181,7 +184,7 @@ export function Library() {
                   <div className="flex items-center gap-3 shrink-0">
                     {item.state === 'published' && (
                       <button
-                        onClick={() => repoAction(() => unpublishFromRepo(item.slug!), item.slug!)}
+                        onClick={() => repoAction(() => unpublishFromRepo(item.slug!, item.collection), item.slug!)}
                         disabled={busy}
                         title="Unpublish (move back to drafts)"
                         className="text-xs text-muted-foreground hover:text-primary transition-colors disabled:opacity-40 flex items-center gap-1"
@@ -200,7 +203,7 @@ export function Library() {
                         isLocal
                           ? removeLocal(item.id)
                           : confirm(`Delete ${item.state} "${item.title}"? This cannot be undone.`) &&
-                            repoAction(() => deleteFromRepo(item.slug!, item.state as 'draft' | 'published'), item.slug!)
+                            repoAction(() => deleteFromRepo(item.slug!, item.state as 'draft' | 'published', item.collection), item.slug!)
                       }
                       disabled={busy}
                       className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-primary transition-all disabled:opacity-40"
