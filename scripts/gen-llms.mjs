@@ -29,6 +29,7 @@ ${thoughts}
 
 ## Pages
 - [Home](${SITE}/)
+- [About the author: Nemanja Vujić](${SITE}/author/nemanjavujic/)
 - [Contact](${SITE}/contact/)
 - [Wins / Accomplishments](${SITE}/accomplishments/)
 - [Vuja's Corner](${SITE}/corner/)
