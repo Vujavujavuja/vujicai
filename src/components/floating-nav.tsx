@@ -15,7 +15,7 @@ export function FloatingNav() {
   if (pathname?.startsWith('/qr') || pathname?.startsWith('/wrttr')) return null;
 
   return (
-    <nav className="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-start gap-1 rounded-2xl border border-primary/20 bg-background/80 backdrop-blur-xl shadow-[0_0_16px_-8px_hsl(var(--primary)/0.15)] px-3 py-4">
+    <nav className="site-sidebar fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-start gap-1 rounded-2xl border border-primary/20 bg-background/80 backdrop-blur-xl shadow-[0_0_16px_-8px_hsl(var(--primary)/0.15)] px-3 py-4">
       <button
         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         className="font-serif text-lg font-semibold px-2 py-1 text-foreground hover:text-primary transition-colors mb-2 cursor-pointer"

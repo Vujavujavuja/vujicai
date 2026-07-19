@@ -1,20 +1,31 @@
 // Regenerates public/llms.txt from the current post metadata so the
 // LLM-facing site summary never goes stale. Runs automatically before build
 // via the "prebuild" npm script.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://vujic.ai';
 
-const posts = JSON.parse(
-  readFileSync(join(root, 'content/blog/metadata.json'), 'utf-8')
-).sort((a, b) => new Date(b.date) - new Date(a.date));
+function readMeta(rel) {
+  const p = join(root, rel);
+  if (!existsSync(p)) return [];
+  return JSON.parse(readFileSync(p, 'utf-8')).sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+const posts = readMeta('content/blog/metadata.json');
+const deepPosts = readMeta('content/deep/metadata.json');
 
 const thoughts = posts
   .map((p) => `- [${p.title}](${SITE}/thoughts/${p.slug}/): ${p.description}`)
   .join('\n');
+
+const deepSection = deepPosts.length
+  ? `\n## Deep Thoughts
+- [Deep Thoughts](${SITE}/deep-thoughts/): longer, slower pieces and deep dives.
+${deepPosts.map((p) => `- [${p.title}](${SITE}/deep-thoughts/${p.slug}/): ${p.description}`).join('\n')}\n`
+  : '';
 
 const out = `# Nemanja Vujić — vujic.ai
 
@@ -26,7 +37,7 @@ const out = `# Nemanja Vujić — vujic.ai
 ## Thoughts
 - [Thoughts](${SITE}/thoughts/): essays and notes on AI, technology, and the craft of building.
 ${thoughts}
-
+${deepSection}
 ## Pages
 - [Home](${SITE}/)
 - [About the author: Nemanja Vujić](${SITE}/author/nemanjavujic/)

@@ -30,6 +30,9 @@ export interface LocalImage {
 /** Merged library row across the three sources (§7.3). */
 export type LibraryState = 'local' | 'incomplete' | 'draft' | 'published';
 
+/** Publish target: a short Thought or a long-form Deep Thought. */
+export type Collection = 'thought' | 'deep';
+
 export interface LibraryItem {
   id: string; // session id (local) or slug (repo)
   state: LibraryState;
@@ -40,4 +43,5 @@ export interface LibraryItem {
   peekCount?: number;
   slug?: string;
   liveUrl?: string;
+  collection?: Collection; // repo items: which collection they belong to
 }

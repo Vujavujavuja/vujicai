@@ -11,6 +11,10 @@
 - [Does the EU AI Act stop you and your employees from using ChatGPT, Claude and other LLMs?](https://vujic.ai/thoughts/does-the-eu-ai-act-stop-you-using-llms/): For most everyday uses of ChatGPT, Claude and other LLMs, the EU AI Act's heavy obligations fall on the vendor, not you. What actually makes a use case high-risk — and what that means for deployers.
 - [An edge stops working the moment it becomes famous.](https://vujic.ai/thoughts/an-edge-stops-working-the-moment-it-becomes-famous/): Being early to a tool was never the edge. A look at how optimized marketing and an urgency-driven feed manufacture the panic that you're falling behind.
 
+## Deep Thoughts
+- [Deep Thoughts](https://vujic.ai/deep-thoughts/): longer, slower pieces and deep dives.
+- [What belongs here](https://vujic.ai/deep-thoughts/what-belongs-here/): A slower room for the pieces that need more than a thought, where I take the long way around.
+
 ## Pages
 - [Home](https://vujic.ai/)
 - [About the author: Nemanja Vujić](https://vujic.ai/author/nemanjavujic/)

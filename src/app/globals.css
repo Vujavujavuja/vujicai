@@ -304,3 +304,59 @@ html {
 .animate-star-btn-fast {
   animation: star-btn calc(var(--hover-duration, 1) * 1s) linear infinite;
 }
+
+/* =============================================
+   Immersive reading (Deep Thoughts)
+   The chrome retreats to its edge and only returns when the cursor
+   approaches that edge, so nothing competes with the text or images.
+   ============================================= */
+
+.immersive .site-sidebar {
+  /* keep the -translate-y-1/2 vertical centering while sliding out to the left */
+  transform: translateX(calc(-100% - 2.5rem)) translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+}
+.immersive.reveal-left .site-sidebar {
+  transform: translateY(-50%);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.immersive .site-mobilenav {
+  transform: translateY(140%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+}
+.immersive.reveal-bottom .site-mobilenav {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* A whisper-thin cue on the left edge so the hidden nav is discoverable. */
+.immersive .site-sidebar::before {
+  content: '';
+  position: fixed;
+  left: -1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 42px;
+  border-radius: 999px;
+  background: hsl(var(--primary) / 0.35);
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+.immersive.reveal-left .site-sidebar::before {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .immersive .site-sidebar,
+  .immersive .site-mobilenav {
+    transition: opacity 0.2s ease;
+  }
+}

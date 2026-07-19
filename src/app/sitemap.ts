@@ -13,6 +13,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const deepPosts = getAllPostsMeta('deep');
+  const deepEntries: MetadataRoute.Sitemap = deepPosts.map((post) => ({
+    url: `${baseUrl}/deep-thoughts/${post.slug}/`,
+    lastModified: post.date,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
   return [
     {
       url: baseUrl,
@@ -22,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/thoughts/`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/deep-thoughts/`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -63,5 +77,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     ...thoughtEntries,
+    ...deepEntries,
   ];
 }

@@ -4,6 +4,7 @@ import { NavigationItem, SocialLink } from '@/types';
 export const navigation: NavigationItem[] = [
   { label: "Home", href: "/" },
   { label: "Thoughts", href: "/thoughts" },
+  { label: "Deep Thoughts", href: "/deep-thoughts" },
   { label: "Contact", href: "/contact" },
 ];
 

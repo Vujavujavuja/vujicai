@@ -8,7 +8,8 @@
 //   content/drafts/<slug>.md        (frontmatter + body; never read by build)
 //   public/drafts/<slug>/*.webp     (draft images)
 import type { BlogPostMeta } from '@/types';
-import type { LibraryItem } from './types';
+import type { LibraryItem, Collection } from './types';
+export type { Collection };
 
 const REPO = 'Vujavujavuja/vujicai';
 // The browser never talks to GitHub directly and never holds a token. It calls
@@ -17,6 +18,17 @@ const REPO = 'Vujavujavuja/vujicai';
 const API = '/api/gh';
 const BRANCH = 'main';
 const SITE = 'https://vujic.ai';
+
+// Two publish targets. Short "Thoughts" live under content/blog + /thoughts;
+// long-form "Deep Thoughts" under content/deep + /deep-thoughts. Drafts are a
+// shared pool (content/drafts) and remember their target in frontmatter.
+const COLLECTIONS: Record<Collection, { contentDir: string; urlBase: string }> = {
+  thought: { contentDir: 'content/blog', urlBase: 'thoughts' },
+  deep: { contentDir: 'content/deep', urlBase: 'deep-thoughts' },
+};
+export function collectionUrlBase(c: Collection): string {
+  return COLLECTIONS[c].urlBase;
+}
 
 // ---------- errors (PUB-9: never fail silently) ----------
 export type WrttrErrorKind =
@@ -159,18 +171,21 @@ export function invalidateLibraryCache() {
 export async function loadRepoLibrary(state: RepoState): Promise<LibraryItem[]> {
   const items: LibraryItem[] = [];
 
-  const metaEntry = state.tree.find((t) => t.path === 'content/blog/metadata.json');
-  if (metaEntry) {
+  for (const collection of Object.keys(COLLECTIONS) as Collection[]) {
+    const { contentDir, urlBase } = COLLECTIONS[collection];
+    const metaEntry = state.tree.find((t) => t.path === `${contentDir}/metadata.json`);
+    if (!metaEntry) continue;
     const meta = JSON.parse(await getBlobText(metaEntry.sha)) as (BlogPostMeta & { wordCount?: number })[];
     for (const p of meta) {
       items.push({
         id: p.slug,
         state: 'published',
+        collection,
         title: p.title,
         date: new Date(p.date).getTime(),
         wordCount: p.wordCount ?? 0,
         slug: p.slug,
-        liveUrl: `${SITE}/thoughts/${p.slug}/`,
+        liveUrl: `${SITE}/${urlBase}/${p.slug}/`,
       });
     }
   }
@@ -183,6 +198,7 @@ export async function loadRepoLibrary(state: RepoState): Promise<LibraryItem[]> 
     items.push({
       id: slug,
       state: 'draft',
+      collection: fm.collection === 'deep' ? 'deep' : 'thought',
       title: fm.title || slug,
       date: fm.date ? new Date(fm.date).getTime() : 0,
       wordCount: Number(fm.wordCount) || 0,
@@ -264,7 +280,9 @@ function todayISO(): string {
 }
 
 /** Save a draft into the repo (content/drafts). Idempotent per slug. */
-export async function saveDraftToRepo(input: PublishInput & { peekCount?: number; target?: number }): Promise<string> {
+export async function saveDraftToRepo(
+  input: PublishInput & { peekCount?: number; target?: number; collection?: Collection }
+): Promise<string> {
   const state = await getRepoState();
   const body = rewriteImagePaths(input.body, input.images, `/drafts/${input.slug}`);
   const md = buildFrontmatter(
@@ -277,6 +295,7 @@ export async function saveDraftToRepo(input: PublishInput & { peekCount?: number
       wordCount: input.wordCount,
       peekCount: input.peekCount ?? 0,
       target: input.target ?? 0,
+      collection: input.collection ?? 'thought',
     },
     body
   );
@@ -293,7 +312,8 @@ export interface LoadedPost {
   excerpt: string;
   tags: string[];
   body: string;
-  filename?: string; // published: the .md file in content/blog
+  filename?: string; // published: the .md file in the collection's content dir
+  collection: Collection;
 }
 
 function parseTagList(v?: string): string[] {
@@ -306,16 +326,21 @@ function parseTagList(v?: string): string[] {
 }
 
 /** Load an existing repo post (published or draft) into editable fields. */
-export async function loadRepoPost(slug: string, kind: 'published' | 'draft'): Promise<LoadedPost> {
+export async function loadRepoPost(
+  slug: string,
+  kind: 'published' | 'draft',
+  collection: Collection = 'thought'
+): Promise<LoadedPost> {
   const state = await getRepoState();
   if (kind === 'published') {
-    const metaEntry = state.tree.find((t) => t.path === 'content/blog/metadata.json');
+    const { contentDir } = COLLECTIONS[collection];
+    const metaEntry = state.tree.find((t) => t.path === `${contentDir}/metadata.json`);
     const meta: BlogPostMeta[] = metaEntry ? JSON.parse(await getBlobText(metaEntry.sha)) : [];
     const m = meta.find((p) => p.slug === slug);
     if (!m) throw new WrttrError('not-found', `No published post "${slug}".`);
-    const fileEntry = state.tree.find((t) => t.path === `content/blog/${m.filename}`);
+    const fileEntry = state.tree.find((t) => t.path === `${contentDir}/${m.filename}`);
     const body = fileEntry ? await getBlobText(fileEntry.sha) : '';
-    return { slug, title: m.title, excerpt: m.description, tags: m.tags || [], body, filename: m.filename };
+    return { slug, title: m.title, excerpt: m.description, tags: m.tags || [], body, filename: m.filename, collection };
   }
   const fileEntry = state.tree.find((t) => t.path === `content/drafts/${slug}.md`);
   if (!fileEntry) throw new WrttrError('not-found', `No draft "${slug}".`);
@@ -326,47 +351,54 @@ export async function loadRepoPost(slug: string, kind: 'published' | 'draft'): P
     excerpt: fm.excerpt || '',
     tags: parseTagList(fm.tags),
     body: fm.body || '',
+    collection: fm.collection === 'deep' ? 'deep' : 'thought',
   };
 }
 
 /** Update a published post in place (EDIT-9): overwrite the .md + its metadata
  *  entry (keeping the original date), add any new images. One commit. */
 export async function updatePublished(
-  input: PublishInput & { filename?: string }
+  input: PublishInput & { filename?: string },
+  collection: Collection = 'thought'
 ): Promise<{ commit: string; url: string }> {
+  const { contentDir, urlBase } = COLLECTIONS[collection];
   const state = await getRepoState();
-  const metaEntry = state.tree.find((t) => t.path === 'content/blog/metadata.json');
+  const metaEntry = state.tree.find((t) => t.path === `${contentDir}/metadata.json`);
   const meta: (BlogPostMeta & { wordCount?: number })[] = metaEntry ? JSON.parse(await getBlobText(metaEntry.sha)) : [];
   const idx = meta.findIndex((m) => m.slug === input.slug);
   if (idx === -1) throw new WrttrError('not-found', `No published post "${input.slug}".`);
   const filename = input.filename || meta[idx].filename || `${input.slug}.md`;
   meta[idx] = { ...meta[idx], title: input.title, description: input.excerpt, tags: input.tags, filename };
 
-  const body = rewriteImagePaths(input.body, input.images, `/thoughts/${input.slug}`);
+  const body = rewriteImagePaths(input.body, input.images, `/${urlBase}/${input.slug}`);
   const entries: Entry[] = [
-    { path: `content/blog/${filename}`, mode: '100644', type: 'blob', sha: await createTextBlob(body) },
-    { path: 'content/blog/metadata.json', mode: '100644', type: 'blob', sha: await createTextBlob(JSON.stringify(meta, null, 2) + '\n') },
+    { path: `${contentDir}/${filename}`, mode: '100644', type: 'blob', sha: await createTextBlob(body) },
+    { path: `${contentDir}/metadata.json`, mode: '100644', type: 'blob', sha: await createTextBlob(JSON.stringify(meta, null, 2) + '\n') },
   ];
   for (const img of input.images) {
-    entries.push({ path: `public/thoughts/${input.slug}/${img.filename}`, mode: '100644', type: 'blob', sha: await createBinaryBlob(img.blob) });
+    entries.push({ path: `public/${urlBase}/${input.slug}/${img.filename}`, mode: '100644', type: 'blob', sha: await createBinaryBlob(img.blob) });
   }
   const commit = await commitTree(state, entries, `Update: ${input.title}`);
-  return { commit, url: `${SITE}/thoughts/${input.slug}/` };
+  return { commit, url: `${SITE}/${urlBase}/${input.slug}/` };
 }
 
 /** Publish: one atomic commit adding the post + metadata entry + images (and
  *  removing the draft if it came from one). Returns the live URL. */
-export async function publishToRepo(input: PublishInput): Promise<{ commit: string; url: string }> {
+export async function publishToRepo(
+  input: PublishInput,
+  collection: Collection = 'thought'
+): Promise<{ commit: string; url: string }> {
+  const { contentDir, urlBase } = COLLECTIONS[collection];
   const state = await getRepoState();
 
-  if (state.tree.some((t) => t.path === `content/blog/${input.slug}.md`)) {
+  if (state.tree.some((t) => t.path === `${contentDir}/${input.slug}.md`)) {
     throw new WrttrError('collision', `A published post with slug "${input.slug}" already exists.`);
   }
 
-  const body = rewriteImagePaths(input.body, input.images, `/thoughts/${input.slug}`);
+  const body = rewriteImagePaths(input.body, input.images, `/${urlBase}/${input.slug}`);
 
   // upsert metadata.json
-  const metaEntry = state.tree.find((t) => t.path === 'content/blog/metadata.json');
+  const metaEntry = state.tree.find((t) => t.path === `${contentDir}/metadata.json`);
   const meta: (BlogPostMeta & { wordCount?: number })[] = metaEntry ? JSON.parse(await getBlobText(metaEntry.sha)) : [];
   meta.unshift({
     slug: input.slug,
@@ -379,11 +411,11 @@ export async function publishToRepo(input: PublishInput): Promise<{ commit: stri
   });
 
   const entries: Entry[] = [
-    { path: `content/blog/${input.slug}.md`, mode: '100644', type: 'blob', sha: await createTextBlob(body) },
-    { path: 'content/blog/metadata.json', mode: '100644', type: 'blob', sha: await createTextBlob(JSON.stringify(meta, null, 2) + '\n') },
+    { path: `${contentDir}/${input.slug}.md`, mode: '100644', type: 'blob', sha: await createTextBlob(body) },
+    { path: `${contentDir}/metadata.json`, mode: '100644', type: 'blob', sha: await createTextBlob(JSON.stringify(meta, null, 2) + '\n') },
   ];
   for (const img of input.images) {
-    entries.push({ path: `public/thoughts/${input.slug}/${img.filename}`, mode: '100644', type: 'blob', sha: await createBinaryBlob(img.blob) });
+    entries.push({ path: `public/${urlBase}/${input.slug}/${img.filename}`, mode: '100644', type: 'blob', sha: await createBinaryBlob(img.blob) });
   }
   if (input.fromDraft) {
     entries.push({ path: `content/drafts/${input.slug}.md`, mode: '100644', type: 'blob', sha: null });
@@ -393,23 +425,24 @@ export async function publishToRepo(input: PublishInput): Promise<{ commit: stri
   }
 
   const commit = await commitTree(state, entries, `Publish: ${input.title}`);
-  return { commit, url: `${SITE}/thoughts/${input.slug}/` };
+  return { commit, url: `${SITE}/${urlBase}/${input.slug}/` };
 }
 
 /** Unpublish: move a published post back to content/drafts (reuses image blob
  *  SHAs — no re-upload) and drop its metadata entry. One commit. */
-export async function unpublishFromRepo(slug: string): Promise<string> {
+export async function unpublishFromRepo(slug: string, collection: Collection = 'thought'): Promise<string> {
+  const { contentDir, urlBase } = COLLECTIONS[collection];
   const state = await getRepoState();
-  const postEntry = state.tree.find((t) => t.path === `content/blog/${slug}.md`);
+  const postEntry = state.tree.find((t) => t.path === `${contentDir}/${slug}.md`);
   if (!postEntry) throw new WrttrError('not-found', `No published post "${slug}".`);
 
-  const metaEntry = state.tree.find((t) => t.path === 'content/blog/metadata.json');
+  const metaEntry = state.tree.find((t) => t.path === `${contentDir}/metadata.json`);
   const meta: (BlogPostMeta & { wordCount?: number })[] = metaEntry ? JSON.parse(await getBlobText(metaEntry.sha)) : [];
   const removed = meta.find((m) => m.slug === slug);
   const nextMeta = meta.filter((m) => m.slug !== slug);
 
-  // rewrite /thoughts/<slug>/ -> /drafts/<slug>/ in the body, keep image blobs
-  const body = (await getBlobText(postEntry.sha)).split(`/thoughts/${slug}/`).join(`/drafts/${slug}/`);
+  // rewrite /<urlBase>/<slug>/ -> /drafts/<slug>/ in the body, keep image blobs
+  const body = (await getBlobText(postEntry.sha)).split(`/${urlBase}/${slug}/`).join(`/drafts/${slug}/`);
   const md = buildFrontmatter(
     {
       title: removed?.title || slug,
@@ -418,18 +451,19 @@ export async function unpublishFromRepo(slug: string): Promise<string> {
       tags: removed?.tags || [],
       date: removed?.date || todayISO(),
       wordCount: removed?.wordCount ?? 0,
+      collection,
     },
     body
   );
 
   const entries: Entry[] = [
     { path: `content/drafts/${slug}.md`, mode: '100644', type: 'blob', sha: await createTextBlob(md) },
-    { path: `content/blog/${slug}.md`, mode: '100644', type: 'blob', sha: null },
-    { path: 'content/blog/metadata.json', mode: '100644', type: 'blob', sha: await createTextBlob(JSON.stringify(nextMeta, null, 2) + '\n') },
+    { path: `${contentDir}/${slug}.md`, mode: '100644', type: 'blob', sha: null },
+    { path: `${contentDir}/metadata.json`, mode: '100644', type: 'blob', sha: await createTextBlob(JSON.stringify(nextMeta, null, 2) + '\n') },
   ];
   // move images by reusing their blob SHAs
   state.tree
-    .filter((t) => t.path.startsWith(`public/thoughts/${slug}/`) && t.type === 'blob')
+    .filter((t) => t.path.startsWith(`public/${urlBase}/${slug}/`) && t.type === 'blob')
     .forEach((t) => {
       const name = t.path.split('/').pop()!;
       entries.push({ path: `public/drafts/${slug}/${name}`, mode: '100644', type: 'blob', sha: t.sha });
@@ -440,21 +474,26 @@ export async function unpublishFromRepo(slug: string): Promise<string> {
 }
 
 /** Delete a repo item (published or draft) and its images in one commit. */
-export async function deleteFromRepo(slug: string, kind: 'draft' | 'published'): Promise<string> {
+export async function deleteFromRepo(
+  slug: string,
+  kind: 'draft' | 'published',
+  collection: Collection = 'thought'
+): Promise<string> {
+  const { contentDir, urlBase } = COLLECTIONS[collection];
   const state = await getRepoState();
   const entries: Entry[] = [];
 
   if (kind === 'published') {
-    entries.push({ path: `content/blog/${slug}.md`, mode: '100644', type: 'blob', sha: null });
-    const metaEntry = state.tree.find((t) => t.path === 'content/blog/metadata.json');
+    entries.push({ path: `${contentDir}/${slug}.md`, mode: '100644', type: 'blob', sha: null });
+    const metaEntry = state.tree.find((t) => t.path === `${contentDir}/metadata.json`);
     if (metaEntry) {
       const meta = JSON.parse(await getBlobText(metaEntry.sha)).filter((m: BlogPostMeta) => m.slug !== slug);
-      entries.push({ path: 'content/blog/metadata.json', mode: '100644', type: 'blob', sha: await createTextBlob(JSON.stringify(meta, null, 2) + '\n') });
+      entries.push({ path: `${contentDir}/metadata.json`, mode: '100644', type: 'blob', sha: await createTextBlob(JSON.stringify(meta, null, 2) + '\n') });
     }
   } else {
     entries.push({ path: `content/drafts/${slug}.md`, mode: '100644', type: 'blob', sha: null });
   }
-  const imgDir = kind === 'published' ? `public/thoughts/${slug}/` : `public/drafts/${slug}/`;
+  const imgDir = kind === 'published' ? `public/${urlBase}/${slug}/` : `public/drafts/${slug}/`;
   state.tree
     .filter((t) => t.path.startsWith(imgDir) && t.type === 'blob')
     .forEach((t) => entries.push({ path: t.path, mode: '100644', type: 'blob', sha: null }));

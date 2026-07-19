@@ -13,9 +13,14 @@ interface PostSummary {
 interface InfiniteBlogListProps {
   posts: PostSummary[];
   batchSize?: number;
+  basePath?: string;
 }
 
-export function InfiniteBlogList({ posts, batchSize = 5 }: InfiniteBlogListProps) {
+export function InfiniteBlogList({
+  posts,
+  batchSize = 5,
+  basePath = '/thoughts',
+}: InfiniteBlogListProps) {
   const [visibleCount, setVisibleCount] = useState(batchSize);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +57,7 @@ export function InfiniteBlogList({ posts, batchSize = 5 }: InfiniteBlogListProps
             title={post.title}
             date={post.date}
             description={post.description}
-            href={`/thoughts/${post.slug}/`}
+            href={`${basePath}/${post.slug}/`}
           />
         ))}
       </div>

@@ -11,10 +11,11 @@ import {
   saveDraftToRepo,
   updatePublished,
   loadRepoPost,
+  collectionUrlBase,
   WrttrError,
   type DraftImage,
 } from '@/lib/wrttr/github';
-import type { LocalSession, LocalImage } from '@/lib/wrttr/types';
+import type { LocalSession, LocalImage, Collection } from '@/lib/wrttr/types';
 
 type Source = 'local' | 'published' | 'draft';
 
@@ -38,12 +39,14 @@ export function Editor() {
   const bodyRef = useRef<HTMLTextAreaElement>(null);
   const filenameRef = useRef<string | undefined>(undefined);
   const [source, setSource] = useState<Source>('local');
+  const [collection, setCollection] = useState<Collection>('thought');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
     const repoSlug = params.get('slug');
     const kind = params.get('kind') as 'published' | 'draft' | null;
+    const urlCollection = params.get('collection') === 'deep' ? 'deep' : 'thought';
 
     // Editing an existing repo post/draft (EDIT-9).
     if (repoSlug && kind) {
@@ -51,8 +54,9 @@ export function Editor() {
       setSource(kind);
       (async () => {
         try {
-          const post = await loadRepoPost(repoSlug, kind);
+          const post = await loadRepoPost(repoSlug, kind, urlCollection);
           filenameRef.current = post.filename;
+          setCollection(post.collection);
           setSession({
             id: repoSlug,
             createdAt: 0,
@@ -222,16 +226,19 @@ export function Editor() {
     setPubBusy('publish');
     setStatus(null);
     try {
-      const { url } = await updatePublished({
-        slug,
-        title,
-        excerpt,
-        tags: tagsArr,
-        body,
-        wordCount: countWords(body),
-        images: await gatherImages(),
-        filename: filenameRef.current,
-      });
+      const { url } = await updatePublished(
+        {
+          slug,
+          title,
+          excerpt,
+          tags: tagsArr,
+          body,
+          wordCount: countWords(body),
+          images: await gatherImages(),
+          filename: filenameRef.current,
+        },
+        collection
+      );
       setStatus({ kind: 'ok', msg: 'Updated. Cloudflare is redeploying.', url });
     } catch (e) {
       setStatus({ kind: 'err', msg: (e as WrttrError).message });
@@ -259,6 +266,7 @@ export function Editor() {
         images: await gatherImages(),
         peekCount: session?.peekCount,
         target: session?.target,
+        collection,
       });
       setStatus({ kind: 'ok', msg: 'Draft saved to the repo.' });
     } catch (e) {
@@ -277,20 +285,23 @@ export function Editor() {
       setStatus({ kind: 'err', msg: 'Nothing to publish yet.' });
       return;
     }
-    if (!window.confirm(`Publish "${title}" to vujic.ai/thoughts/${slug}?`)) return;
+    if (!window.confirm(`Publish "${title}" to vujic.ai/${collectionUrlBase(collection)}/${slug}?`)) return;
     save(false);
     setPubBusy('publish');
     setStatus(null);
     try {
-      const { url } = await publishToRepo({
-        slug,
-        title,
-        excerpt,
-        tags: tagsArr,
-        body,
-        wordCount: countWords(body),
-        images: await gatherImages(),
-      });
+      const { url } = await publishToRepo(
+        {
+          slug,
+          title,
+          excerpt,
+          tags: tagsArr,
+          body,
+          wordCount: countWords(body),
+          images: await gatherImages(),
+        },
+        collection
+      );
       setStatus({ kind: 'ok', msg: 'Published. Cloudflare is deploying it now.', url });
     } catch (e) {
       setStatus({ kind: 'err', msg: (e as WrttrError).message });
@@ -335,6 +346,32 @@ export function Editor() {
             ← library
           </a>
           <span className="text-xs text-muted-foreground/60 tabular-nums">{countWords(body)} words</span>
+
+          {/* Publish target: Thought vs long-form Deep Thought. Locked once a
+              post is live (moving between collections isn't supported). */}
+          {source === 'published' ? (
+            <span className="text-xs uppercase tracking-wider text-muted-foreground/60 font-mono">
+              {collection === 'deep' ? 'deep thought' : 'thought'}
+            </span>
+          ) : (
+            <div className="flex items-center rounded-lg border border-border overflow-hidden text-xs">
+              {(['thought', 'deep'] as const).map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setCollection(c)}
+                  className={`px-2.5 py-1 transition-colors ${
+                    collection === c
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {c === 'deep' ? 'Deep Thought' : 'Thought'}
+                </button>
+              ))}
+            </div>
+          )}
+
           {source === 'published' && (
             <span className="text-xs uppercase tracking-wider text-primary/80 font-mono">editing live post</span>
           )}
