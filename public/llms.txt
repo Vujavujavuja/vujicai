@@ -13,6 +13,7 @@
 
 ## Pages
 - [Home](https://vujic.ai/)
+- [About the author: Nemanja Vujić](https://vujic.ai/author/nemanjavujic/)
 - [Contact](https://vujic.ai/contact/)
 - [Wins / Accomplishments](https://vujic.ai/accomplishments/)
 - [Vuja's Corner](https://vujic.ai/corner/)

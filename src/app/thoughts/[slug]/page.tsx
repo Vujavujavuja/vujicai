@@ -55,7 +55,7 @@ export default function ThoughtPage({ params }: { params: { slug: string } }) {
     description: post.description,
     datePublished: post.date,
     dateModified: post.date,
-    author: { '@type': 'Person', name: 'Nemanja Vujić', url: SITE_URL },
+    author: { '@type': 'Person', name: 'Nemanja Vujić', url: `${SITE_URL}/author/nemanjavujic/` },
     publisher: { '@type': 'Person', name: 'Nemanja Vujić', url: SITE_URL },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     image: `${SITE_URL}/og-image.png`,
@@ -96,7 +96,15 @@ export default function ThoughtPage({ params }: { params: { slug: string } }) {
           <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-6 leading-[1.1]">
             {post.title}
           </h1>
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+            <Link
+              href="/author/nemanjavujic/"
+              className="hover:text-primary transition-colors"
+              rel="author"
+            >
+              by <span className="text-foreground/80">Nemanja Vujić</span>
+            </Link>
+            <span>&middot;</span>
             <time dateTime={post.date}>{formatDate(post.date)}</time>
             <span>&middot;</span>
             <span>{post.readingTime} min read</span>
