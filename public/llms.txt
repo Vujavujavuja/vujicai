@@ -7,6 +7,7 @@
 
 ## Thoughts
 - [Thoughts](https://vujic.ai/thoughts/): essays and notes on AI, technology, and the craft of building.
+- [Choosing an AI model is becoming a governance question](https://vujic.ai/thoughts/choosing-an-ai-model-is-a-governance-question/): DoorDash, Cursor, Airbnb, Siemens and Lindy are all quietly running Open Weight models. Why picking a model in 2026 is turning into a governance question, not a leaderboard one.
 - [The three things that improved my sleep the most](https://vujic.ai/thoughts/three-things-that-improved-my-sleep/): A friend asked what has the biggest impact on my sleep.
 - [Does the EU AI Act stop you and your employees from using ChatGPT, Claude and other LLMs?](https://vujic.ai/thoughts/does-the-eu-ai-act-stop-you-using-llms/): For most everyday uses of ChatGPT, Claude and other LLMs, the EU AI Act's heavy obligations fall on the vendor, not you. What actually makes a use case high-risk — and what that means for deployers.
 - [An edge stops working the moment it becomes famous.](https://vujic.ai/thoughts/an-edge-stops-working-the-moment-it-becomes-famous/): Being early to a tool was never the edge. A look at how optimized marketing and an urgency-driven feed manufacture the panic that you're falling behind.
