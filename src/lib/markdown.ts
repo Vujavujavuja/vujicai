@@ -43,8 +43,12 @@ function processInline(text: string): string {
   result = result.replace(/\*(.+?)\*/g, '<em>$1</em>');
   // Images (before links so ![alt](src) isn't parsed as a link)
   result = result.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy" />');
-  // Links
-  result = result.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  // Links — external ones open in a new tab and carry rel for safety.
+  result = result.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m, text, href) => {
+    const external = /^https?:\/\//i.test(href);
+    const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+    return `<a href="${href}"${attrs}>${text}</a>`;
+  });
   return result;
 }
 
