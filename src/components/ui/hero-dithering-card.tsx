@@ -24,7 +24,7 @@ export function HeroSection() {
             <div className="absolute inset-0 z-0 pointer-events-none opacity-40 dark:opacity-30 mix-blend-multiply dark:mix-blend-screen">
               <Dithering
                 colorBack="#00000000"
-                colorFront="#EC4E02"
+                colorFront="#c8591e"
                 shape="warp"
                 type="4x4"
                 speed={isHovered ? 0.6 : 0.2}
@@ -60,7 +60,7 @@ export function HeroSection() {
 
             <Link href="/thoughts/">
               <StarButton
-                lightColor="#EC4E02"
+                lightColor="#c8591e"
                 duration={8}
                 className="rounded-3xl px-10 h-14 text-base"
               >

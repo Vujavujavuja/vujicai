@@ -29,7 +29,7 @@ export function LatestPostCard({ title, description, href }: LatestPostCardProps
             <div className="absolute inset-0 z-0 pointer-events-none opacity-25 dark:opacity-20 mix-blend-multiply dark:mix-blend-screen">
               <Dithering
                 colorBack="#00000000"
-                colorFront="#EC4E02"
+                colorFront="#c8591e"
                 shape="warp"
                 type="4x4"
                 speed={isHovered ? 0.4 : 0.1}
@@ -52,7 +52,7 @@ export function LatestPostCard({ title, description, href }: LatestPostCardProps
 
             <Link href={href}>
               <StarButton
-                lightColor="#EC4E02"
+                lightColor="#c8591e"
                 duration={8}
                 className="rounded-3xl px-8 h-12 text-sm"
               >

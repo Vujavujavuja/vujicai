@@ -31,7 +31,7 @@ export function FloatingNav() {
           return (
             <div key={item.href} className="w-full">
               <StarButton
-                lightColor="#EC4E02"
+                lightColor="#c8591e"
                 duration={8}
                 borderWidth={1}
                 className="rounded-lg w-full text-xs font-medium px-3 py-2 h-auto"

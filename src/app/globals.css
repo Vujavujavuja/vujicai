@@ -10,7 +10,7 @@
     --card-foreground: 20 10% 12%;
     --popover: 35 18% 90%;
     --popover-foreground: 20 10% 12%;
-    --primary: 20 90% 48%;
+    --primary: 22 72% 44%;
     --primary-foreground: 35 18% 90%;
     --secondary: 35 14% 84%;
     --secondary-foreground: 20 10% 12%;
@@ -22,18 +22,18 @@
     --destructive-foreground: 35 18% 90%;
     --border: 30 12% 80%;
     --input: 30 12% 80%;
-    --ring: 20 90% 48%;
+    --ring: 22 72% 44%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 20 10% 8%;
+    --background: 20 10% 9.5%;
     --foreground: 40 20% 93%;
-    --card: 20 10% 11%;
+    --card: 20 10% 12.5%;
     --card-foreground: 40 20% 93%;
     --popover: 20 10% 8%;
     --popover-foreground: 40 20% 93%;
-    --primary: 20 90% 52%;
+    --primary: 22 72% 46%;
     --primary-foreground: 20 10% 8%;
     --secondary: 20 8% 16%;
     --secondary-foreground: 40 20% 93%;
@@ -45,7 +45,7 @@
     --destructive-foreground: 40 20% 93%;
     --border: 20 8% 18%;
     --input: 20 8% 18%;
-    --ring: 20 90% 52%;
+    --ring: 22 72% 46%;
   }
 }
 
@@ -72,11 +72,11 @@ html {
    instead of the default blue. */
 ::selection {
   background-color: #2a2420;
-  color: #c75a1e;
+  color: #af541f;
 }
 ::-moz-selection {
   background-color: #2a2420;
-  color: #c75a1e;
+  color: #af541f;
 }
 
 /* Custom scrollbar — slim, inset thumb that sits quiet and warms to the
@@ -89,13 +89,13 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #96431c;
+  background-color: #843e1d;
   border-radius: 9999px;
   border: 3px solid transparent;
   background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #b5551f;
+  background-color: #9e4d1e;
 }
 
 /* Firefox — scoped so it doesn't disable the WebKit scrollbar above in
@@ -103,7 +103,7 @@ html {
 @supports (-moz-appearance: none) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: #96431c transparent;
+    scrollbar-color: #843e1d transparent;
   }
 }
 

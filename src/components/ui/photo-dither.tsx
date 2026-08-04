@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 
 // Two-tone orange to match the site's dither art.
-const SHADES = ['#7a3e12', '#b3591b'];
+const SHADES = ['#6b3915', '#a1531c'];
 const SPACE = 1000; // normalized square dot-space
 const R = 95; // repel radius
 const R2 = R * R;
