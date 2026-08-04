@@ -50,7 +50,7 @@ export default function ThoughtsPage() {
           <p className="text-xs md:text-sm text-muted-foreground/50 italic tracking-wide mb-2">
             my
           </p>
-          <h1 className="font-serif text-5xl md:text-6xl font-medium tracking-tight mb-4">
+          <h1 className="font-serif text-4xl md:text-5xl font-medium tracking-tight mb-4">
             Thoughts
           </h1>
           <p className="text-muted-foreground">
