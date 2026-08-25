@@ -24,6 +24,9 @@ export const PERSON_DESCRIPTION =
 export const PROFILE_LINKS = [
   'https://linkedin.com/in/nemanja-vujic-vuja43',
   'https://github.com/Vujavujavuja',
+  // Second GitHub account — carries the sdv-dev/SDV commits and a
+  // name-matching URL. Listed so both profiles resolve to one person.
+  'https://github.com/nemanja-vujic',
   'https://x.com/nemanjavujicc',
   'https://instagram.com/vuja.43',
 ];
