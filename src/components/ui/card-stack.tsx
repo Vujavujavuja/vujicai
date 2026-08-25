@@ -40,7 +40,6 @@ export type CardStackProps<T extends CardStackItem> = {
 
   /** 3D / depth feel */
   perspectivePx?: number;
-  depthPx?: number;
   tiltXDeg?: number;
 
   /** Active emphasis */
@@ -96,8 +95,7 @@ export function CardStack<T extends CardStackItem>({
   spreadDeg = 48,
 
   perspectivePx = 1100,
-  depthPx = 140,
-  tiltXDeg = 12,
+  tiltXDeg = 10,
 
   activeLiftPx = 22,
   activeScale = 1.03,
@@ -235,7 +233,6 @@ export function CardStack<T extends CardStackItem>({
               const rotateZ = off * stepDeg;
               const x = off * cardSpacing;
               const y = abs * 10; // subtle arc-down feel
-              const z = -abs * depthPx;
 
               const isActive = off === 0;
 
@@ -272,7 +269,7 @@ export function CardStack<T extends CardStackItem>({
                 <motion.div
                   key={item.id}
                   className={cn(
-                    "absolute bottom-0 rounded-2xl border-4 border-black/10 dark:border-white/10 overflow-hidden shadow-xl",
+                    "absolute bottom-0 rounded-2xl overflow-hidden shadow-2xl shadow-black/40",
                     "will-change-transform select-none",
                     isActive
                       ? "cursor-grab active:cursor-grabbing"
@@ -282,7 +279,6 @@ export function CardStack<T extends CardStackItem>({
                     width: cardWidth,
                     height: cardHeight,
                     zIndex,
-                    transformStyle: "preserve-3d",
                   }}
                   initial={
                     reduceMotion
@@ -297,7 +293,7 @@ export function CardStack<T extends CardStackItem>({
                         }
                   }
                   animate={{
-                    opacity: 1,
+                    opacity: isActive ? 1 : 0.78,
                     x,
                     y: y + lift,
                     rotateZ,
@@ -312,19 +308,11 @@ export function CardStack<T extends CardStackItem>({
                   onClick={() => setActive(i)}
                   {...dragProps}
                 >
-                  <div
-                    className="h-full w-full"
-                    style={{
-                      transform: `translateZ(${z}px)`,
-                      transformStyle: "preserve-3d",
-                    }}
-                  >
-                    {renderCard ? (
-                      renderCard(item, { active: isActive })
-                    ) : (
-                      <DefaultFanCard item={item} active={isActive} />
-                    )}
-                  </div>
+                  {renderCard ? (
+                    renderCard(item, { active: isActive })
+                  ) : (
+                    <DefaultFanCard item={item} active={isActive} />
+                  )}
                 </motion.div>
               );
             })}
