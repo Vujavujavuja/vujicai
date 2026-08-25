@@ -27,6 +27,7 @@ export const PROFILE_LINKS = [
   // Second GitHub account — carries the sdv-dev/SDV commits and a
   // name-matching URL. Listed so both profiles resolve to one person.
   'https://github.com/nemanja-vujic',
+  'https://orcid.org/0009-0003-0269-398X',
   'https://x.com/nemanjavujicc',
   'https://instagram.com/vuja.43',
 ];
