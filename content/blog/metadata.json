@@ -1,5 +1,38 @@
 [
   {
+    "slug": "the-idea-is-the-last-moat",
+    "filename": "The idea is the last moat.md",
+    "title": "The idea is the last moat",
+    "cardTitle": "2nd at Monad Blitz",
+    "description": "I went to Monad Blitz Belgrade for a fun weekend and left with 2nd place. With Claude Code and Codex, building is cheap; coming up with the idea is the only hard part left.",
+    "tags": [
+      "hackathon",
+      "blockchain",
+      "ai",
+      "building",
+      "monad"
+    ],
+    "date": "2026-08-25",
+    "wordCount": 185,
+    "gallery": [
+      {
+        "imageSrc": "/thoughts/the-idea-is-the-last-moat/monad-blitz-belgrade.webp",
+        "title": "Monad Blitz Belgrade",
+        "description": "Belgrade Blockchain Week, co-hosted with Tenderly"
+      },
+      {
+        "imageSrc": "/thoughts/the-idea-is-the-last-moat/the-team.webp",
+        "title": "Heads down",
+        "description": "Most of the weekend went to killing ideas, not writing code"
+      },
+      {
+        "imageSrc": "/thoughts/the-idea-is-the-last-moat/second-place.webp",
+        "title": "2nd place",
+        "description": "Monad Blitz Belgrade, and $600"
+      }
+    ]
+  },
+  {
     "slug": "the-labs-got-the-headlines",
     "filename": "The labs got the headlines, the industry gets the regulation.md",
     "title": "The labs got the headlines, the industry gets the regulation",

@@ -1,3 +1,11 @@
+/** One slide of a post's photo carousel (rendered by PostGallery). */
+export interface GalleryImage {
+  imageSrc: string;
+  title: string;
+  description?: string;
+  tag?: string;
+}
+
 export interface BlogPostMeta {
   slug: string;
   filename: string;
@@ -7,6 +15,8 @@ export interface BlogPostMeta {
   description: string;
   tags: string[];
   date: string;
+  /** Optional photo carousel shown under the post header. */
+  gallery?: GalleryImage[];
 }
 
 export interface TocHeading {
