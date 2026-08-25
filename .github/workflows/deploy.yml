@@ -1,4 +1,10 @@
-name: Deploy to Cloudflare Pages
+name: Deploy to Cloudflare
+
+# vujic.ai is a Worker with static assets (see wrangler.toml: `main` plus an
+# [assets] directory), not a Pages project. This used to run
+# cloudflare/pages-action, which deploys to Cloudflare Pages — the wrong
+# target — so it could not have shipped this site even with a valid token.
+# wrangler-action runs the same `wrangler deploy` used locally.
 
 on:
   push:
@@ -9,29 +15,29 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
         cache: 'npm'
-        
+
     - name: Install dependencies
       run: npm ci
-      
+
     - name: Build
       run: npm run build
-      
-    - name: Deploy to Cloudflare Pages
-      uses: cloudflare/pages-action@v1
+
+    # Deploy only from main. PR runs above still build, so a broken build is
+    # caught before merge without publishing anything.
+    - name: Deploy to Cloudflare Workers
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: cloudflare/wrangler-action@v3
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        projectName: vujicai
-        directory: out
-        gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-        wranglerVersion: '3'
+        command: deploy
