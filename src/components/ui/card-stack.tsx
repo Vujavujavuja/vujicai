@@ -97,7 +97,7 @@ export function CardStack<T extends CardStackItem>({
   perspectivePx = 1100,
   tiltXDeg = 10,
 
-  activeLiftPx = 22,
+  activeLiftPx = 18,
   activeScale = 1.03,
   inactiveScale = 0.94,
 
@@ -200,7 +200,7 @@ export function CardStack<T extends CardStackItem>({
       {/* Stage */}
       <div
         className="relative w-full"
-        style={{ height: Math.max(380, cardHeight + 80) }}
+        style={{ height: Math.max(400, cardHeight + 150) }}
         tabIndex={0}
         onKeyDown={onKeyDown}
       >
@@ -215,7 +215,7 @@ export function CardStack<T extends CardStackItem>({
         />
 
         <div
-          className="absolute inset-0 flex items-end justify-center"
+          className="absolute inset-0 flex items-center justify-center"
           style={{
             perspective: `${perspectivePx}px`,
           }}
@@ -269,7 +269,7 @@ export function CardStack<T extends CardStackItem>({
                 <motion.div
                   key={item.id}
                   className={cn(
-                    "absolute bottom-0 rounded-2xl overflow-hidden shadow-2xl shadow-black/40",
+                    "absolute rounded-2xl overflow-hidden shadow-2xl shadow-black/40",
                     "will-change-transform select-none",
                     isActive
                       ? "cursor-grab active:cursor-grabbing"

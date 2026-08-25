@@ -36,7 +36,7 @@ export function PostGallery({ items }: { items: GalleryImage[] }) {
           cardHeight={cardHeight}
           maxVisible={Math.min(items.length, 5)}
           overlap={0.5}
-          spreadDeg={40}
+          spreadDeg={14}
           loop
           autoAdvance
           intervalMs={4200}
