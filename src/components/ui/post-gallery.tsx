@@ -34,7 +34,7 @@ export function PostGallery({ items }: { items: GalleryImage[] }) {
           items={cards}
           cardWidth={cardWidth}
           cardHeight={cardHeight}
-          maxVisible={Math.min(items.length, 5)}
+          maxVisible={Math.min(items.length, 3)}
           overlap={0.5}
           spreadDeg={14}
           loop
