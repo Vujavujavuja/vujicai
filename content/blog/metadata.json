@@ -21,9 +21,19 @@
         "description": "Belgrade Blockchain Week, co-hosted with Tenderly"
       },
       {
+        "imageSrc": "/thoughts/the-idea-is-the-last-moat/monad-dashboard.webp",
+        "title": "Monad, live",
+        "description": "Validators, blocks and TPS ticking on the big screen"
+      },
+      {
         "imageSrc": "/thoughts/the-idea-is-the-last-moat/the-team.webp",
         "title": "Heads down",
         "description": "Most of the weekend went to killing ideas, not writing code"
+      },
+      {
+        "imageSrc": "/thoughts/the-idea-is-the-last-moat/talking-it-out.webp",
+        "title": "Talking it out",
+        "description": "The idea stage, before a line of code"
       },
       {
         "imageSrc": "/thoughts/the-idea-is-the-last-moat/second-place.webp",
