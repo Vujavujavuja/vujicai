@@ -8,7 +8,7 @@ const DESC = 'Milestones, certifications, and wins along the way.';
 export const metadata = {
   title: 'Accomplishments',
   description: DESC,
-  ...sharePreview('Accomplishments · Nemanja Vujić', DESC),
+  ...sharePreview('Accomplishments · Nemanja Vujic', DESC),
 };
 
 export default function AccomplishmentsPage() {

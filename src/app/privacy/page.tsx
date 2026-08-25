@@ -5,7 +5,7 @@ const DESC = 'What data vujic.ai collects, why, and the rights you have over it.
 export const metadata = {
   title: 'Privacy Policy',
   description: DESC,
-  ...sharePreview('Privacy Policy · Nemanja Vujić', DESC),
+  ...sharePreview('Privacy Policy · Nemanja Vujic', DESC),
 };
 
 export default function PrivacyPage() {

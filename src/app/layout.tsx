@@ -5,6 +5,13 @@ import { FloatingNav } from '@/components/floating-nav';
 import { MobileMenu } from '@/components/ui/modern-mobile-menu';
 import { FooterSection } from '@/components/ui/footer-section';
 import { cn } from '@/lib/utils';
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_NAME_ALT,
+  PERSON_DESCRIPTION,
+  PROFILE_LINKS,
+} from '@/lib/seo';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -20,35 +27,39 @@ const literata = Literata({
   variable: '--font-body',
 });
 
-const SITE_URL = 'https://vujic.ai';
-const DESCRIPTION =
-  'Building, experiencing, researching, talking and listening. From AI and tech to Music and Geopolitics, putting my own thoughts in words.';
+// Title and description now carry the role and employer. The previous pair
+// ("Nemanja Vujić" / "Building, experiencing, researching…") read well but was
+// unindexable: no employer, no role, no term anyone actually searches for.
+const TITLE = `${SITE_NAME} — Forward Deployed Engineer, DataCebo`;
+const DESCRIPTION = PERSON_DESCRIPTION;
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Nemanja Vujić',
-    template: '%s · Nemanja Vujić',
+    default: TITLE,
+    template: `%s · ${SITE_NAME}`,
   },
   description: DESCRIPTION,
-  authors: [{ name: 'Nemanja Vujić', url: SITE_URL }],
-  creator: 'Nemanja Vujić',
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
   keywords: [
-    'Nemanja Vujić',
-    'Nemanja Vujic',
+    SITE_NAME,
+    SITE_NAME_ALT,
     'vujic.ai',
     'Forward Deployed Engineer',
     'DataCebo',
+    'Synthetic Data Vault',
+    'EU AI Act',
+    'AI governance',
     'Serbia',
     'Belgrade',
     'AI Engineer',
-    'Data Scientist',
   ],
   openGraph: {
-    title: 'Nemanja Vujić',
+    title: TITLE,
     description: DESCRIPTION,
     url: SITE_URL,
-    siteName: 'Nemanja Vujić',
+    siteName: SITE_NAME,
     locale: 'en_US',
     type: 'website',
     images: [
@@ -56,13 +67,13 @@ export const metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Nemanja Vujić',
+        alt: SITE_NAME,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nemanja Vujić',
+    title: TITLE,
     description: DESCRIPTION,
     images: ['/og-image.png'],
   },
@@ -101,16 +112,19 @@ export default function RootLayout({
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Nemanja Vujić',
-    alternateName: ['Nemanja Vujic', 'Vuja'],
+    name: SITE_NAME,
+    alternateName: [SITE_NAME_ALT, 'Vuja'],
     givenName: 'Nemanja',
-    familyName: 'Vujić',
+    familyName: 'Vujic',
     url: SITE_URL,
-    description: DESCRIPTION,
+    description: PERSON_DESCRIPTION,
     jobTitle: 'Forward Deployed Engineer',
     worksFor: {
       '@type': 'Organization',
       name: 'DataCebo',
+      // The URL is what lets a crawler resolve this to the real DataCebo
+      // rather than treating it as a bare string it has never seen.
+      url: 'https://datacebo.com',
     },
     address: {
       '@type': 'PostalAddress',
@@ -122,16 +136,14 @@ export default function RootLayout({
       name: 'Serbia',
     },
     image: `${SITE_URL}/og-image.png`,
-    sameAs: [
-      'https://linkedin.com/in/nemanja-vujic-vuja43',
-      'https://github.com/vujavujavuja',
-      'https://map.vujic.ai',
-      'https://paper.vujic.ai',
-    ],
+    sameAs: PROFILE_LINKS,
     knowsAbout: [
       'Artificial Intelligence',
       'Large Language Models',
       'Retrieval-Augmented Generation',
+      'Synthetic Data',
+      'EU AI Act',
+      'AI Governance and Compliance',
       'Data Science',
       'Forward Deployed Engineering',
       'Powerlifting',
@@ -142,13 +154,13 @@ export default function RootLayout({
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Nemanja Vujić',
+    name: SITE_NAME,
     url: SITE_URL,
-    description: DESCRIPTION,
+    description: PERSON_DESCRIPTION,
     inLanguage: 'en',
     author: {
       '@type': 'Person',
-      name: 'Nemanja Vujić',
+      name: SITE_NAME,
       url: SITE_URL,
     },
   };

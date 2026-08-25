@@ -1,14 +1,20 @@
 import Link from 'next/link';
 import { Linkedin, Github, Instagram, X } from 'lucide-react';
 import { PhotoDither } from '@/components/ui/photo-dither';
-import { sharePreview, SITE_URL } from '@/lib/seo';
+import {
+  sharePreview,
+  SITE_URL,
+  SITE_NAME,
+  SITE_NAME_ALT,
+  PROFILE_LINKS,
+} from '@/lib/seo';
 
-const NAME = 'Nemanja Vujić';
+const NAME = SITE_NAME;
 const DESC =
-  'Nemanja "Vuja" Vujić — Forward Deployed Engineer at DataCebo, owner of Vujić AI, competitive powerlifter. Writing on synthetic data, compliance, training and the unmeasurable things.';
+  'Nemanja Vujic is a Forward Deployed Engineer at DataCebo, the MIT spinout behind the Synthetic Data Vault. Writing on synthetic data, AI governance, training and the unmeasurable things.';
 
 export const metadata = {
-  title: { absolute: NAME },
+  title: { absolute: `${NAME} — Forward Deployed Engineer, DataCebo` },
   description: DESC,
   alternates: { canonical: '/author/nemanjavujic/' },
   ...sharePreview(`${NAME} · Author`, DESC),
@@ -16,7 +22,7 @@ export const metadata = {
 
 const SOCIALS = [
   { label: 'LinkedIn', href: 'https://linkedin.com/in/nemanja-vujic-vuja43', Icon: Linkedin },
-  { label: 'GitHub', href: 'https://github.com/vujavujavuja', Icon: Github },
+  { label: 'GitHub', href: 'https://github.com/Vujavujavuja', Icon: Github },
   { label: 'Instagram', href: 'https://instagram.com/vuja.43', Icon: Instagram },
   { label: 'X', href: 'https://x.com/nemanjavujicc', Icon: X },
 ];
@@ -31,18 +37,24 @@ export default function AuthorPage() {
     mainEntity: {
       '@type': 'Person',
       name: NAME,
-      alternateName: ['Nemanja Vujic', 'Vuja'],
+      alternateName: [SITE_NAME_ALT, 'Vuja'],
       url: `${SITE_URL}/author/nemanjavujic/`,
       jobTitle: 'Forward Deployed Engineer',
-      worksFor: { '@type': 'Organization', name: 'DataCebo' },
+      worksFor: {
+        '@type': 'Organization',
+        name: 'DataCebo',
+        url: 'https://datacebo.com',
+      },
       description: DESC,
       image: `${SITE_URL}/author/nemanja.jpg`,
-      sameAs: SOCIALS.map((s) => s.href),
+      sameAs: PROFILE_LINKS,
       knowsAbout: [
         'Synthetic Data',
         'Artificial Intelligence',
         'AI Governance and Compliance',
+        'EU AI Act',
         'Large Language Models',
+        'Retrieval-Augmented Generation',
         'Powerlifting',
       ],
     },
@@ -59,7 +71,7 @@ export default function AuthorPage() {
         <figure className="float-right ml-5 mb-4 w-32 sm:w-44 md:w-56 shrink-0">
           <PhotoDither
             src="/author/nemanja.jpg"
-            alt="Nemanja Vujić, rendered as orange dither dots"
+            alt="Nemanja Vujic, rendered as orange dither dots"
             className="block w-full"
             cropBiasY={0.45}
           />
@@ -69,17 +81,20 @@ export default function AuthorPage() {
           the author
         </p>
         <h1 className="font-serif text-4xl md:text-6xl font-medium tracking-tight mb-10 leading-[1.05]">
-          Nemanja &ldquo;Vuja&rdquo; Vujić
+          Nemanja &ldquo;Vuja&rdquo; Vujic
         </h1>
 
         <section className="space-y-5 text-foreground/90 leading-relaxed text-lg">
           <h2 className="font-serif text-2xl md:text-3xl font-medium tracking-tight text-foreground">
             About
           </h2>
+          {/* The opening sentence names the subject in full on purpose: answer
+              engines quote sentences out of context, and "Forward Deployed
+              Engineer at DataCebo" on its own has nobody attached to it. */}
           <p>
-            Forward Deployed Engineer at DataCebo, the MIT spinout behind the Synthetic Data Vault.
-            Owner of Vujić AI, a one-man consultancy in the heart of Vojvodina. Competitive
-            powerlifter, and co-owner of a free powerlifting club getting kids in Pančevo into sports.
+            Nemanja Vujic is a Forward Deployed Engineer at DataCebo, the MIT spinout behind the
+            Synthetic Data Vault. Competitive powerlifter, and co-owner of a free powerlifting club
+            getting kids in Pančevo into sports.
           </p>
           <p>
             Three I&rsquo;s, one person. The engineer writes about synthetic data, compliance, and

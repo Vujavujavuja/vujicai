@@ -8,7 +8,7 @@ const DESC = 'Thoughts on AI, technology, and the craft of building.';
 export const metadata = {
   title: 'Thoughts',
   description: DESC,
-  ...sharePreview('Thoughts · Nemanja Vujić', DESC),
+  ...sharePreview('Thoughts · Nemanja Vujic', DESC),
 };
 
 export default function ThoughtsPage() {
@@ -24,11 +24,11 @@ export default function ThoughtsPage() {
   const blogSchema = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    name: 'Thoughts — Nemanja Vujić',
+    name: 'Thoughts — Nemanja Vujic',
     description: DESC,
     url: `${SITE_URL}/thoughts/`,
     inLanguage: 'en',
-    author: { '@type': 'Person', name: 'Nemanja Vujić', url: SITE_URL },
+    author: { '@type': 'Person', name: 'Nemanja Vujic', url: SITE_URL },
     blogPost: summaries.map((p) => ({
       '@type': 'BlogPosting',
       headline: p.title,
