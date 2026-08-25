@@ -8,7 +8,7 @@ const DESC = 'Longer, slower pieces — essays and deep dives that need more roo
 export const metadata = {
   title: 'Deep Thoughts',
   description: DESC,
-  ...sharePreview('Deep Thoughts · Nemanja Vujić', DESC),
+  ...sharePreview('Deep Thoughts · Nemanja Vujic', DESC),
 };
 
 export default function DeepThoughtsPage() {
@@ -23,11 +23,11 @@ export default function DeepThoughtsPage() {
   const blogSchema = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    name: 'Deep Thoughts — Nemanja Vujić',
+    name: 'Deep Thoughts — Nemanja Vujic',
     description: DESC,
     url: `${SITE_URL}/deep-thoughts/`,
     inLanguage: 'en',
-    author: { '@type': 'Person', name: 'Nemanja Vujić', url: `${SITE_URL}/author/nemanjavujic/` },
+    author: { '@type': 'Person', name: 'Nemanja Vujic', url: `${SITE_URL}/author/nemanjavujic/` },
     blogPost: summaries.map((p) => ({
       '@type': 'BlogPosting',
       headline: p.title,

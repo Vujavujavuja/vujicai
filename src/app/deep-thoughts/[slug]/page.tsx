@@ -23,7 +23,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
       title: post.title,
       description: post.description,
       url,
-      siteName: 'Nemanja Vujić',
+      siteName: 'Nemanja Vujic',
       publishedTime: post.date,
       modifiedTime: post.date,
       authors: [`${SITE_URL}/author/nemanjavujic/`],
@@ -53,8 +53,8 @@ export default function DeepThoughtPage({ params }: { params: { slug: string } }
     description: post.description,
     datePublished: post.date,
     dateModified: post.date,
-    author: { '@type': 'Person', name: 'Nemanja Vujić', url: `${SITE_URL}/author/nemanjavujic/` },
-    publisher: { '@type': 'Person', name: 'Nemanja Vujić', url: SITE_URL },
+    author: { '@type': 'Person', name: 'Nemanja Vujic', url: `${SITE_URL}/author/nemanjavujic/` },
+    publisher: { '@type': 'Person', name: 'Nemanja Vujic', url: SITE_URL },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     image: `${SITE_URL}/og-image.png`,
     url,
@@ -101,7 +101,7 @@ export default function DeepThoughtPage({ params }: { params: { slug: string } }
               className="hover:text-primary transition-colors"
               rel="author"
             >
-              by <span className="text-foreground/80">Nemanja Vujić</span>
+              by <span className="text-foreground/80">Nemanja Vujic</span>
             </Link>
             <span>&middot;</span>
             <time dateTime={post.date}>{formatDate(post.date)}</time>

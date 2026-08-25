@@ -5,7 +5,7 @@ const DESC = "My random top picks and whatever I like / dislike.";
 export const metadata = {
   title: "Vuja's Corner",
   description: DESC,
-  ...sharePreview("Vuja's Corner · Nemanja Vujić", DESC),
+  ...sharePreview("Vuja's Corner · Nemanja Vujic", DESC),
 };
 
 export default function CornerPage() {
