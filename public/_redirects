@@ -1,0 +1,11 @@
+# Cloudflare Workers static assets honours this file (same format as Pages).
+#
+# Search Console reported these as "Not found (404)" — Google keeps crawling
+# them from older versions of the site and from external links, and burns
+# crawl budget on dead URLs each time. /about especially: it is the URL both
+# people and crawlers guess for a person, so it should never 404.
+/about      /author/nemanjavujic/   301
+/about/     /author/nemanjavujic/   301
+/blog       /thoughts/              301
+/blog/      /thoughts/              301
+/blog/*     /thoughts/              301
