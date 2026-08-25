@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getAllSlugs, getPostBySlug, markdownToHtml } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
 import { TableOfContents } from '@/components/table-of-contents';
+import { PostGallery } from '@/components/ui/post-gallery';
 
 const SITE_URL = 'https://vujic.ai';
 
@@ -110,6 +111,8 @@ export default function ThoughtPage({ params }: { params: { slug: string } }) {
             <span>{post.readingTime} min read</span>
           </div>
         </header>
+
+        {post.gallery?.length ? <PostGallery items={post.gallery} /> : null}
 
         <div className="flex gap-12">
           <aside className="hidden lg:block w-64 flex-shrink-0">
