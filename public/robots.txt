@@ -45,11 +45,8 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Block spam bots
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: AhrefsBot
-Disallow: /
-
+# Ahrefs and Semrush are deliberately NOT blocked: their crawlers feed the
+# backlink indexes used to audit this site's own inbound links. Blocking them
+# hid our data from us without protecting anything.
 User-agent: MJ12bot
 Disallow: /
