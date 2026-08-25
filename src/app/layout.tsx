@@ -94,12 +94,16 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon.png', type: 'image/png', sizes: '512x512' },
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+      { url: '/nv-serp-192.png', type: 'image/png', sizes: '192x192' },
     ],
-    shortcut: '/favicon.ico',
-    apple: '/favicon.png',
+    apple: '/apple-touch-icon.png',
   },
+};
+
+// Brand dark (#111111) for the browser UI / PWA theme color.
+export const viewport = {
+  themeColor: '#111111',
 };
 
 export default function RootLayout({
@@ -168,6 +172,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={cn(cormorant.variable, literata.variable)}>
       <head>
+        {/* Emitted raw (not via metadata.manifest) to match the brand head
+            snippet exactly — Next would otherwise add crossorigin. */}
+        <link rel="manifest" href="/site.webmanifest" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
