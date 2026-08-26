@@ -53,12 +53,28 @@ export function FooterSection() {
           <p className="text-muted-foreground mt-8 text-xs md:mt-0">
             &copy; {new Date().getFullYear()} Nemanja Vujic. All rights reserved.
           </p>
-          <a
-            href="/privacy"
-            className="text-muted-foreground/70 hover:text-foreground text-xs transition-colors duration-300"
-          >
-            Privacy Policy
-          </a>
+          {/* Site-wide link to the author page. Search Console reported it as
+              "Discovered - currently not indexed" with no referring page: the
+              only links to it were post bylines, and those posts aren't
+              indexed either, so the page sat two hops from anything Google
+              had actually crawled. A footer link puts it one hop from every
+              page, with the name itself as anchor text. */}
+          <div className="flex items-center gap-3">
+            <a
+              href="/author/nemanjavujic/"
+              rel="author"
+              className="text-muted-foreground/70 hover:text-foreground text-xs transition-colors duration-300"
+            >
+              About Nemanja Vujic
+            </a>
+            <span className="text-muted-foreground/40 text-xs">&middot;</span>
+            <a
+              href="/privacy"
+              className="text-muted-foreground/70 hover:text-foreground text-xs transition-colors duration-300"
+            >
+              Privacy Policy
+            </a>
+          </div>
         </AnimatedContainer>
 
         <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-3 xl:col-span-2 xl:mt-0">
