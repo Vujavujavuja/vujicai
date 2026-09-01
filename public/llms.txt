@@ -7,6 +7,8 @@
 
 ## Thoughts
 - [Thoughts](https://vujic.ai/thoughts/): essays and notes on AI, technology, and the craft of building.
+- ["I asked ChatGPT" is not a finding](https://vujic.ai/thoughts/i-asked-chatgpt-is-not-a-finding/): "I asked ChatGPT what it really thinks" gets passed around as fact. Six incognito chats, six different biggest lies in human history, and why the format is what convinces people.
+- [LinkedIn's slop button is free data annotation](https://vujic.ai/thoughts/linkedin-slop-button/): LinkedIn's new "Seems like AI Slop" button gives you a feeling of control, and hands them labelled training data for 360Brew at the same time.
 - [The idea is the last moat](https://vujic.ai/thoughts/the-idea-is-the-last-moat/): I went to Monad Blitz Belgrade for a fun weekend and left with 2nd place. With Claude Code and Codex, building is cheap; coming up with the idea is the only hard part left.
 - [The labs got the headlines, the industry gets the regulation](https://vujic.ai/thoughts/the-labs-got-the-headlines/): OpenAI and Anthropic told their containment breaches as capability wins. Regulators respond to the frame, not the incident, and the bill for the hype won't land on the labs.
 - [Taste was always the real moat](https://vujic.ai/thoughts/taste-was-always-the-real-moat/): Generation got cheap, so slide decks, promo videos and images are all just code now. The making moved to the deciding, and taste, not generation, was always the real moat.

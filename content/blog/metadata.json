@@ -1,5 +1,61 @@
 [
   {
+    "slug": "i-asked-chatgpt-is-not-a-finding",
+    "filename": "I asked ChatGPT is not a finding.md",
+    "title": "\"I asked ChatGPT\" is not a finding",
+    "cardTitle": "Not a finding",
+    "description": "\"I asked ChatGPT what it really thinks\" gets passed around as fact. Six incognito chats, six different biggest lies in human history, and why the format is what convinces people.",
+    "tags": [
+      "ai",
+      "llms",
+      "chatgpt",
+      "critical-thinking",
+      "ai-hype"
+    ],
+    "date": "2026-08-27",
+    "wordCount": 570,
+    "gallery": [
+      {
+        "imageSrc": "/thoughts/i-asked-chatgpt-is-not-a-finding/the-question.webp",
+        "title": "Slide 1: the question, \"What is the biggest lie in human history?\", framed as forbidden wisdom"
+      },
+      {
+        "imageSrc": "/thoughts/i-asked-chatgpt-is-not-a-finding/three-chatgpt-chats.webp",
+        "title": "Slide 2: three separate ChatGPT chats answer the same question with Deception, Fear and Meaning"
+      },
+      {
+        "imageSrc": "/thoughts/i-asked-chatgpt-is-not-a-finding/two-claude-chats.webp",
+        "title": "Slide 3: two Claude chats answer Religion and \"Forever\", showing it is not a ChatGPT quirk"
+      },
+      {
+        "imageSrc": "/thoughts/i-asked-chatgpt-is-not-a-finding/one-gemini-chat.webp",
+        "title": "Slide 4: a Gemini chat answers Money. Six chats, six biggest lies in human history"
+      }
+    ],
+    "galleryOptions": {
+      "placement": "bottom",
+      "aspect": 1.25,
+      "captions": false,
+      "maxWidth": 520
+    }
+  },
+  {
+    "slug": "linkedin-slop-button",
+    "filename": "LinkedIns slop button is free data annotation.md",
+    "title": "LinkedIn's slop button is free data annotation",
+    "cardTitle": "The slop button",
+    "description": "LinkedIn's new \"Seems like AI Slop\" button gives you a feeling of control, and hands them labelled training data for 360Brew at the same time.",
+    "tags": [
+      "linkedin",
+      "ai-slop",
+      "algorithms",
+      "content-moderation",
+      "ai"
+    ],
+    "date": "2026-08-26",
+    "wordCount": 235
+  },
+  {
     "slug": "the-idea-is-the-last-moat",
     "filename": "The idea is the last moat.md",
     "title": "The idea is the last moat",

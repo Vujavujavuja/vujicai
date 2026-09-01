@@ -6,6 +6,18 @@ export interface GalleryImage {
   tag?: string;
 }
 
+/** How a post's carousel is presented. */
+export interface GalleryOptions {
+  /** Where the carousel sits relative to the article body. Default 'top'. */
+  placement?: 'top' | 'bottom';
+  /** Card height as a fraction of its width. 0.66 = 3:2 photos, 1.25 = 4:5 slides. */
+  aspect?: number;
+  /** Overlay the title/description on the card. Off for slides that carry their own text. */
+  captions?: boolean;
+  /** Max card width in px. */
+  maxWidth?: number;
+}
+
 export interface BlogPostMeta {
   slug: string;
   filename: string;
@@ -15,8 +27,9 @@ export interface BlogPostMeta {
   description: string;
   tags: string[];
   date: string;
-  /** Optional photo carousel shown under the post header. */
+  /** Optional photo carousel shown with the post. */
   gallery?: GalleryImage[];
+  galleryOptions?: GalleryOptions;
 }
 
 export interface TocHeading {

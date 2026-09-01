@@ -47,6 +47,10 @@ export default function ThoughtPage({ params }: { params: { slug: string } }) {
   const htmlContent = markdownToHtml(post.content);
   const url = `${SITE_URL}/thoughts/${post.slug}/`;
 
+  const gallery = post.gallery?.length ? (
+    <PostGallery items={post.gallery} options={post.galleryOptions} />
+  ) : null;
+
   // BlogPosting + breadcrumb structured data so answer engines can extract,
   // attribute, and cite the post (author, dates, headline).
   const articleSchema = {
@@ -112,7 +116,7 @@ export default function ThoughtPage({ params }: { params: { slug: string } }) {
           </div>
         </header>
 
-        {post.gallery?.length ? <PostGallery items={post.gallery} /> : null}
+        {gallery && post.galleryOptions?.placement !== 'bottom' ? gallery : null}
 
         <div className="flex gap-12">
           <aside className="hidden lg:block w-64 flex-shrink-0">
@@ -122,6 +126,8 @@ export default function ThoughtPage({ params }: { params: { slug: string } }) {
             <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: htmlContent }} />
           </article>
         </div>
+
+        {gallery && post.galleryOptions?.placement === 'bottom' ? gallery : null}
       </div>
     </div>
   );
