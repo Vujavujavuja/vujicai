@@ -7,6 +7,7 @@
 
 ## Thoughts
 - [Thoughts](https://vujic.ai/thoughts/): essays and notes on AI, technology, and the craft of building.
+- [The most missed issue with agentic AI coding](https://vujic.ai/thoughts/the-most-missed-issue-with-agentic-ai-coding/): Agentic AI writes code that runs on the first try. What it often doesn't write is a real error state, so a failed API call quietly turns into mock data and the user never finds out.
 - ["I asked ChatGPT" is not a finding](https://vujic.ai/thoughts/i-asked-chatgpt-is-not-a-finding/): "I asked ChatGPT what it really thinks" gets passed around as fact. Six incognito chats, six different biggest lies in human history, and why the format is what convinces people.
 - [LinkedIn's slop button is free data annotation](https://vujic.ai/thoughts/linkedin-slop-button/): LinkedIn's new "Seems like AI Slop" button gives you a feeling of control, and hands them labelled training data for 360Brew at the same time.
 - [The idea is the last moat](https://vujic.ai/thoughts/the-idea-is-the-last-moat/): I went to Monad Blitz Belgrade for a fun weekend and left with 2nd place. With Claude Code and Codex, building is cheap; coming up with the idea is the only hard part left.

@@ -55,10 +55,14 @@ function processInline(text: string): string {
 export function markdownToHtml(content: string): string {
   let html = content;
 
-  // Code blocks (must be before inline code)
+  // Code blocks are lifted out before any block-level work: their content can
+  // contain blank lines, which the paragraph splitter below would otherwise
+  // tear in half. They are put back verbatim at the end.
+  const codeBlocks: string[] = [];
   html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_match, lang, code) => {
     const langAttr = lang ? ` class="language-${lang}"` : '';
-    return `<pre><code${langAttr}>${escapeHtml(code.trim())}</code></pre>`;
+    codeBlocks.push(`<pre><code${langAttr}>${escapeHtml(code.trim())}</code></pre>`);
+    return `\u0000CODE${codeBlocks.length - 1}\u0000`;
   });
 
   const blocks = html.split(/\n\n+/);
@@ -121,5 +125,9 @@ export function markdownToHtml(content: string): string {
     processed.push(`<p>${processInline(trimmed)}</p>`);
   }
 
-  return processed.join('\n');
+  // Put the code blocks back, unwrapping the paragraph their placeholder
+  // picked up on the way through.
+  return processed
+    .join('\n')
+    .replace(/(?:<p>)?\u0000CODE(\d+)\u0000(?:<\/p>)?/g, (_m, i) => codeBlocks[Number(i)]);
 }

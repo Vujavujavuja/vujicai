@@ -1,5 +1,21 @@
 [
   {
+    "slug": "the-most-missed-issue-with-agentic-ai-coding",
+    "filename": "The most missed issue with agentic AI coding.md",
+    "title": "The most missed issue with agentic AI coding",
+    "cardTitle": "Silent fallbacks",
+    "description": "Agentic AI writes code that runs on the first try. What it often doesn't write is a real error state, so a failed API call quietly turns into mock data and the user never finds out.",
+    "tags": [
+      "ai",
+      "agentic-ai",
+      "claude-code",
+      "error-handling",
+      "software-engineering"
+    ],
+    "date": "2026-09-02",
+    "wordCount": 536
+  },
+  {
     "slug": "i-asked-chatgpt-is-not-a-finding",
     "filename": "I asked ChatGPT is not a finding.md",
     "title": "\"I asked ChatGPT\" is not a finding",
