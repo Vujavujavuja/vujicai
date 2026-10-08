@@ -13,7 +13,7 @@ export default function GetInTouchPage() {
         +381 63 457 732
       </a>
       <a
-        href="https://calendar.proton.me/bookings#JYMREMLCjyvtswEjAYGH0JVpazFizVa_Jzio68EOjfQ="
+        href="https://book.vujic.ai/"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-12 text-base md:text-lg text-muted-foreground underline underline-offset-4 hover:text-primary transition-colors duration-300"

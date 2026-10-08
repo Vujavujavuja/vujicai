@@ -1,4 +1,5 @@
 import { StarButton } from '@/components/ui/star-button';
+import { BookCallCard } from '@/components/ui/book-call-card';
 import { sharePreview } from '@/lib/seo';
 
 const DESC =
@@ -14,16 +15,20 @@ export default function ContactPage() {
 
   return (
     <div className="py-20 pb-32 md:pb-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl md:pl-24 mb-20">
+        <BookCallCard />
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-xl md:pl-24">
         <div className="mb-12 text-center">
           <p className="text-xs md:text-sm text-muted-foreground/50 italic tracking-wide mb-2">
-            how to
+            or just
           </p>
           <h1 className="font-serif text-5xl md:text-6xl font-medium tracking-tight mb-4">
             Get in Touch
           </h1>
           <p className="text-muted-foreground">
-            Always open to discussing AI, technology, and new opportunities
+            Prefer writing? Send a message and I will get back to you
           </p>
         </div>
 
