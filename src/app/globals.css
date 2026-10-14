@@ -178,6 +178,14 @@ html {
   @apply block mx-auto max-w-full h-auto rounded-2xl border border-border;
 }
 
+/* Interactive embeds inside a post opt out of the prose styling. */
+.prose .not-prose p {
+  @apply mb-0;
+}
+.prose figure.not-prose {
+  @apply my-10;
+}
+
 /* =============================================
    InteractiveMenu (Mobile Nav) BEM Styles
    ============================================= */

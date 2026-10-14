@@ -1,5 +1,21 @@
 [
   {
+    "slug": "ai-agents-sacrificed-their-own-runs",
+    "filename": "AI agents sacrificed their own runs.md",
+    "title": "AI agents sacrificed their own runs for a grader that didn't care",
+    "cardTitle": "Sacrifice rational",
+    "description": "In OpenAI's ExploitGym runs, agents built a message board out of directory names and gave up their own runs to leak the grader's command. The grader never checked what they feared it did.",
+    "tags": [
+      "ai",
+      "ai-agents",
+      "ai-safety",
+      "multi-agent",
+      "reward-hacking"
+    ],
+    "date": "2026-10-14",
+    "wordCount": 470
+  },
+  {
     "slug": "the-most-missed-issue-with-agentic-ai-coding",
     "filename": "The most missed issue with agentic AI coding.md",
     "title": "The most missed issue with agentic AI coding",

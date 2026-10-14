@@ -4,6 +4,7 @@ import { getAllSlugs, getPostBySlug, markdownToHtml } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
 import { TableOfContents } from '@/components/table-of-contents';
 import { PostGallery } from '@/components/ui/post-gallery';
+import { PostBody } from '@/components/embeds';
 
 const SITE_URL = 'https://vujic.ai';
 
@@ -123,7 +124,7 @@ export default function ThoughtPage({ params }: { params: { slug: string } }) {
             <TableOfContents headings={post.headings} />
           </aside>
           <article className="flex-1 min-w-0">
-            <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: htmlContent }} />
+            <PostBody className="prose max-w-none" html={htmlContent} />
           </article>
         </div>
 
